@@ -27,7 +27,11 @@ Our ninja game
 ## Team members:
 
 * Khanh Nguyen
+* Alexandra Klimenko
 * ...
+
+## Comments:
+Alexandra: Really cool what you did!
 
 
 
