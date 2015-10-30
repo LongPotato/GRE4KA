@@ -28,6 +28,7 @@ Our ninja game
 
 * Khanh Nguyen
 * Alexandra Klimenko
+* Victor Ruiz
 * ...
 
 ## Comments:
