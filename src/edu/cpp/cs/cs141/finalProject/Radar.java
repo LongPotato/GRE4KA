@@ -16,18 +16,20 @@
 package edu.cpp.cs.cs141.finalProject;
 
 /**
- * @author kevin
- *
+ * Create a Radar Class that inherits from PowerUp. It shows the location of the
+ * brief case.
  */
-public class Main {
+public class Radar extends PowerUp {
 
 	/**
-	 * @param args
+	 * @param symbol
+	 * @param row
+	 * @param col
+	 * @param active
 	 */
-	public static void main(String[] args) {
-
-		UI ui = new UI();
-		ui.printUI();
+	public Radar(String symbol, int row, int col, boolean active,
+			boolean visible) {
+		super("R", row, col, true, false);
 	}
 
 }

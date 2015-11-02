@@ -16,18 +16,8 @@
 package edu.cpp.cs.cs141.finalProject;
 
 /**
- * @author kevin
- *
+ * Game Engine Class. 
  */
-public class Main {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		UI ui = new UI();
-		ui.printUI();
-	}
+public class Engine {
 
 }

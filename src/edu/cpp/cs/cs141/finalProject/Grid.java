@@ -16,18 +16,10 @@
 package edu.cpp.cs.cs141.finalProject;
 
 /**
- * @author kevin
- *
+ * The grid class stores the 2 dimensional array of Square type. The size of the
+ * array is 9x9.
  */
-public class Main {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		UI ui = new UI();
-		ui.printUI();
-	}
+public class Grid {
+	
 
 }

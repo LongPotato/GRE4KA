@@ -16,18 +16,20 @@
 package edu.cpp.cs.cs141.finalProject;
 
 /**
- * @author kevin
- *
+ * The Bullet Class inherits from PowerUp. It assign a symbol "B", row, col, and
+ * active to true.
  */
-public class Main {
+public class Bullet extends PowerUp {
 
 	/**
-	 * @param args
+	 * @param symbol
+	 * @param row
+	 * @param col
+	 * @param active
 	 */
-	public static void main(String[] args) {
-
-		UI ui = new UI();
-		ui.printUI();
+	public Bullet(String symbol, int row, int col, boolean active,
+			boolean visible) {
+		super("B", row, col, true, false);
 	}
 
 }
