@@ -16,18 +16,21 @@
 package edu.cpp.cs.cs141.finalProject;
 
 /**
- * @author kevin
- *
+ * The UI class prints out everything.
  */
-public class Main {
+public class UI {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
-		UI ui = new UI();
-		ui.printUI();
+	public void printUI(){
+		
 	}
 
+	private void getUserInput(){
+		
+	}
+	
+	private void displayMap(){
+		
+	}
+	
+	
 }

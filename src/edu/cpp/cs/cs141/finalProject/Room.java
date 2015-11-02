@@ -16,28 +16,25 @@
 package edu.cpp.cs.cs141.finalProject;
 
 /**
- * Create abstract PowerUp Class. It represents the notion of the game items.
+ * Create a Room Class that represents the game rooms. One of them will contain
+ * the briefcase or gre4ka.
  */
-public abstract class PowerUp extends Square {
+public class Room extends Square {
 
-	public PowerUp(String symbol, int row, int col, boolean active, boolean visible) {
-		super(symbol, row, col);
+	/**
+	 * @param symbol
+	 * @param row
+	 * @param col
+	 */
+	public Room(String symbol, int row, int col) {
+		super("R", row, col);
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * The status of the item initially not active.
+	 * The room object where the briefcase is false as default.
 	 */
-	boolean active = false;
-	/**
-	 * @param symbol
-	 * @param active
-	 */
-
-	/**
-	 * The invisibility of the item on the map. Initially false, if the player
-	 * gets close set to true.
-	 */
-	boolean visible = false;
+	boolean briefcase = false;
 
 	/**
 	 * 
@@ -52,6 +49,7 @@ public abstract class PowerUp extends Square {
 	 * @param symbol
 	 */
 	public void setSymbol(String symbol) {
+
 		this.symbol = symbol;
 	}
 
@@ -59,16 +57,16 @@ public abstract class PowerUp extends Square {
 	 * 
 	 * @return
 	 */
-	public boolean isActive() {
-		return active;
+	public boolean isBriefcase() {
+		return briefcase;
 	}
 
 	/**
 	 * 
+	 * @param briefcase
 	 */
-	public void setActive(boolean active) {
-
-		this.active = active;
+	public void setBriefcase(boolean briefcase) {
+		this.briefcase = briefcase;
 	}
 
 	/**
@@ -103,19 +101,4 @@ public abstract class PowerUp extends Square {
 		this.col = col;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean isVisible() {
-		return visible;
-	}
-
-	/**
-	 * 
-	 * @param visible
-	 */
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
 }
