@@ -16,8 +16,60 @@
 package edu.cpp.cs.cs141.finalProject;
 
 /**
- * Game Engine Class. 
+ * Game Engine, handle the logic execution of the game.
  */
 public class Engine {
+	
+	/**
+	 * Constructor to create a new game engine.
+	 * A game map object will so be created.
+	 */
+    public Engine() {
+    	Map gameMap = new Map();
+    }
+    
+    /**
+     * At the beginning of the game fill up the map with spy, ninjas, and rooms.
+     */
+    public void fillMap() {
+    	
+    }
+			
+	/**
+	 * Perform the moveUp action.
+	 */
+	public void moveUp(Square square) {
+		
+	}
 
+	public void moveDown(Square square) {
+		
+	}
+
+	public void moveLeft(Square square) {
+		
+	}
+
+	public void moveRight(Square square) {
+		
+	}
+	
+	public void Shoot(Square square) {
+		
+	}
+	
+	/**
+	 * Enter room, only from the north side
+	 */
+	public void enterRoom() {
+		
+	}
+	
+	/**
+	 * Check for the winning condition of the game.
+	 * @return true if game is over
+	 */
+	public boolean gameOver() {
+		return true;
+	}
 }
