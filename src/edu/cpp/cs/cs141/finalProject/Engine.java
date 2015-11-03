@@ -27,13 +27,6 @@ public class Engine {
     public Engine() {
     	Map gameMap = new Map();
     }
-    
-    /**
-     * At the beginning of the game fill up the map with spy, ninjas, and rooms.
-     */
-    public void fillMap() {
-    	
-    }
 			
 	/**
 	 * Perform the moveUp action.

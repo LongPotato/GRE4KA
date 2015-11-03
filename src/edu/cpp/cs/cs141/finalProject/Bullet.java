@@ -17,7 +17,7 @@ package edu.cpp.cs.cs141.finalProject;
 
 /**
  * The Bullet Class inherits from PowerUp.
- * It has a symbol "B", the player will get extra ammo if this get activated.
+ * It has a symbol "B", the player will get extra ammo if this gets activated.
  */
 public class Bullet extends PowerUp {
 
