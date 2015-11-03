@@ -21,10 +21,17 @@ package edu.cpp.cs.cs141.finalProject;
 public class Map {
 
 	/**
-	 * The map is a 2 dimenstional array of type Square.
+	 * The map is a 2 dimensional array of type Square.
 	 */
 	private Square[][] map = new Square[9][9];
 
+    /**
+     * At the beginning of the game fill up the map with spy, ninjas, and rooms.
+     */
+    public void fillMap() {
+    	
+    }
+    
 	/**
 	 * Return the game map.
 	 * @return a 2 dimentional array of type Square.
