@@ -5,10 +5,10 @@
  *
  * Programming Assignment Gre4ka
  *
- * <Create an Assasin game,
+ * <Create an Assassin game,
  *  where the player is a spy
- *  that is trying to get the breifacse with documents
- *  and the ninja assasins are trying to catch him.>
+ *  that is trying to get the briefcase with documents
+ *  and the ninja assassins are trying to catch him.>
  *
  * Team Gre4ka 
  *   <Alexandra Klimenko, Khanh Nguyen, Victor Ruiz, Ian Garrett>
@@ -16,89 +16,40 @@
 package edu.cpp.cs.cs141.finalProject;
 
 /**
- * Create a Room Class that represents the game rooms. One of them will contain
- * the briefcase or gre4ka.
+ * This class represents the rooms in game. 
+ * One of them will contain the briefcase or gre4ka that lead to victory.
  */
 public class Room extends Square {
 
 	/**
-	 * @param symbol
-	 * @param row
-	 * @param col
+	 * True if the room contains the briefcase, false by default.
+	 */
+	boolean briefcase = false;
+	
+	/** 
+	 * The constructor method to create the room object.
+	 * @param symbol default is "R"
+	 * @param row a number from 0-8, for array position
+	 * @param col a number from 0-8, for array position
 	 */
 	public Room(String symbol, int row, int col) {
 		super("R", row, col);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * The room object where the briefcase is false as default.
-	 */
-	boolean briefcase = false;
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getSymbol() {
-		return symbol;
-	}
-
-	/**
-	 * 
-	 * @param symbol
-	 */
-	public void setSymbol(String symbol) {
-
-		this.symbol = symbol;
-	}
-
-	/**
-	 * 
-	 * @return
+	 * Check to see if the room contain the briefcase.
+	 * @return true if the room has the briefcase.
 	 */
 	public boolean isBriefcase() {
 		return briefcase;
 	}
 
 	/**
-	 * 
-	 * @param briefcase
+	 * Put in briefcase inside the room.
+	 * @param briefcase true to set the briefcase.
 	 */
 	public void setBriefcase(boolean briefcase) {
 		this.briefcase = briefcase;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public int getRow() {
-		return row;
-	}
-
-	/**
-	 * 
-	 * @param row
-	 */
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public int getCol() {
-		return col;
-	}
-
-	/**
-	 * 
-	 * @param col
-	 */
-	public void setCol(int col) {
-		this.col = col;
 	}
 
 }

@@ -5,102 +5,71 @@
  *
  * Programming Assignment Gre4ka
  *
- * <Create an Assasin game,
+ * <Create an Assassin game,
  *  where the player is a spy
- *  that is trying to get the breifacse with documents
- *  and the ninja assasins are trying to catch him.>
+ *  that is trying to get the briefcase with documents
+ *  and the ninja assassins are trying to catch him.>
  *
  * Team Gre4ka 
  *   <Alexandra Klimenko, Khanh Nguyen, Victor Ruiz, Ian Garrett>
  */
 package edu.cpp.cs.cs141.finalProject;
-/**
- * 
- */
 
 /**
- * @author kevin
- * The Ninja class represents the enemies.
+ * The Ninja class that represents the enemies.
+ * These ninjas will wonder around the map and stab the spy if found.
  */
 public class Ninja extends Square {
-	
-	/**
-	 * @param symbol
-	 * @param row
-	 * @param col
-	 */
-	public Ninja(String symbol, int row, int col) {
-		super("N", row, col);
-	}
 
-	/**
-	 * Represents the number of ninjas alive. 
-	 * Initially there are 6.
-	 */
-	int ninja = 6;
 	
 	/**
-	 * The status of ninja for current live, default false.
+	 * The status of ninja for current live, default true.
 	 */
-	boolean alive = false;
+	boolean alive = true;
 	
 	/**
 	 * Represents the visibility of ninja, default false.
 	 * If player gets close, set to true.
 	 */
 	boolean visible = false;
-
+	
 	/**
-	 * @return the row
+	 * The constructor method to create the a ninja object.
+	 * @param symbol default is "N"
+	 * @param row a number from 0-8, for array position
+	 * @param col a number from 0-8, for array position
 	 */
-	public int getRow() {
-		return row;
+	public Ninja(String symbol, int row, int col) {
+		super("N", row, col);
 	}
 
 	/**
-	 * @param row the row to set
-	 */
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	/**
-	 * @return the col
-	 */
-	public int getCol() {
-		return col;
-	}
-
-	/**
-	 * @param col the col to set
-	 */
-	public void setCol(int col) {
-		this.col = col;
-	}
-
-	/**
-	 * @return the alive
+	 * Check to see if the ninja is still alive
+	 * @return true if alive
 	 */
 	public boolean isAlive() {
 		return alive;
 	}
 
 	/**
-	 * @param alive the alive to set
+	 * Change the living status of the ninja
+	 * @param alive false if died
 	 */
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
 
 	/**
-	 * @return the visible
+	 * Get the visibility of the ninja, default false.
+	 * @return true is visible.
 	 */
 	public boolean isVisible() {
 		return visible;
 	}
 
 	/**
-	 * @param visible the visible to set
+	 * Set the visibility of the ninja.
+	 * @param visible true if visible.
 	 */
 	public void setVisible(boolean visible) {
 		this.visible = visible;

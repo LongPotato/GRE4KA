@@ -5,10 +5,10 @@
  *
  * Programming Assignment Gre4ka
  *
- * <Create an Assasin game,
+ * <Create an Assassin game,
  *  where the player is a spy
- *  that is trying to get the breifacse with documents
- *  and the ninja assasins are trying to catch him.>
+ *  that is trying to get the briefcase with documents
+ *  and the ninja assassins are trying to catch him.>
  *
  * Team Gre4ka 
  *   <Alexandra Klimenko, Khanh Nguyen, Victor Ruiz, Ian Garrett>
@@ -22,17 +22,7 @@ package edu.cpp.cs.cs141.finalProject;
 public class Spy extends Square {
 
 	/**
-	 * @param symbol
-	 * @param row
-	 * @param col
-	 */
-	public Spy(String symbol, int row, int col) {
-		super("S", 0, 0);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * The status of the player for current live.
+	 * The status of the player for current turn, false if died.
 	 */
 	boolean alive = true;
 
@@ -46,111 +36,81 @@ public class Spy extends Square {
 	 */
 	int bullets = 1;
 
-	/*
-	 * 
+	/**
+	 * The player can die initially, true if can not die after actiavte the power up.
 	 */
 	boolean invincibility = false;
-
+	
 	/**
-	 * @return the symbol
+	 * The constructor method to create the spy object.
+	 * @param symbol default is "S"
+	 * @param row a number from 0-8, for array position
+	 * @param col a number from 0-8, for array position
 	 */
-	public String getSymbol() {
-		return symbol;
+	public Spy(String symbol, int row, int col) {
+		super("S", row, col);
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @param symbol
-	 *            the symbol to set
-	 */
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-
-	/**
-	 * @return the row
-	 */
-	public int getRow() {
-		return row;
-	}
-
-	/**
-	 * @param row
-	 *            the row to set
-	 */
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	/**
-	 * @return the col
-	 */
-	public int getCol() {
-		return col;
-	}
-
-	/**
-	 * @param col
-	 *            the col to set
-	 */
-	public void setCol(int col) {
-		this.col = col;
-	}
-
-	/**
-	 * @return the alive
+	 * Check to see if the spy is still alive
+	 * @return true if alive
 	 */
 	public boolean isAlive() {
 		return alive;
 	}
 
 	/**
-	 * @param alive
-	 *            the alive to set
+	 * Change the living status of the spy
+	 * @param alive false if died
 	 */
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
 
 	/**
-	 * @return the lives
+	 * Get the number of lives the spy currently have
+	 * @return the number of lives
 	 */
 	public int getLives() {
 		return lives;
 	}
 
 	/**
-	 * @param lives
-	 *            the lives to set
+	 * Set the number of lives the spy will have
+	 * @param lives number of lives
 	 */
 	public void setLives(int lives) {
 		this.lives = lives;
 	}
 
 	/**
-	 * @return the bullets
+	 * Get the number of bullets the spy currently have
+	 * @return the number of bullets
 	 */
 	public int getBullets() {
 		return bullets;
 	}
 
 	/**
-	 * @param bullets
-	 *            the bullets to set
+	 * Set the number of bullets the spy have
+	 * @param bullets the number of bullets
 	 */
 	public void setBullets(int bullets) {
 		this.bullets = bullets;
 	}
 
 	/**
-	 * @return the invincibility
+	 * Check if the spy is immune to death.
+	 * @return true if invincibile
 	 */
 	public boolean isInvincibility() {
 		return invincibility;
 	}
 
 	/**
-	 * @param invincibility
-	 *            the invincibility to set
+	 * Set the invicibility of the spy, immune to death.
+	 * @param invincibility true if immune to death.
 	 */
 	public void setInvincibility(boolean invincibility) {
 		this.invincibility = invincibility;

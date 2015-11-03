@@ -5,10 +5,10 @@
  *
  * Programming Assignment Gre4ka
  *
- * <Create an Assasin game,
+ * <Create an Assassin game,
  *  where the player is a spy
- *  that is trying to get the breifacse with documents
- *  and the ninja assasins are trying to catch him.>
+ *  that is trying to get the briefcase with documents
+ *  and the ninja assassins are trying to catch him.>
  *
  * Team Gre4ka 
  *   <Alexandra Klimenko, Khanh Nguyen, Victor Ruiz, Ian Garrett>
