@@ -29,7 +29,7 @@ Our ninja game
 * Khanh Nguyen
 * Alexandra Klimenko
 * Victor Ruiz
-* ...
+* Ian Garrett
 
 ## Comments:
 Alexandra: Really cool what you did!
