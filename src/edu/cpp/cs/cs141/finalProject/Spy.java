@@ -104,7 +104,7 @@ public class Spy extends Square {
 	 * Check if the spy is immune to death.
 	 * @return true if invincibile
 	 */
-	public boolean isInvincibility() {
+	public boolean isInvincible() {
 		return invincibility;
 	}
 
