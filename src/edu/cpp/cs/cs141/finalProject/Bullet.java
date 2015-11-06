@@ -31,6 +31,10 @@ public class Bullet extends PowerUp {
 		super("B", row, col);
 	}
 	
+	public Bullet(int row, int col){
+		super("B", row, col);
+	}
+	
 	/**
 	 * Override from the parent class, access the Spy class to increase the number of bullets.
 	 * @param spy the spy object that the power up item will have effect on.

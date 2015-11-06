@@ -19,7 +19,7 @@ package edu.cpp.cs.cs141.finalProject;
  * 
  */
 import static java.lang.Math.abs;
-
+import java.util.Random;
 /**
  * Game Engine, handle the logic execution of the game.
  */
@@ -52,6 +52,7 @@ public class Engine {
 		assignRooms();
 		Spy spy = assignSpy();
 		assignSpyAndVisibility(spy);
+		assignPowerUps();
 		// We can do that all in one, or divide it into sub methods
 	}
 
@@ -105,12 +106,38 @@ public class Engine {
 			}
 		}
 	}
+	
+	public void assignPowerUps(){
+		Random random = new Random();
+		Bullet bullet;
+		int rRow;
+		int rCol;
+		
+		do{
+			rRow = random.nextInt(8);
+			rCol = random.nextInt(8);
+		}while(isOccupied(rRow, rCol));
+		
+		bullet = new Bullet(rRow, rCol);
+		map[rRow][rCol] = bullet;
+		
+	}
+	
+	public boolean isOccupied(int row, int col){
+		if(map[row][col].getSymbol().equals("R") || map[row][col].getSymbol().equals("S")){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
+	
+	
 	/**
 	 * Return the game map.
 	 * 
 	 * @return a 2 dimensional array of type Square.
-	 */
+	 */	
 	public Square[][] getMap() {
 		return map;
 	}
