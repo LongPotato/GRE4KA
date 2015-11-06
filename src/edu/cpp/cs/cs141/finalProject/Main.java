@@ -25,10 +25,8 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		//UI ui = new UI();
-		//ui.printUI();
-		System.out.println("Test");
+		UI ui = new UI();
+		ui.startGame();
 	}
 
 }

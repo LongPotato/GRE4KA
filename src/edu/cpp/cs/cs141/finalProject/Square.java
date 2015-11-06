@@ -44,6 +44,17 @@ public class Square {
 		this.row = row;
 		this.col = col;
 	}
+	
+	/**
+	 * Constructor overloaded, does not require string symbol parameter
+	 * @param row a number from 0-8
+	 * @param col a number from 0-8
+	 */
+	public Square(int row, int col) {
+		this.row = row;
+		this.col = col;
+	}
+	
 
 	/**
 	 * Get the string symbol representation of the object.

@@ -24,15 +24,18 @@ import java.util.Scanner;
 public class UI {
 	
 	private Scanner input = new Scanner(System.in);
-	
+	private Engine game = null;
+
 	/**
-	 * Print out welcome message at the start of the game.
-	 * Take user input the choose between playing in the console or GUI.
-	 * ....
+	 * Starts up the game: set up the game map, get users preferences,
+	 * and execute the game loop logic.
 	 */
 	public void startGame() {
-		// Create new game engine.
-		// Fill up the map.
+		game = new Engine();
+		// Fill & set up the map.
+		game.fillMap();
+        game.setUpMap();
+        printMap(game.getMap());
 		// Welcome message.
 		// Input choices to play in the console or GUI or quit.
 		// ...
@@ -53,9 +56,15 @@ public class UI {
 	
 	/**
 	 * Print out the game map.
+	 * @param gameMap the initialized 2 dimensional array.
 	 */
-	public void printMap(){
-		
+	public void printMap(Square[][] map){
+		for (Square[] row : map) {
+			for (Square location : row) {
+				System.out.print("[" + location.getSymbol() + "] ");
+			}
+			System.out.println("\n");
+		}
 	}
 	
 }
