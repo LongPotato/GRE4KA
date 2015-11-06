@@ -26,8 +26,8 @@ public class Engine {
 	private Square[][] map = new Square[9][9];
 	
 	/**
-	 * Initialize/fill up the 2 dimentional array map with square objects.
-	 * @param gameMap a Map object
+	 * Initialize/fill up the 2 dimentional array map with Square objects.
+	 * Asign the row & col attributes for each Square.
 	 */
 	public void fillMap() {
 		Square[][] map = this.map;
