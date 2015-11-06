@@ -33,7 +33,7 @@ public class UI {
 	public void startGame() {
 		game = new Engine();
 		// Fill & set up the map.
-		game.fillMap();
+		game.fillMapWithSquare();
         game.setUpMap();
         printMap(game.getMap());
 		// Welcome message.

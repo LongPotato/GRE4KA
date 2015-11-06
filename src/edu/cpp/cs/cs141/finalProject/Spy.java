@@ -51,6 +51,15 @@ public class Spy extends Square {
 		super("S", row, col);
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * @param row a number from 0-8, for array position
+	 * @param col a number from 0-8, for array position
+	 */
+	public Spy(int row, int col) {
+		super("S" , row, col);
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * Check to see if the spy is still alive

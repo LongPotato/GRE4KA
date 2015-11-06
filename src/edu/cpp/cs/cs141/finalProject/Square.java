@@ -95,6 +95,7 @@ public class Square {
 
 	/**
 	 * @param col a number from 0-8, to set the column.
+	 * @return 
 	 */
 	public void setCol(int col) {
 		this.col = col;

@@ -35,6 +35,15 @@ public class Room extends Square {
 	public Room(String symbol, int row, int col) {
 		super("R", row, col);
 	}
+	
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 */
+	public Room(int row, int col) {
+		super("R", row, col);
+	}
 
 	/**
 	 * Check to see if the room contain the briefcase.
