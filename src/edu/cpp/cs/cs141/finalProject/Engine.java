@@ -31,22 +31,38 @@ public class Engine {
 	/**
 	 * Perform the moveUp action.
 	 */
-	public void moveUp(Square square) {
+	public void movePlayerUp(Square square) {
 		
 	}
 
-	public void moveDown(Square square) {
+	public void movePlayerDown(Square square) {
 		
 	}
 
-	public void moveLeft(Square square) {
+	public void movePlayerLeft(Square square) {
 		
 	}
 
-	public void moveRight(Square square) {
+	public void movePlayerRight(Square square) {
 		
 	}
 	
+	public void moveNinjaUp(Square square) {
+		
+	}
+	
+	public void moveNinjaDown(Square square) {
+		
+	}
+	
+	public void moveNinjaLeft(Square square) {
+		
+	}
+	
+	public void moveNinjaRight(Square square) {
+		
+	}
+
 	public void Shoot(Square square) {
 		
 	}
