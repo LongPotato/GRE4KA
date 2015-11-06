@@ -34,7 +34,7 @@ public class Map {
     
 	/**
 	 * Return the game map.
-	 * @return a 2 dimentional array of type Square.
+	 * @return a 2 dimensional array of type Square.
 	 */
 	public Square[][] getMap() {
 		return map;
