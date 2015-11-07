@@ -27,11 +27,14 @@ public class Square {
 	 */
 	int row;
 	int col;
-	
 	/**
 	 * The symbol that will represent the object on the map, default: X.
 	 */
-	String symbol = "X";
+	private String symbol = "X";
+	/**
+	 * The visibility of the object, default is false, objects are hidden in the darkness.
+	 */
+	private boolean visible = false;
 	
 	/**
 	 * Constructor of the Square class.
@@ -55,7 +58,22 @@ public class Square {
 		this.col = col;
 	}
 	
+	/**
+	 * Get the visibility of the object, default false.
+	 * @return true is visible.
+	 */
+	public boolean isVisible() {
+		return visible;
+	}
 
+	/**
+	 * Set the visibility of the object.
+	 * @param visible true if visible.
+	 */
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	
 	/**
 	 * Get the string symbol representation of the object.
 	 * @return the string symbol

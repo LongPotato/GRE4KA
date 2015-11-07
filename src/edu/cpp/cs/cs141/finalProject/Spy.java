@@ -25,17 +25,14 @@ public class Spy extends Square {
 	 * The status of the player for current turn, false if died.
 	 */
 	boolean alive = true;
-
 	/**
 	 * The player has 3 lives initially.
 	 */
 	int lives = 3;
-
 	/**
 	 * The player is given 1 bullet initially.
 	 */
 	int bullets = 1;
-
 	/**
 	 * The player can die initially, true if can not die after activate the power up.
 	 */
@@ -49,7 +46,6 @@ public class Spy extends Square {
 	 */
 	public Spy(String symbol, int row, int col) {
 		super("S", row, col);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -58,7 +54,7 @@ public class Spy extends Square {
 	 */
 	public Spy(int row, int col) {
 		super("S" , row, col);
-		// TODO Auto-generated constructor stub
+		this.setVisible(true);
 	}
 
 	/**

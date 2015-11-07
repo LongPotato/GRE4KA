@@ -21,17 +21,10 @@ package edu.cpp.cs.cs141.finalProject;
  */
 public class Ninja extends Square {
 
-	
 	/**
 	 * The status of ninja for current live, default true.
 	 */
 	boolean alive = true;
-	
-	/**
-	 * Represents the visibility of ninja, default false.
-	 * If player gets close, set to true.
-	 */
-	boolean visible = false;
 	
 	/**
 	 * The constructor method to create the a ninja object.
@@ -40,6 +33,10 @@ public class Ninja extends Square {
 	 * @param col a number from 0-8, for array position
 	 */
 	public Ninja(String symbol, int row, int col) {
+		super("N", row, col);
+	}
+	
+	public Ninja(int row, int col) {
 		super("N", row, col);
 	}
 
@@ -57,22 +54,6 @@ public class Ninja extends Square {
 	 */
 	public void setAlive(boolean alive) {
 		this.alive = alive;
-	}
-
-	/**
-	 * Get the visibility of the ninja, default false.
-	 * @return true is visible.
-	 */
-	public boolean isVisible() {
-		return visible;
-	}
-
-	/**
-	 * Set the visibility of the ninja.
-	 * @param visible true if visible.
-	 */
-	public void setVisible(boolean visible) {
-		this.visible = visible;
 	}
 	
 }
