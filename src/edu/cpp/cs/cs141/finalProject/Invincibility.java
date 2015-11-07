@@ -1,7 +1,7 @@
 /**
  * 
  * CS 141: Introduction to Programming and Problem Solving
- * Professor: Edwin Rodr&iacute;guez
+ * Professor: Edwin Rodriguez
  *
  * Programming Assignment Gre4ka
  *
@@ -21,7 +21,7 @@ package edu.cpp.cs.cs141.finalProject;
 public class Invincibility extends PowerUp {
 
 	/**
-	 * The constructor method to create the invincibilty powerup.
+	 * The constructor method to create the invincibility powerup.
 	 * @param symbol the string symbol of the item, such as: D for radar detection, A for ammo...
 	 * @param row a number from 0-8, for array position
 	 * @param col a number from 0-8, for array position

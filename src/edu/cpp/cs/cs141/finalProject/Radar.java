@@ -1,7 +1,7 @@
 /**
  * 
  * CS 141: Introduction to Programming and Problem Solving
- * Professor: Edwin Rodr&iacute;guez
+ * Professor: Edwin Rodriguez
  *
  * Programming Assignment Gre4ka
  *
@@ -33,7 +33,7 @@ public class Radar extends PowerUp {
 	
 	/**
 	 * Override from the parent class, loop through all the rooms to find the room object that contains the briefcase.
-	 * Set that room's visibilty attribute to true to display the location.
+	 * Set that room's visibility attribute to true to display the location.
 	 * @param spy the spy object that the power up item will have effect on.
 	 * @param rooms the array contains all the rooms on the map.
 	 */

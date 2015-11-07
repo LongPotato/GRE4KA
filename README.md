@@ -33,6 +33,7 @@ Our ninja game
 
 ## Comments:
 Alexandra: Really cool what you did!
+Ian: Finally got it working!
 
 
 
