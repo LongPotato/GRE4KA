@@ -1,7 +1,7 @@
 /**
  * 
  * CS 141: Introduction to Programming and Problem Solving
- * Professor: Edwin Rodr&iacute;guez
+ * Professor: Edwin Rodriguez
  *
  * Programming Assignment Gre4ka
  *

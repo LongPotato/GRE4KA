@@ -1,7 +1,7 @@
 /**
  * 
  * CS 141: Introduction to Programming and Problem Solving
- * Professor: Edwin Rodr&iacute;guez
+ * Professor: Edwin Rodriguez
  *
  * Programming Assignment Gre4ka
  *
@@ -37,7 +37,7 @@ public class Spy extends Square {
 	int bullets = 1;
 
 	/**
-	 * The player can die initially, true if can not die after actiavte the power up.
+	 * The player can die initially, true if can not die after activate the power up.
 	 */
 	boolean invincibility = false;
 	
@@ -111,7 +111,7 @@ public class Spy extends Square {
 
 	/**
 	 * Check if the spy is immune to death.
-	 * @return true if invincibile
+	 * @return true if invincible
 	 */
 	public boolean isInvincible() {
 		return invincibility;

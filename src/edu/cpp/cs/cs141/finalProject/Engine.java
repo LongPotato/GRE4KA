@@ -1,7 +1,7 @@
 /**
  * 
  * CS 141: Introduction to Programming and Problem Solving
- * Professor: Edwin Rodr&iacute;guez
+ * Professor: Edwin Rodriguez
  *
  * Programming Assignment Gre4ka
  *
@@ -32,7 +32,7 @@ public class Engine {
 
 	/**
 	 * Initialize/fill up the 2 dimensional array map with Square objects.
-	 * Assign the row & col attributes for each Square.
+	 * Assign the row & column attributes for each Square.
 	 */
 	public void fillMapWithSquare() {
 		Square[][] map = this.map;

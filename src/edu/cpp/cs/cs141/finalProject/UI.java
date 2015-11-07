@@ -1,7 +1,7 @@
 /**
  * 
  * CS 141: Introduction to Programming and Problem Solving
- * Professor: Edwin Rodr&iacute;guez
+ * Professor: Edwin Rodriguez
  *
  * Programming Assignment Gre4ka
  *
@@ -50,7 +50,7 @@ public class UI {
 		// Call out printMap() each turn.
 		// Get user input for moving up, down, shoot, etc,...
 		// Make a switch case to handle different input
-		// For each case, call the coresponding engine method to perform the action
+		// For each case, call the corresponding engine method to perform the action
 		// ...
 	}
 	
