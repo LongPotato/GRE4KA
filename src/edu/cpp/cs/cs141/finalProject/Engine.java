@@ -68,8 +68,7 @@ public class Engine {
 		assignRooms();
 		Spy spy = assignSpy();
 		assignSpyVisibility(spy);
-		assignBullet();
-		//TODO: assign Invincibility, and assign Radar power up here.
+		assignPowerUps();
 		assignNinjas();
 	}
 
@@ -166,6 +165,47 @@ public class Engine {
 		occupiedLocations.add(map[rRow][rCol]);
 	}
 	
+	/**
+	 * Put one Radar object at a random location on the map
+	 */
+	public void assignRadar(){
+		Radar radar;
+		int rRow;
+		int rCol;
+		
+		do{
+			rRow = random.nextInt(8);
+			rCol = random.nextInt(8);
+		} while(isOccupied(rRow, rCol));
+		
+		radar = new Radar(rRow, rCol);
+		map[rRow][rCol] = radar;
+		occupiedLocations.add(map[rRow][rCol]);
+	}
+	
+	/**
+	 * Put one Invincibility at one location on the nap
+	 */
+	public void assignInvincibility(){
+		Invincibility inv;
+		int rRow;
+		int rCol;
+		
+		do{
+			rRow = random.nextInt(8);
+			rCol = random.nextInt(8);
+		} while(isOccupied(rRow, rCol));
+		
+		inv = new Invincibility(rRow, rCol);
+		map[rRow][rCol] = inv;
+		occupiedLocations.add(map[rRow][rCol]);
+	}
+	
+	public void assignPowerUps(){
+		assignBullet();
+		assignRadar();
+		assignInvincibility();
+	}
 	/**
 	 * Check the postion on the map too see if it's occupied by other game object.
 	 * @param row a number from 0-8

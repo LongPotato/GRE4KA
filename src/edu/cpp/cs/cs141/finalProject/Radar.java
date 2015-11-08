@@ -31,6 +31,10 @@ public class Radar extends PowerUp {
 		super("R", row, col);
 	}
 	
+	public Radar(int row, int col){
+		super("0", row, col);
+	}
+	
 	/**
 	 * Override from the parent class, loop through all the rooms to find the room object that contains the briefcase.
 	 * Set that room's visibility attribute to true to display the location.
