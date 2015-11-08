@@ -69,7 +69,7 @@ public class Engine {
 		Spy spy = assignSpy();
 		assignSpyVisibility(spy);
 		assignBullet();
-		//TODO: assign Visibility, and assign Radar power up here.
+		//TODO: assign Invincibility, and assign Radar power up here.
 		assignNinjas();
 	}
 
@@ -159,7 +159,7 @@ public class Engine {
 		do{
 			rRow = random.nextInt(8);
 			rCol = random.nextInt(8);
-		}while(isOccupied(rRow, rCol));
+		} while(isOccupied(rRow, rCol));
 		
 		bullet = new Bullet(rRow, rCol);
 		map[rRow][rCol] = bullet;
@@ -175,7 +175,7 @@ public class Engine {
 	public boolean isOccupied(int row, int col){
 		if(occupiedLocations.contains(map[row][col])){
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -186,26 +186,25 @@ public class Engine {
 	private void assignNinjas() {
 		int rRow;
 		int rCol;
-		int counter = 0;
 		
 		// The ninja will be spawn far away from the spy at least 3 squares.
-		for (int i = 0; i < 4; i ++) {
+		for (int i = 1; i < 4; i++) {
 			occupiedLocations.add(map[8 - i][0]);
 			occupiedLocations.add(map[8][0 + i]);
 		}
 		occupiedLocations.add(map[7][2]);
 		occupiedLocations.add(map[6][1]);
 		
-		while (counter <= 6) {
+		for (int i = 0; i < 6; i++) {
 			do{
 				rRow = random.nextInt(8);
 				rCol = random.nextInt(8);
-			}while(isOccupied(rRow, rCol));
+			} while(isOccupied(rRow, rCol));
 			
 			Ninja ninja = new Ninja(rRow, rCol);
 			map[rRow][rCol] = ninja;
-			counter++;
-		}	
+			occupiedLocations.add(map[rRow][rCol]);
+		}
 	}
 	
 	/**
