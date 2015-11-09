@@ -32,7 +32,7 @@ public class Radar extends PowerUp {
 	}
 	
 	public Radar(int row, int col){
-		super("0", row, col);
+		super("D", row, col);
 	}
 	
 	/**
