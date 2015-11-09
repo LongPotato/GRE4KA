@@ -93,10 +93,11 @@ public class UI {
 		String choice = "";
 		
 		while(!game.gameOver()) {
-			System.out.println("What would you like to do? Type M for move, S for shoot.");
-			choice = input.nextLine();
-			choice = choice.toUpperCase();
 			do {
+				System.out.println("What would you like to do? Type M for move, S for shoot.");
+				choice = input.nextLine();
+				choice = choice.toUpperCase();
+				
 				switch (choice) {
 				case "M":
 					playerMovement();
