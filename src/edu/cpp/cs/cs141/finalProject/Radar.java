@@ -28,11 +28,11 @@ public class Radar extends PowerUp {
 	 * @param col a number from 0-8, for array position
 	 */
 	public Radar(String symbol, int row, int col) {
-		super("R", row, col);
+		super("D", row, col);
 	}
 	
 	public Radar(int row, int col){
-		super("0", row, col);
+		super("D", row, col);
 	}
 	
 	/**
