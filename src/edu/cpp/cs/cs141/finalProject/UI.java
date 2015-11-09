@@ -93,7 +93,6 @@ public class UI {
 	/**
 	 * Print out the game map.
 	 * @param map the initialized 2 dimensional array.
-	 * @param debug true if debug mode is activated.
 	 */
 	public void printMap(Square[][] map) {
 		String display = "X";

@@ -202,7 +202,7 @@ public class Engine {
 	}
 	
 	/**
-	 * Wrapper method to assign the bullet, radar, and invincibility to the map.
+	 * Wrapper method to assign the bullet, radar, and invincibility to the map.mina
 	 */
 	public void assignPowerUps(){
 		assignBullet();
