@@ -67,9 +67,9 @@ public class UI {
 	private int mainMenu() {
 		int option = 3;
 		System.out.println("Select an option:");
-		System.out.println("1, New game");
-		System.out.println("2, Debug mode");
-		System.out.println("3, Quit");
+		System.out.println("1. New game");
+		System.out.println("2. Debug mode");
+		System.out.println("3. Quit");
 		
 		option = input.nextInt();
 		input.nextLine();
@@ -88,8 +88,70 @@ public class UI {
 		// Make a switch case to handle different input
 		// For each case, call the corresponding engine method to perform the action
 		// ...
+		
+		game = new Engine();
+		String choice = "";
+		
+		while(!game.gameOver()) {
+			do {
+				System.out.println("What would you like to do? Type M for move, S for shoot.");
+				choice = input.nextLine();
+				choice = choice.toUpperCase();
+				
+				switch (choice) {
+				case "M":
+					playerMovement();
+					break;
+				case "S":
+					playerShoot();
+					break;
+				default:
+					System.out.println("Incorrect Entry. Try Again.");
+					break;
+				}
+			}while (!choice.equals("M") || !choice.equals("S"));
+		}
 	}
 	
+	private void playerShoot() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Determines which direction the player will move via user input
+	 * and then runs the corresponding method in class Engine
+	 */
+	private void playerMovement() {
+		game = new Engine();
+		String directionM = "";
+		
+		System.out.println("Which direction would you like to move? "
+				+ "Enter W to move up, A to move left, S to move down, and D to move right.");
+		directionM = input.nextLine();
+		directionM = directionM.toUpperCase();
+		
+		do {
+			switch (directionM) {
+			case "W":
+				game.movePlayerUp();
+				break;
+			case "A":
+				game.movePlayerLeft();
+				break;
+			case "S":
+				game.movePlayerDown();
+				break;
+			case "D":
+				game.movePlayerRight();
+				break;
+			default:
+				System.out.println("Invalid Entry. Try Again.");
+				break;
+			}
+		}while (!directionM.equals("W") || !directionM.equals("A") || !directionM.equals("S") || !directionM.equals("D"));
+	}
+
 	/**
 	 * Print out the game map.
 	 * @param map the initialized 2 dimensional array.

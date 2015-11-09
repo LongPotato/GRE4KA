@@ -288,7 +288,7 @@ public class Engine {
 	 * 
 	 * @param square
 	 */
-	public void movePlayerUp(Square square) {
+	public void movePlayerUp() {
 
 	}
 
@@ -296,7 +296,7 @@ public class Engine {
 	 * 
 	 * @param square
 	 */
-	public void movePlayerDown(Square square) {
+	public void movePlayerDown() {
 
 	}
 
@@ -304,7 +304,7 @@ public class Engine {
 	 * 
 	 * @param square
 	 */
-	public void movePlayerLeft(Square square) {
+	public void movePlayerLeft() {
 
 	}
 
@@ -312,7 +312,7 @@ public class Engine {
 	 * 
 	 * @param square
 	 */
-	public void movePlayerRight(Square square) {
+	public void movePlayerRight() {
 
 	}
 
@@ -336,7 +336,7 @@ public class Engine {
 	 * @return true if game is over
 	 */
 	public boolean gameOver() {
-		return true;
+		return false;
 	}
 
 }
