@@ -201,11 +201,15 @@ public class Engine {
 		occupiedLocations.add(map[rRow][rCol]);
 	}
 	
+	/**
+	 * Wrapper method to assign the bullet, radar, and invincibility to the map.
+	 */
 	public void assignPowerUps(){
 		assignBullet();
 		assignRadar();
 		assignInvincibility();
 	}
+	
 	/**
 	 * Check the postion on the map too see if it's occupied by other game object.
 	 * @param row a number from 0-8
