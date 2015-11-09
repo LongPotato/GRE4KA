@@ -43,6 +43,7 @@ public class Room extends Square {
 	 */
 	public Room(int row, int col) {
 		super("R", row, col);
+		this.setVisible(true);
 	}
 
 	/**

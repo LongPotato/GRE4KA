@@ -15,11 +15,12 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
-/**
- * 
- */
 import static java.lang.Math.abs;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+
 /**
  * Game Engine, handle the logic execution of the game.
  */
@@ -29,14 +30,29 @@ public class Engine {
 	 * The map is a 2 dimensional array of type Square.
 	 */
 	private Square[][] map = new Square[9][9];
-
+	/** 
+	 * The array to store all the asigned room objects on the map.
+	 */
+	private Square[] rooms = new Square[9];
+	/**
+	 * To randomize the position of the map.
+	 */
+	private Random random = new Random();
+	/**
+	 * The array to store used locations, or prohibited locations.
+	 */
+	private ArrayList<Square> occupiedLocations = new ArrayList<Square>();
+	/**
+	 * The array to store the locations of the spy visibily, from the previous turn.
+	 */
+	private ArrayList<Square> spyVisibilityLocations = new ArrayList<Square>();
+	
 	/**
 	 * Initialize/fill up the 2 dimensional array map with Square objects.
 	 * Assign the row & column attributes for each Square.
 	 */
 	public void fillMapWithSquare() {
-		Square[][] map = this.map;
-
+		
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				Square location = new Square(i, j);
@@ -46,18 +62,20 @@ public class Engine {
 	}
 
 	/**
-	 * Set up the map with 1 spy, 6 ninjas, and 9 rooms.
+	 * Set up the map with 3 different types of powerup, 1 spy, 6 ninjas, and 9 rooms.
 	 */
 	public void setUpMap() {
 		assignRooms();
 		Spy spy = assignSpy();
-		assignSpyAndVisibility(spy);
+		assignSpyVisibility(spy);
 		assignPowerUps();
-		// We can do that all in one, or divide it into sub methods
+		assignNinjas();
 	}
 
+	/**
+	 * Put 9 rooms at fixed locations on the map.
+	 */
 	public void assignRooms() {
-
 		Room location1 = new Room(1, 1);
 		Room location2 = new Room(1, 4);
 		Room location3 = new Room(1, 7);
@@ -77,38 +95,62 @@ public class Engine {
 		map[7][1] = location7;
 		map[7][4] = location8;
 		map[7][7] = location9;
-
+		
+		// Add room locations to used locations array to avoid overlap when assign other objects to the map.
+		Square[] tempArray = {map[1][1], map[1][4], map[1][7], map[4][1], map[4][4], map[4][7], map[7][1], map[7][4], map[7][7]};
+		rooms = tempArray;
+		occupiedLocations.addAll(Arrays.asList(rooms));
 	}
 
+	/**
+	 * Initially create new Spy object and put him at the corner of the map.
+	 * @return the spy object at location [8][0]
+	 */
 	public Spy assignSpy() {
-		Spy location = new Spy(8, 0);
-		map[8][0] = location;
-		return location;
+		Spy spy = new Spy(8, 0);
+		map[8][0] = spy;
+		occupiedLocations.add(map[8][0]);
+		return spy;
 	}
 
-	public void assignSpyAndVisibility(Spy spy) {
+	/**
+	 * This method allows the spy to see ahead 2 squares.
+	 * Remove the darkness mark "X", and switch the visibility of ninjas, powerups to true if they are nearby.
+	 * @param spy the Spy object.
+	 */
+	public void assignSpyVisibility(Spy spy) {
+		//TODO: Traverse through the spyVisibilityLocations array to switch visibility location from previous turn to false.
+		
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
 				if (i == spy.getRow() && abs(spy.getCol() - j) < 3) {
-
-					if (map[i][j].getSymbol().equals("X"))
+					
+					//TODO: Check for ninjas and powerups near by to switch their visibility to true.
+					
+					if (map[i][j].getSymbol().equals("X")) {
 						map[i][j].setSymbol(" ");
-					else
+						map[i][j].setVisible(true);
+						spyVisibilityLocations.add(map[i][j]);
+					} else
 						map[i][j].getSymbol();
 				}
 				if (j == spy.getCol() && abs(spy.getRow() - i) < 3) {
 
-					if (map[i][j].getSymbol().equals("X"))
+					if (map[i][j].getSymbol().equals("X")) {
 						map[i][j].setSymbol(" ");
-					else
+						map[i][j].setVisible(true);
+						spyVisibilityLocations.add(map[i][j]);
+					} else
 						map[i][j].getSymbol();
 				}
 			}
 		}
 	}
 	
-	public void assignPowerUps(){
-		Random random = new Random();
+	/**
+	 * Put one Bullet object at a random location on the map.
+	 */
+	public void assignBullet(){
 		Bullet bullet;
 		int rRow;
 		int rCol;
@@ -116,26 +158,109 @@ public class Engine {
 		do{
 			rRow = random.nextInt(8);
 			rCol = random.nextInt(8);
-		}while(isOccupied(rRow, rCol));
+		} while(isOccupied(rRow, rCol));
 		
 		bullet = new Bullet(rRow, rCol);
 		map[rRow][rCol] = bullet;
-		
+		occupiedLocations.add(map[rRow][rCol]);
 	}
 	
+	/**
+	 * Put one Radar object at a random location on the map
+	 */
+	public void assignRadar(){
+		Radar radar;
+		int rRow;
+		int rCol;
+		
+		do{
+			rRow = random.nextInt(8);
+			rCol = random.nextInt(8);
+		} while(isOccupied(rRow, rCol));
+		
+		radar = new Radar(rRow, rCol);
+		map[rRow][rCol] = radar;
+		occupiedLocations.add(map[rRow][rCol]);
+	}
+	
+	/**
+	 * Put one Invincibility at one location on the nap
+	 */
+	public void assignInvincibility(){
+		Invincibility inv;
+		int rRow;
+		int rCol;
+		
+		do{
+			rRow = random.nextInt(8);
+			rCol = random.nextInt(8);
+		} while(isOccupied(rRow, rCol));
+		
+		inv = new Invincibility(rRow, rCol);
+		map[rRow][rCol] = inv;
+		occupiedLocations.add(map[rRow][rCol]);
+	}
+	
+	public void assignPowerUps(){
+		assignBullet();
+		assignRadar();
+		assignInvincibility();
+	}
+	/**
+	 * Check the postion on the map too see if it's occupied by other game object.
+	 * @param row a number from 0-8
+	 * @param col a number from 0-8
+	 * @return true if the position is occupied.
+	 */
 	public boolean isOccupied(int row, int col){
-		if(map[row][col].getSymbol().equals("R") || map[row][col].getSymbol().equals("S")){
+		if(occupiedLocations.contains(map[row][col])){
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-
 	
+	/**
+	 * Put 6 ninja into different random postions on the map.
+	 */
+	private void assignNinjas() {
+		int rRow;
+		int rCol;
+		
+		// The ninja will be spawn far away from the spy at least 3 squares.
+		for (int i = 1; i < 4; i++) {
+			occupiedLocations.add(map[8 - i][0]);
+			occupiedLocations.add(map[8][0 + i]);
+		}
+		occupiedLocations.add(map[7][2]);
+		occupiedLocations.add(map[6][1]);
+		
+		for (int i = 0; i < 6; i++) {
+			do{
+				rRow = random.nextInt(8);
+				rCol = random.nextInt(8);
+			} while(isOccupied(rRow, rCol));
+			
+			Ninja ninja = new Ninja(rRow, rCol);
+			map[rRow][rCol] = ninja;
+			occupiedLocations.add(map[rRow][rCol]);
+		}
+	}
+	
+	/**
+	 * Activiate Debug mode, switch the visible field of all game objects to true.
+	 * All game objects will be visible.
+	 */
+	public void activateDebugMode() {
+		for (Square[] locations : map) {
+			for (Square location : locations) {
+				location.setVisible(true);
+			}	
+		}
+	}
 	
 	/**
 	 * Return the game map.
-	 * 
 	 * @return a 2 dimensional array of type Square.
 	 */	
 	public Square[][] getMap() {
@@ -144,9 +269,7 @@ public class Engine {
 
 	/**
 	 * Set the game map.
-	 * 
-	 * @param map
-	 *            a 2 dimentional array of type Square.
+	 * @param map a 2 dimentional array of type Square.
 	 */
 	public void setMap(Square[][] map) {
 		this.map = map;
@@ -201,7 +324,6 @@ public class Engine {
 
 	/**
 	 * Check for the winning condition of the game.
-	 * 
 	 * @return true if game is over
 	 */
 	public boolean gameOver() {

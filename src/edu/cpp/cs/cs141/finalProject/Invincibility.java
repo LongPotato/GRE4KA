@@ -30,6 +30,9 @@ public class Invincibility extends PowerUp {
 		super("I", row, col);
 	}
 	
+	public Invincibility(int row, int col){
+		super("I", row, col);
+	}
 	/**
 	 * Override from the parent class, access the Spy class to set invicibility to true.
 	 * @param spy the spy object that the power up item will have effect on.

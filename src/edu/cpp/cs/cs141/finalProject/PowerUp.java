@@ -26,12 +26,6 @@ public abstract class PowerUp extends Square {
 	boolean active = false;
 
 	/**
-	 * The invisibility of the item on the map.
-	 * Initially false, if the player gets close set to true.
-	 */
-	boolean visible = false;
-	
-	/**
 	 * The constructor method to create a power up item.
 	 * @param symbol the string symbol of the item, such as: D for radar detection, B for bullet...
 	 * @param row a number from 0-8, for array position
@@ -57,21 +51,5 @@ public abstract class PowerUp extends Square {
 	 */
 	public void activate(Spy spy, Room[] room) {
 		this.active = true;
-	}
-
-	/**
-	 * Get the status of the item, check if the item is visible.
-	 * @return true if visible.
-	 */
-	public boolean isVisible() {
-		return visible;
-	}
-
-	/**
-	 * Set the visible status of the item.
-	 * @param visible set to true if visible.
-	 */
-	public void setVisible(boolean visible) {
-		this.visible = visible;
 	}
 }

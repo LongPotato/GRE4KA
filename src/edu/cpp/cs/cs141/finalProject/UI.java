@@ -35,12 +35,48 @@ public class UI {
 		// Fill & set up the map.
 		game.fillMapWithSquare();
         game.setUpMap();
-        printMap(game.getMap());
-		// Welcome message.
-		// Input choices to play in the console or GUI or quit.
-		// ...
+        
+        printWelcomeMessage();
+        int choice = mainMenu();
+        switch (choice) {
+        case 1:
+        	printMap(game.getMap(), false);
+        	gameLoop();
+        	break;
+        case 2:
+        	game.activateDebugMode();
+        	printMap(game.getMap(), true);
+        	gameLoop();
+        	break;
+        default:
+        	System.out.println("Game exited!");
+        	break;
+        }
+        	
 	}
 	
+	/**
+	 * Display the welcome message at the beginning of the game.
+	 */
+	private void printWelcomeMessage() {
+		System.out.println("========================");
+        System.out.println("*   FIND YOUR GRE4KA   *");
+        System.out.println("========================");
+	}
+	
+	private int mainMenu() {
+		int option = 3;
+		System.out.println("Select an option:");
+		System.out.println("1, New game");
+		System.out.println("2, Debug mode");
+		System.out.println("3, Quit");
+		
+		option = input.nextInt();
+		input.nextLine();
+		//TODO: implement input validation.
+		return option;
+	}
+
 	/**
 	 * Play until the game is over.
 	 * Keep printing out map and getting user input, pass it into the game engine to handle the logic.
@@ -56,12 +92,24 @@ public class UI {
 	
 	/**
 	 * Print out the game map.
-	 * @param gameMap the initialized 2 dimensional array.
+	 * @param map the initialized 2 dimensional array.
+	 * @param debug true if debug mode is activated.
 	 */
-	public void printMap(Square[][] map){
+	public void printMap(Square[][] map, boolean debug) {
+		String display = "X";
 		for (Square[] row : map) {
 			for (Square location : row) {
-				System.out.print("[" + location.getSymbol() + "] ");
+				if (location.isVisible()) {
+					display = location.getSymbol();
+					// Clear out all the "X"
+					if (location.getSymbol().equals("X")) {
+						display = " ";
+					}
+				} else {
+					// If the object is not visible, display "X"
+					display = "X";
+				}
+				System.out.print("[" + display + "] ");
 			}
 			System.out.println("\n");
 		}
