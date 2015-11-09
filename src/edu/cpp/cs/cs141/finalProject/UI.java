@@ -40,12 +40,12 @@ public class UI {
         int choice = mainMenu();
         switch (choice) {
         case 1:
-        	printMap(game.getMap(), false);
+        	printMap(game.getMap());
         	gameLoop();
         	break;
         case 2:
         	game.activateDebugMode();
-        	printMap(game.getMap(), true);
+        	printMap(game.getMap());
         	gameLoop();
         	break;
         default:
@@ -93,9 +93,8 @@ public class UI {
 	/**
 	 * Print out the game map.
 	 * @param map the initialized 2 dimensional array.
-	 * @param debug true if debug mode is activated.
 	 */
-	public void printMap(Square[][] map, boolean debug) {
+	public void printMap(Square[][] map) {
 		String display = "X";
 		for (Square[] row : map) {
 			for (Square location : row) {
