@@ -32,8 +32,9 @@ Our ninja game
 * Ian Garrett
 
 ## Comments:
-Alexandra: Really cool what you did!
-Ian: Finally got it working!
 
+Alexandra: Really cool what you did!
+
+Ian: Finally got it working!
 
 
