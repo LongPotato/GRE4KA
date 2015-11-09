@@ -74,6 +74,7 @@ public class Engine {
 
 	/**
 	 * Put 9 rooms at fixed locations on the map.
+	 * Choose one random room to contain the briefcase, set briefcase field to true.
 	 */
 	public void assignRooms() {
 		Room location1 = new Room(1, 1);
@@ -96,9 +97,13 @@ public class Engine {
 		map[7][4] = location8;
 		map[7][7] = location9;
 		
-		// Add room locations to used locations array to avoid overlap when assign other objects to the map.
+		// Save all the rooms into an array, assign one radom room to contain the brief case.
 		Square[] tempArray = {map[1][1], map[1][4], map[1][7], map[4][1], map[4][4], map[4][7], map[7][1], map[7][4], map[7][7]};
 		rooms = tempArray;
+		Room briefCaseRoom = (Room) rooms[random.nextInt(8)];
+		briefCaseRoom.setBriefcase(true);
+		
+		// Add room locations to used locations array to avoid overlap when assign other objects to the map.
 		occupiedLocations.addAll(Arrays.asList(rooms));
 	}
 
