@@ -331,7 +331,7 @@ public class Engine {
 	 * @return true if game is over
 	 */
 	public boolean gameOver() {
-		return true;
+		return false;
 	}
 
 }
