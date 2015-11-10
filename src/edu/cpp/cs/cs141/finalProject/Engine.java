@@ -31,9 +31,9 @@ public class Engine {
 	 */
 	private Square[][] map = new Square[9][9];
 	/** 
-	 * The array to store all the asigned room objects on the map.
+	 * The room that has the brief case, where briefCase fields equals true.
 	 */
-	private Square[] rooms = new Square[9];
+	private Room briefCaseRoom;
 	/**
 	 * To randomize the position of the map.
 	 */
@@ -74,7 +74,7 @@ public class Engine {
 
 	/**
 	 * Put 9 rooms at fixed locations on the map.
-	 * Choose one random room to contain the briefcase, set briefcase field to true.
+	 * Choose one random room to contain the briefcase, set the briefcase field to true.
 	 */
 	public void assignRooms() {
 		Room location1 = new Room(1, 1);
@@ -97,10 +97,9 @@ public class Engine {
 		map[7][4] = location8;
 		map[7][7] = location9;
 		
-		// Save all the rooms into an array, assign one radom room to contain the brief case.
-		Square[] tempArray = {map[1][1], map[1][4], map[1][7], map[4][1], map[4][4], map[4][7], map[7][1], map[7][4], map[7][7]};
-		rooms = tempArray;
-		Room briefCaseRoom = (Room) rooms[random.nextInt(8)];
+		// Save all the rooms location into an array, assign one radom room to contain the brief case.
+		Square[] rooms = {map[1][1], map[1][4], map[1][7], map[4][1], map[4][4], map[4][7], map[7][1], map[7][4], map[7][7]};
+		briefCaseRoom = (Room) rooms[random.nextInt(8)];
 		briefCaseRoom.setBriefcase(true);
 		
 		// Add room locations to used locations array to avoid overlap when assign other objects to the map.
@@ -275,13 +274,13 @@ public class Engine {
 	public Square[][] getMap() {
 		return map;
 	}
-
+	
 	/**
-	 * Set the game map.
-	 * @param map a 2 dimentional array of type Square.
+	 * Return the room that contains the briefcase that has gre4ka inside it.
+	 * @return a Room object.
 	 */
-	public void setMap(Square[][] map) {
-		this.map = map;
+	public Room getRoomWithBriefCase() {
+		return briefCaseRoom;
 	}
 
 	/**
