@@ -328,7 +328,7 @@ public class Engine {
 			break;
 		case 3:
 			if (row + 1 <= 8) {
-				spy.setCol(row + 1);
+				spy.setRow(row + 1);
 				map[row + 1][col] = spy;
 				map[row][col] = new Square(debug, row, col);
 			} else {
