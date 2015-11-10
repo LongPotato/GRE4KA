@@ -35,9 +35,21 @@ public class Engine {
 	 */
 	private Room briefCaseRoom;
 	/**
+	 * The spy in the current game.
+	 */
+	private Spy spy;
+	/**
+	 * The array to store 6 ninjas in the current game.
+	 */
+	private ArrayList<Ninja> ninjas = new ArrayList<Ninja>();
+	/**
 	 * To randomize the position of the map.
 	 */
 	private Random random = new Random();
+	/**
+	 * To indicate if the game has debug mode activated.
+	 */
+	private boolean debug = false;
 	/**
 	 * The array to store used locations, or prohibited locations.
 	 */
@@ -66,8 +78,8 @@ public class Engine {
 	 */
 	public void setUpMap() {
 		assignRooms();
-		Spy spy = assignSpy();
-		assignSpyVisibility(spy);
+		spy = assignSpy();
+		assignSpyVisibility();
 		assignPowerUps();
 		assignNinjas();
 	}
@@ -120,9 +132,8 @@ public class Engine {
 	/**
 	 * This method allows the spy to see ahead 2 squares.
 	 * Remove the darkness mark "X", and switch the visibility of ninjas, powerups to true if they are nearby.
-	 * @param spy the Spy object.
 	 */
-	public void assignSpyVisibility(Spy spy) {
+	public void assignSpyVisibility() {
 		//TODO: Traverse through the spyVisibilityLocations array to switch visibility location from previous turn to false.
 		
 		for (int i = 0; i < map.length; ++i) {
@@ -244,13 +255,15 @@ public class Engine {
 		occupiedLocations.add(map[6][1]);
 		
 		for (int i = 0; i < 6; i++) {
-			do{
+			do {
 				rRow = random.nextInt(8);
 				rCol = random.nextInt(8);
 			} while(isOccupied(rRow, rCol));
 			
 			Ninja ninja = new Ninja(rRow, rCol);
 			map[rRow][rCol] = ninja;
+			// Store the ninja to the array, and mark the location as occupied.
+			ninjas.add(ninja);
 			occupiedLocations.add(map[rRow][rCol]);
 		}
 	}
@@ -260,6 +273,7 @@ public class Engine {
 	 * All game objects will be visible.
 	 */
 	public void activateDebugMode() {
+		debug = true;
 		for (Square[] locations : map) {
 			for (Square location : locations) {
 				location.setVisible(true);
@@ -284,35 +298,57 @@ public class Engine {
 	}
 
 	/**
-	 * 
-	 * @param square
+	 * Move the spy to the directed direction, at the end, call method to make the ninjas move.
+	 * @param direction an integer from 1-4: 1-up, 2-left, 3-down, 4-right.
+	 * @return true if the action is sucessfully performed.
 	 */
-	public void movePlayerUp() {
-
-	}
-
-	/**
-	 * 
-	 * @param square
-	 */
-	public void movePlayerDown() {
-
-	}
-
-	/**
-	 * 
-	 * @param square
-	 */
-	public void movePlayerLeft() {
-
-	}
-
-	/**
-	 * 
-	 * @param square
-	 */
-	public void movePlayerRight() {
-
+	public boolean movePlayer(int direction) {
+		int row = spy.getRow();
+		int col = spy.getCol();
+		
+		//TODO: Check for rooms and power ups, work on spy visibility.
+		switch (direction) {
+		case 1:
+			if (row - 1 >= 0) {
+				spy.setRow(row - 1);
+				map[row - 1][col] = spy;
+				map[row][col] = new Square(debug, row, col);
+			} else {
+				return false;
+			}
+			break;
+		case 2:
+			if (col - 1 >= 0) {
+				spy.setCol(col - 1);
+				map[row][col - 1] = spy;
+				map[row][col] = new Square(debug, row, col);
+			} else {
+				return false;
+			}
+			break;
+		case 3:
+			if (row + 1 <= 8) {
+				spy.setCol(row + 1);
+				map[row + 1][col] = spy;
+				map[row][col] = new Square(debug, row, col);
+			} else {
+				return false;
+			}
+			break;
+		case 4:
+			if (col + 1 <= 8) {
+				spy.setCol(col + 1);
+				map[row][col + 1] = spy;
+				map[row][col] = new Square(debug, row, col);
+			} else {
+				return false;
+			}
+			break;
+		}
+		
+		assignSpyVisibility();
+		moveNinja();
+		return true;
 	}
 
 	/**
@@ -322,7 +358,14 @@ public class Engine {
 	public void playerShoot(Square square) {
 
 	}
-
+	
+	/**
+	 * Move the ninja to one random direction.
+	 */
+	public void moveNinja() {
+		
+	}
+	
 	/**
 	 * Enter room, only from the north side
 	 */

@@ -156,20 +156,36 @@ public class UI {
 			
 			switch (directionM) {
 			case "W":
-				game.movePlayerUp();
-				valid = true;
+				// Move up
+				if (game.movePlayer(1)) {
+					valid = true;
+				} else {
+					System.out.print("Can not go there! Try again: ");
+				}
 				break;
 			case "A":
-				game.movePlayerLeft();
-				valid = true;
+				// Move left
+				if (game.movePlayer(2)) {
+					valid = true;
+				} else {
+					System.out.print("Can not go there! Try again: ");
+				}
 				break;
 			case "S":
-				game.movePlayerDown();
-				valid = true;
+				// Move down
+				if (game.movePlayer(3)) {
+					valid = true;
+				} else {
+					System.out.print("Can not go there! Try again: ");
+				}
 				break;
 			case "D":
-				game.movePlayerRight();
-				valid = true;
+				// Move right
+				if (game.movePlayer(4)) {
+					valid = true;
+				} else {
+					System.out.print("Can not go there! Try again: ");
+				}
 				break;
 			default:
 				System.out.println("Invalid Entry. Try Again.");
