@@ -34,7 +34,7 @@ public class Square {
 	/**
 	 * The visibility of the object, default is false, objects are hidden in the darkness.
 	 */
-	private boolean visible = false;
+	private boolean visibility = false;
 	
 	/**
 	 * Constructor of the Square class.
@@ -59,11 +59,24 @@ public class Square {
 	}
 	
 	/**
+	 * Constructor overloaded, does not require string symbol parameter
+	 * @param visible boolean, switch the visibility to true if debug mode is activated.
+	 * @param row a number from 0-8
+	 * @param col a number from 0-8
+	 */
+	public Square(boolean debug, int row, int col) {
+		this.visibility = debug;
+		this.row = row;
+		this.col = col;
+	}
+	
+	
+	/**
 	 * Get the visibility of the object, default false.
 	 * @return true is visible.
 	 */
 	public boolean isVisible() {
-		return visible;
+		return visibility;
 	}
 
 	/**
@@ -71,7 +84,7 @@ public class Square {
 	 * @param visible true if visible.
 	 */
 	public void setVisible(boolean visible) {
-		this.visible = visible;
+		this.visibility = visible;
 	}
 	
 	/**

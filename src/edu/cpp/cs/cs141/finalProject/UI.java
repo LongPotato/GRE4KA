@@ -15,6 +15,7 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -27,7 +28,7 @@ public class UI {
 	private Engine game = null;
 
 	/**
-	 * Starts up the game: set up the game map, get users preferences,
+	 * Starts up the game: initialize the game engine, set up the game map, get users preferences, 
 	 * and execute the game loop logic.
 	 */
 	public void startGame() {
@@ -40,12 +41,11 @@ public class UI {
         int choice = mainMenu();
         switch (choice) {
         case 1:
-        	printMap(game.getMap());
         	gameLoop();
         	break;
         case 2:
         	game.activateDebugMode();
-        	printMap(game.getMap());
+        	printSecretRoom();
         	gameLoop();
         	break;
         default:
@@ -56,6 +56,15 @@ public class UI {
 	}
 	
 	/**
+	 * Display the location of the room that contains the briefcase.
+	 */
+	private void printSecretRoom() {
+		Room secretRoom = game.getRoomWithBriefCase();
+		System.out.println("The room that has your Gre4ka is at " 
+							+ secretRoom.getRow() + " " + secretRoom.getCol() + "\n");
+	}
+
+	/**
 	 * Display the welcome message at the beginning of the game.
 	 */
 	private void printWelcomeMessage() {
@@ -64,32 +73,127 @@ public class UI {
         System.out.println("========================");
 	}
 	
+	/**
+	 * The main menu for selection at the beginning of the game.
+	 * @return an integer.
+	 */
 	private int mainMenu() {
 		int option = 3;
+		boolean valid = false;
 		System.out.println("Select an option:");
-		System.out.println("1, New game");
-		System.out.println("2, Debug mode");
-		System.out.println("3, Quit");
+		System.out.println("1. New game");
+		System.out.println("2. Debug mode");
+		System.out.println("3. Quit");
 		
-		option = input.nextInt();
-		input.nextLine();
-		//TODO: implement input validation.
+		while (!valid) {
+			try {
+				option = input.nextInt();
+				input.nextLine();
+				valid = true;
+			} catch (InputMismatchException e) {
+				System.out.print("Invalid input, select again: ");
+				input.nextLine();
+			}
+		}	
 		return option;
 	}
 
 	/**
-	 * Play until the game is over.
+	 * Using the game engine field, play until the game is over.
 	 * Keep printing out map and getting user input, pass it into the game engine to handle the logic.
 	 */
-	public void gameLoop() {
-		// Keep looping until game is over
-		// Call out printMap() each turn.
-		// Get user input for moving up, down, shoot, etc,...
-		// Make a switch case to handle different input
-		// For each case, call the corresponding engine method to perform the action
-		// ...
+	private void gameLoop() {
+		String choice = "";
+		
+		while(!game.gameOver()) {
+			boolean valid = false;
+			
+			printMap(game.getMap());
+			
+			do {
+				System.out.println("What would you like to do? Type M for move, S for shoot.");
+				choice = input.nextLine();
+				choice = choice.toUpperCase();
+				
+				switch (choice) {
+				case "M":
+					getPlayerMovement();
+					valid = true;
+					break;
+				case "S":
+					playerShoot();
+					valid = true;
+					break;
+				default:
+					System.out.println("Incorrect Entry. Try Again.");
+					break;
+				}
+			} while (!valid);
+		}
 	}
 	
+	/**
+	 * 
+	 */
+	private void playerShoot() {
+		// TODO The same as getPlayerMovement?
+		
+	}
+
+	/**
+	 * Get which direction the player will move via user input
+	 * and then runs the corresponding method in class Engine.
+	 */
+	private void getPlayerMovement() {
+		String directionM = "";
+		boolean valid = false;
+		System.out.println("Which direction would you like to move? "
+				+ "Enter W to move up, A to move left, S to move down, and D to move right.");
+		
+		do {
+			directionM = input.nextLine();
+			directionM = directionM.toUpperCase();
+			
+			switch (directionM) {
+			case "W":
+				// Move up
+				if (game.movePlayer(1)) {
+					valid = true;
+				} else {
+					System.out.print("Can not go there! Try again: ");
+				}
+				break;
+			case "A":
+				// Move left
+				if (game.movePlayer(2)) {
+					valid = true;
+				} else {
+					System.out.print("Can not go there! Try again: ");
+				}
+				break;
+			case "S":
+				// Move down
+				if (game.movePlayer(3)) {
+					valid = true;
+				} else {
+					System.out.print("Can not go there! Try again: ");
+				}
+				break;
+			case "D":
+				// Move right
+				if (game.movePlayer(4)) {
+					valid = true;
+				} else {
+					System.out.print("Can not go there! Try again: ");
+				}
+				break;
+			default:
+				System.out.println("Invalid Entry. Try Again.");
+				break;
+			}
+		} while (!valid);
+	}
+
 	/**
 	 * Print out the game map.
 	 * @param map the initialized 2 dimensional array.
