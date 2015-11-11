@@ -82,15 +82,14 @@ public class Spy extends Square {
 	}
 
 	/**
-	 * Set the number of lives the spy will have
-	 * @param lives number of lives
+	 * The spy get stabbed by the ninja, minus one lives from total.
 	 */
-	public void setLives(int lives) {
-		this.lives = lives;
+	public void getStabbed() {
+		lives = lives - 1;
 	}
 
 	/**
-	 * Get the number of bullets the spy currently have
+	 * Get the number of bullets the spy currently has
 	 * @return the number of bullets
 	 */
 	public int getBullets() {

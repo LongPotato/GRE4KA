@@ -19,6 +19,7 @@ import static java.lang.Math.abs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -42,6 +43,10 @@ public class Engine {
 	 * The array to store 6 ninjas in the current game.
 	 */
 	private ArrayList<Ninja> ninjas = new ArrayList<Ninja>();
+	/**
+	 * The array to store the power ups in the current game.
+	 */
+	private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
 	/**
 	 * The winning status of the current game.
 	 */
@@ -83,7 +88,7 @@ public class Engine {
 	public void setUpMap() {
 		assignRooms();
 		spy = assignSpy();
-		assignSpyVisibility();
+		//assignSpyVisibility();
 		assignPowerUps();
 		assignNinjas();
 	}
@@ -302,10 +307,11 @@ public class Engine {
 	}
 
 	/**
-	 * Move the spy to the directed direction, at the end, call method to make the ninjas move.
+	 * Move the spy to the directed direction, can enter room, look for the document, and activate the power up if found.
 	 * @param direction an integer from 1-4: 1-up, 2-left, 3-down, 4-right.
-	 * @return the status code: 1 - the player moved sucessfully, 2 - move failed, 3 - room empty.
+	 * @return the status code: 1 - the player moved sucessfully, 2 - move failed, 3 - room empty, 4 - the player got stabbed.
 	 */
+	// TODO: Activate power up if step on.
 	public int movePlayer(int direction) {
 		int row = spy.getRow();
 		int col = spy.getCol();
@@ -313,7 +319,6 @@ public class Engine {
 		switch (direction) {
 		case 1: // Move up
 			if (row - 1 >= 0) {
-				// Can not enter the room in this side.
 				if (!isRoom(map[row - 1][col])) {
 					spy.setRow(row - 1);
 					map[row - 1][col] = spy;
@@ -375,19 +380,42 @@ public class Engine {
 			break;
 		}
 		
-		//TODO: Check for power ups, work on spy visibility.
-		assignSpyVisibility();
-		moveNinja();
 		return 1;
 	}
 	
 	/**
 	 * The Spy can not overlap the room. Check if the object belongs to the Room class.
-	 * @param location the square object, a location on the map.
+	 * @param location the Square object, a location on the map.
 	 * @return true if the object has type Room.
 	 */
 	private boolean isRoom(Square location) {
 		if (location instanceof Room) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Check if the object belongs to the PowerUp class.
+	 * @param location the Square object, a location on the map.
+	 * @return true if the object has type PowerUp.
+	 */
+	private boolean isPowerUp(Square location) {
+		if (location instanceof PowerUp) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Check if the object belongs to the Ninja class.
+	 * @param location the Square object, a location on the map.
+	 * @return true if the object has type Ninja.
+	 */
+	private boolean isNinja(Square location) {
+		if (location instanceof Ninja) {
 			return true;
 		} else {
 			return false;
@@ -403,17 +431,131 @@ public class Engine {
 	}
 	
 	/**
-	 * Move the ninja to one random direction.
+	 * Move the all the ninjas in the game to random directions.
+	 * @return true if all ninjas moved successfully, false if foud a spy near by and stabbed him.
 	 */
-	public void moveNinja() {
+	public boolean moveNinja() {
 		
+		// Check if the ninja has steped on any power up last turn, assign them back to their location.
+		if (!powerUps.isEmpty()) {
+			for (PowerUp p : powerUps) {
+				map[p.getRow()][p.getCol()] = p;
+			}
+			powerUps.clear();
+		}
+		
+		for (Ninja ninja : ninjas) {
+			int row = ninja.getRow();
+			int col = ninja.getCol();
+			Square location = null;
+			
+			ArrayList<Square> validLocations = getValidLocations(ninja);
+			
+			// Remove all the rooms and ninjas locations from possible moves.
+			Iterator<Square> iterator = validLocations.iterator();
+			while (iterator.hasNext()) {
+				Square loc = iterator.next();
+				if (isRoom(loc) || isNinja(loc)) {
+					iterator.remove();
+				}
+			}
+			
+			// If there's the spy next to this ninja, stab him!
+			if (checkForSpy(ninja)) {
+				return false;
+			}
+			
+			// If the ninja got place in the dead end corner and has no where to move, it can stay in the same position.
+			if (validLocations.size() < 3) {
+				validLocations.add(map[row][col]);
+			}
+			
+			// Choose one random direction from possible locations.
+			int index = random.nextInt(validLocations.size());
+			location = validLocations.get(index);
+			
+			int Lrow = location.getRow();
+			int Lcol = location.getCol();
+
+			if (isPowerUp(location)) {
+				// If the ninja step on the power up, save the power up and display the ninja.
+				powerUps.add((PowerUp) location);
+				map[Lrow][Lcol] = ninja;
+				ninja.setRow(Lrow);
+				ninja.setCol(Lcol);
+				map[row][col] = new Square(debug, row, col);
+			} else if (location == map[row][col]) {
+				// If the ninja stay in the same postion, do nothing.
+				map[row][col] = ninja;
+			} else {
+				map[Lrow][Lcol] = ninja;
+				ninja.setRow(Lrow);
+				ninja.setCol(Lcol);
+				if (!isPowerUp(map[row][col])) {
+					map[row][col] = new Square(debug, row, col);
+				}
+			}
+		}
+		
+		return true;
 	}
 	
 	/**
-	 * Enter room, only from the north side
+	 * Check for array out of bound, get only the moveable locations from the current location.
+	 * @param object the Square object of the location on the map.
+	 * @return the ArrayList of valid locations.
 	 */
-	public void enterRoom() {
-
+	private ArrayList<Square> getValidLocations(Square object) {
+		int row = object.getRow();
+		int col = object.getCol();
+		ArrayList<Square> validLocations = new ArrayList<Square>();
+		
+		// Only add reachable directions to the array.
+		if (row - 1 >= 0 && col <= 8 & col >= 0) {
+			validLocations.add(map[row - 1][col]);
+		}
+		if (row + 1 <= 8 && col <= 8 & col >= 0) {
+			validLocations.add(map[row + 1][col]);
+		}
+		if (col - 1 >= 0 && row >= 0 && row <= 8) {
+			validLocations.add(map[row][col - 1]);
+		}
+		if (col + 1 <= 8 && row >= 0 && row <= 8) {
+			validLocations.add(map[row][col + 1]);
+		}
+		
+		return validLocations;
+	}
+	
+	/**
+	 * Check the surround locations of this ninja. If there is the spy next to it, the spy got stabbed!
+	 * Reset the spy to it's starting postion, minus one live.
+	 * @param ninja the Ninja object.
+	 * @return true if the spy got stabbed.
+	 */
+	public boolean checkForSpy(Ninja ninja) {
+		ArrayList<Square> validLocations = getValidLocations(ninja);
+		for (Square loc : validLocations) {
+			if (loc instanceof Spy) {
+				stabSpy();
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Stab the spy, move back to original postion, minus on live.
+	 * Clear the spy off the current position on the map.
+	 */
+	private void stabSpy() {
+		int oldRow = spy.getRow();
+		int oldCol = spy.getCol();
+		spy.getStabbed();
+		map[8][0] = spy;
+		spy.setRow(8);
+		spy.setCol(0);
+		map[oldRow][oldCol] = new Square(debug, oldRow, oldCol);
 	}
 
 	/**
@@ -422,6 +564,14 @@ public class Engine {
 	 */
 	public boolean gameOver() {
 		return win;
+	}
+	
+	/**
+	 * Return the spy in the current game.
+	 * @return the Spy object.
+	 */
+	public Spy getSpy() {
+		return spy;
 	}
 
 }
