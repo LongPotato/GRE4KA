@@ -43,6 +43,10 @@ public class Engine {
 	 */
 	private ArrayList<Ninja> ninjas = new ArrayList<Ninja>();
 	/**
+	 * The winning status of the current game.
+	 */
+	private boolean win = false;
+	/**
 	 * To randomize the position of the map.
 	 */
 	private Random random = new Random();
@@ -93,9 +97,9 @@ public class Engine {
 		Room location2 = new Room(1, 4);
 		Room location3 = new Room(1, 7);
 		Room location4 = new Room(4, 1);
+		Room location5 = new Room(7, 1);
 		Room location6 = new Room(4, 4);
 		Room location7 = new Room(4, 7);
-		Room location5 = new Room(7, 1);
 		Room location8 = new Room(7, 4);
 		Room location9 = new Room(7, 7);
 
@@ -103,9 +107,9 @@ public class Engine {
 		map[1][4] = location2;
 		map[1][7] = location3;
 		map[4][1] = location4;
-		map[4][4] = location5;
-		map[4][7] = location6;
-		map[7][1] = location7;
+		map[7][1] = location5;
+		map[4][4] = location6;
+		map[4][7] = location7;
 		map[7][4] = location8;
 		map[7][7] = location9;
 		
@@ -300,55 +304,94 @@ public class Engine {
 	/**
 	 * Move the spy to the directed direction, at the end, call method to make the ninjas move.
 	 * @param direction an integer from 1-4: 1-up, 2-left, 3-down, 4-right.
-	 * @return true if the action is sucessfully performed.
+	 * @return the status code: 1 - the player moved sucessfully, 2 - move failed, 3 - room empty.
 	 */
-	public boolean movePlayer(int direction) {
+	public int movePlayer(int direction) {
 		int row = spy.getRow();
 		int col = spy.getCol();
 		
-		//TODO: Check for rooms and power ups, work on spy visibility.
 		switch (direction) {
-		case 1:
+		case 1: // Move up
 			if (row - 1 >= 0) {
-				spy.setRow(row - 1);
-				map[row - 1][col] = spy;
-				map[row][col] = new Square(debug, row, col);
+				// Can not enter the room in this side.
+				if (!isRoom(map[row - 1][col])) {
+					spy.setRow(row - 1);
+					map[row - 1][col] = spy;
+					map[row][col] = new Square(debug, row, col);
+				} else {
+					return 2;
+				}
 			} else {
-				return false;
+				return 2;
 			}
 			break;
-		case 2:
+		case 2: // Move left
 			if (col - 1 >= 0) {
-				spy.setCol(col - 1);
-				map[row][col - 1] = spy;
-				map[row][col] = new Square(debug, row, col);
+				if (!isRoom(map[row][col - 1])) {
+					spy.setCol(col - 1);
+					map[row][col - 1] = spy;
+					map[row][col] = new Square(debug, row, col);
+				} else {
+					return 2;
+				}
 			} else {
-				return false;
+				return 2;
 			}
 			break;
-		case 3:
+		case 3: // Move down
 			if (row + 1 <= 8) {
-				spy.setRow(row + 1);
-				map[row + 1][col] = spy;
-				map[row][col] = new Square(debug, row, col);
+				if (!isRoom(map[row + 1][col])) {
+					spy.setRow(row + 1);
+					map[row + 1][col] = spy;
+					map[row][col] = new Square(debug, row, col);
+				} else if (isRoom(map[row + 1][col])) {
+					// The spy can only enter the room from this north side by moving down.
+					// Enter room, check for brief case.
+					if (((Room) map[row + 1][col]).hasBriefCase()) {
+						win = true;
+					} else {
+						// Return code 3 if room is empty.
+						return 3;
+					}
+				} else {
+					return 2;
+				}
 			} else {
-				return false;
+				return 2;
 			}
 			break;
-		case 4:
-			if (col + 1 <= 8) {
-				spy.setCol(col + 1);
-				map[row][col + 1] = spy;
-				map[row][col] = new Square(debug, row, col);
+		case 4: // Move right
+			if (!isRoom(map[row][col + 1])){
+				if (col + 1 <= 8) {
+					spy.setCol(col + 1);
+					map[row][col + 1] = spy;
+					map[row][col] = new Square(debug, row, col);
+				} else {
+					return 2;
+				}
 			} else {
-				return false;
+				return 2;
 			}
 			break;
 		}
 		
+		//TODO: Check for power ups, work on spy visibility.
 		assignSpyVisibility();
 		moveNinja();
-		return true;
+		return 1;
+	}
+	
+	/**
+	 * The Spy can not overlap the room. Check if the object belongs to the Room class.
+	 * @param location the square object, a location on the map.
+	 * @return true if the object has type Room.
+	 */
+	private boolean isRoom(Square location) {
+		if (location instanceof Room) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -378,7 +421,7 @@ public class Engine {
 	 * @return true if game is over
 	 */
 	public boolean gameOver() {
-		return false;
+		return win;
 	}
 
 }

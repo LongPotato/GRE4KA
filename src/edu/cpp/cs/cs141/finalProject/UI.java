@@ -33,7 +33,7 @@ public class UI {
 	 */
 	public void startGame() {
 		game = new Engine();
-		// Fill & set up the map.
+		// Fill & set up the map with game objects.
 		game.fillMapWithSquare();
         game.setUpMap();
         
@@ -130,6 +130,10 @@ public class UI {
 				}
 			} while (!valid);
 		}
+		
+		if (game.gameOver()) {
+			System.out.println("YOU HAVE FOUND THE GRE4KA, YOU WIN!");
+		}
 	}
 	
 	/**
@@ -157,7 +161,7 @@ public class UI {
 			switch (directionM) {
 			case "W":
 				// Move up
-				if (game.movePlayer(1)) {
+				if (game.movePlayer(1) == 1) {
 					valid = true;
 				} else {
 					System.out.print("Can not go there! Try again: ");
@@ -165,7 +169,7 @@ public class UI {
 				break;
 			case "A":
 				// Move left
-				if (game.movePlayer(2)) {
+				if (game.movePlayer(2) == 1) {
 					valid = true;
 				} else {
 					System.out.print("Can not go there! Try again: ");
@@ -173,15 +177,17 @@ public class UI {
 				break;
 			case "S":
 				// Move down
-				if (game.movePlayer(3)) {
+				if (game.movePlayer(3) == 1) {
 					valid = true;
+				} else if (game.movePlayer(3) == 3) {
+					System.out.println("This room is empty, keep going: ");
 				} else {
 					System.out.print("Can not go there! Try again: ");
 				}
 				break;
 			case "D":
 				// Move right
-				if (game.movePlayer(4)) {
+				if (game.movePlayer(4) == 1) {
 					valid = true;
 				} else {
 					System.out.print("Can not go there! Try again: ");
