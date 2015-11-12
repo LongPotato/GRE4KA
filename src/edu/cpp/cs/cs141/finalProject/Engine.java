@@ -182,9 +182,6 @@ public class Engine {
 		}	
 
 	
-		//map[i][j].getSymbol().equals(" "))
-		//map[i][j].get
-	
 	
 	/**
 	 * Put one Bullet object at a random location on the map.
@@ -329,29 +326,17 @@ public class Engine {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Move the spy to the directed direction, at the end, call method to make
-	 * the ninjas move.
-	 * 
-	 * @param direction
-	 *            an integer from 1-4: 1-up, 2-left, 3-down, 4-right.
-	 * @return true if the action is successfully performed.
-=======
 	 * Move the spy to the directed direction, can enter room, look for the document, and activate the power up if found.
 	 * @param direction an integer from 1-4: 1-up, 2-left, 3-down, 4-right.
 	 * @return the status code: 1 - the player moved sucessfully, 2 - move failed, 3 - room empty.
->>>>>>> 7ec6f479e1943522c6ca65b46094893d330511cd
 	 */
 	// TODO: Activate power up if step on.
 	public int movePlayer(int direction) {
 		int row = spy.getRow();
 		int col = spy.getCol();
-<<<<<<< HEAD
 
 		// TODO: Check for rooms and power ups, work on spy visibility.
-=======
-		
->>>>>>> 7ec6f479e1943522c6ca65b46094893d330511cd
+
 		switch (direction) {
 		case 1: // Move up
 			if (row - 1 >= 0) {
@@ -415,12 +400,6 @@ public class Engine {
 			}
 			break;
 		}
-<<<<<<< HEAD
-
-		assignSpyVisibility();
-		moveNinja();
-		return true;
-=======
 		
 		return 1;
 	}
@@ -462,7 +441,6 @@ public class Engine {
 		} else {
 			return false;
 		}
->>>>>>> 7ec6f479e1943522c6ca65b46094893d330511cd
 	}
 
 	/**
@@ -548,10 +526,6 @@ public class Engine {
 	 * @param object the Square object of the location on the map.
 	 * @return the ArrayList of valid locations.
 	 */
-<<<<<<< HEAD
-	public void moveNinja() {
-
-=======
 	private ArrayList<Square> getValidLocations(Square object) {
 		int row = object.getRow();
 		int col = object.getCol();
@@ -572,7 +546,6 @@ public class Engine {
 		}
 		
 		return validLocations;
->>>>>>> 7ec6f479e1943522c6ca65b46094893d330511cd
 	}
 
 	/**
