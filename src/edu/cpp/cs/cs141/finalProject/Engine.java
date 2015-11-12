@@ -309,7 +309,7 @@ public class Engine {
 	/**
 	 * Move the spy to the directed direction, can enter room, look for the document, and activate the power up if found.
 	 * @param direction an integer from 1-4: 1-up, 2-left, 3-down, 4-right.
-	 * @return the status code: 1 - the player moved sucessfully, 2 - move failed, 3 - room empty, 4 - the player got stabbed.
+	 * @return the status code: 1 - the player moved sucessfully, 2 - move failed, 3 - room empty.
 	 */
 	// TODO: Activate power up if step on.
 	public int movePlayer(int direction) {

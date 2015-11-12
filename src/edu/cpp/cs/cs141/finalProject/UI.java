@@ -188,6 +188,8 @@ public class UI {
 				status = game.movePlayer(3);
 				if (status == 1) {
 					valid = true;
+				} else if (status == 3) {
+					System.out.print("This room is empty, keep going: ");
 				} else {
 					System.out.print("Can not go there! Try again: ");
 				}
