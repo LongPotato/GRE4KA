@@ -90,7 +90,7 @@ public class Engine {
 	public void setUpMap() {
 		assignRooms();
 		spy = assignSpy();
-		//assignSpyVisibility();
+		assignSpyVisibility();
 		assignPowerUps();
 		assignNinjas();
 	}
@@ -344,6 +344,9 @@ public class Engine {
 					spy.setRow(row - 1);
 					map[row - 1][col] = spy;
 					map[row][col] = new Square(debug, row, col);
+				} else if (isNinja(map[row - 1][col])) {
+					stabSpy();
+					return 4;
 				} else {
 					return 2;
 				}
