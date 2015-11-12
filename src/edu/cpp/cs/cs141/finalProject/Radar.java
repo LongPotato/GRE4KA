@@ -30,7 +30,7 @@ public class Radar extends PowerUp {
 	public Radar(String symbol, int row, int col) {
 		super("D", row, col);
 	}
-	
+
 	public Radar(int row, int col) {
 		super("D", row, col);
 	}
