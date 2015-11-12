@@ -50,7 +50,7 @@ public class Room extends Square {
 	 * Check to see if the room contain the briefcase.
 	 * @return true if the room has the briefcase.
 	 */
-	public boolean isBriefcase() {
+	public boolean hasBriefCase() {
 		return briefcase;
 	}
 

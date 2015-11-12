@@ -33,7 +33,7 @@ public class UI {
 	 */
 	public void startGame() {
 		game = new Engine();
-		// Fill & set up the map.
+		// Fill & set up the map with game objects.
 		game.fillMapWithSquare();
         game.setUpMap();
         
@@ -109,6 +109,7 @@ public class UI {
 			boolean valid = false;
 			
 			printMap(game.getMap());
+			printGameInfo(game);
 			
 			do {
 				System.out.println("What would you like to do? Type M for move, S for shoot.");
@@ -118,6 +119,10 @@ public class UI {
 				switch (choice) {
 				case "M":
 					getPlayerMovement();
+					if (!game.moveNinja()) {
+						System.out.println("You got stabbed by a ninja!");
+					}
+					//game.assignSpyVisibility();
 					valid = true;
 					break;
 				case "S":
@@ -129,6 +134,10 @@ public class UI {
 					break;
 				}
 			} while (!valid);
+		}
+		
+		if (game.gameOver()) {
+			System.out.println("YOU HAVE FOUND THE GRE4KA, YOU WIN!");
 		}
 	}
 	
@@ -146,6 +155,7 @@ public class UI {
 	 */
 	private void getPlayerMovement() {
 		String directionM = "";
+		int status;
 		boolean valid = false;
 		System.out.println("Which direction would you like to move? "
 				+ "Enter W to move up, A to move left, S to move down, and D to move right.");
@@ -157,7 +167,8 @@ public class UI {
 			switch (directionM) {
 			case "W":
 				// Move up
-				if (game.movePlayer(1)) {
+				status = game.movePlayer(1);
+				if (status == 1) {
 					valid = true;
 				} else {
 					System.out.print("Can not go there! Try again: ");
@@ -165,7 +176,8 @@ public class UI {
 				break;
 			case "A":
 				// Move left
-				if (game.movePlayer(2)) {
+				status = game.movePlayer(2);
+				if (status == 1) {
 					valid = true;
 				} else {
 					System.out.print("Can not go there! Try again: ");
@@ -173,15 +185,19 @@ public class UI {
 				break;
 			case "S":
 				// Move down
-				if (game.movePlayer(3)) {
+				status = game.movePlayer(3);
+				if (status == 1) {
 					valid = true;
+				} else if (status == 3) {
+					System.out.print("This room is empty, keep going: ");
 				} else {
 					System.out.print("Can not go there! Try again: ");
 				}
 				break;
 			case "D":
 				// Move right
-				if (game.movePlayer(4)) {
+				status = game.movePlayer(4);
+				if (status == 1) {
 					valid = true;
 				} else {
 					System.out.print("Can not go there! Try again: ");
@@ -216,6 +232,17 @@ public class UI {
 			}
 			System.out.println("\n");
 		}
+	}
+	
+	/**
+	 * Display the game informtaion: number of lives, number of bullets, what kind of power up is activated.
+	 * @param game the game engine of the current game.
+	 */
+	public void printGameInfo(Engine game) {
+		System.out.println("------------------");
+		System.out.println("Lives: " + game.getSpy().getLives());
+		System.out.println("Bullets: " + game.getSpy().getBullets());
+		System.out.println("------------------");
 	}
 	
 }
