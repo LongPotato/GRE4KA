@@ -400,7 +400,10 @@ public class Engine {
 			}
 			break;
 		}
+<<<<<<< HEAD
 		
+=======
+>>>>>>> c66e2dcfbff841b775608a8d69ed38a651ed95fe
 		return 1;
 	}
 	
