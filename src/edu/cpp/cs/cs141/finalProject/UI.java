@@ -122,7 +122,7 @@ public class UI {
 					if (!game.moveNinja()) {
 						System.out.println("You got stabbed by a ninja!");
 					}
-					//game.assignSpyVisibility();
+					game.assignSpyVisibility();
 					valid = true;
 					break;
 				case "S":
