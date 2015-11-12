@@ -83,7 +83,7 @@ public class Engine {
 	public void setUpMap() {
 		assignRooms();
 		spy = assignSpy();
-		assignSpyVisibility();
+		//assignSpyVisibility();
 		assignPowerUps();
 		assignNinjas();
 	}
@@ -374,10 +374,6 @@ public class Engine {
 			}
 			break;
 		}
-		
-		//TODO: Check for power ups, work on spy visibility.
-		assignSpyVisibility();
-		moveNinja();
 		return 1;
 	}
 	
