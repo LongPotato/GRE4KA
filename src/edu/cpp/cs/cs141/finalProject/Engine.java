@@ -50,7 +50,7 @@ public class Engine {
 	/**
 	 * The winning status of the current game.
 	 */
-	private boolean win = false;
+	private int win = 0;
 	/**
 	 * To randomize the position of the map.
 	 */
@@ -411,7 +411,7 @@ public class Engine {
 					// The spy can only enter the room from this north side by moving down.
 					// Enter room, check for brief case.
 					if (((Room) map[row + 1][col]).hasBriefCase()) {
-						win = true;
+						win = 1;
 					} else {
 						// Return code 3 if room is empty.
 						return 3;
@@ -620,6 +620,11 @@ public class Engine {
 		int oldRow = spy.getRow();
 		int oldCol = spy.getCol();
 		spy.getStabbed();
+		int spyLives = spy.getLives();
+		if(spyLives == 0){
+			win = 2;
+			System.out.println("You have lost the game");
+		}
 		map[8][0] = spy;
 		spy.setRow(8);
 		spy.setCol(0);
@@ -630,7 +635,7 @@ public class Engine {
 	 * Check for the winning condition of the game.
 	 * @return true if game is over
 	 */
-	public boolean gameOver() {
+	public int gameOver() {
 		return win;
 	}
 
