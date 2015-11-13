@@ -103,64 +103,35 @@ public class UI {
 	 * Keep printing out map and getting user input, pass it into the game engine to handle the logic.
 	 */
 	private void gameLoop() {
-		String choice = "";
 		
 		while(!game.gameOver()) {
-			boolean valid = false;
-			
 			printMap(game.getMap());
 			printGameInfo(game);
 			
-			do {
-				System.out.println("What would you like to do? Type M for move, S for shoot.");
-				choice = input.nextLine();
-				choice = choice.toUpperCase();
-				
-				switch (choice) {
-				case "M":
-					getPlayerMovement();
-					if (!game.moveNinja()) {
-						System.out.println("You got stabbed by a ninja!");
-					}
-					if (!game.getDebug()) {
-						game.assignSpyVisibility();
-					}
-					valid = true;
-					break;
-				case "S":
-					playerShoot();
-					valid = true;
-					break;
-				default:
-					System.out.println("Incorrect Entry. Try Again.");
-					break;
-				}
-			} while (!valid);
+			getPlayerDecision();
+			if (!game.moveNinja()) {
+				printSpyGotStabMessage();
+			}
+			if (!game.getDebug()) {
+				game.assignSpyVisibility();
+			}
 		}
 		
 		if (game.gameOver()) {
 			System.out.println("YOU HAVE FOUND THE GRE4KA, YOU WIN!");
 		}
 	}
-	
-	/**
-	 * 
-	 */
-	private void playerShoot() {
-		// TODO The same as getPlayerMovement?
-		
-	}
 
 	/**
-	 * Get which direction the player will move via user input
-	 * and then runs the corresponding method in class Engine.
+	 * Get the use input: moving direction, shooting direction.
+	 * Call the coressponding method from the engine to perfom the action.
 	 */
-	private void getPlayerMovement() {
+	private void getPlayerDecision() {
 		String directionM = "";
 		int status;
 		boolean valid = false;
-		System.out.println("Which direction would you like to move? "
-				+ "Enter W to move up, A to move left, S to move down, and D to move right.");
+		System.out.println("What do you want to do? "
+				+ "Enter W to move up, A to move left, S to move down, D to move right or P to shoot.");
 		
 		do {
 			directionM = input.nextLine();
@@ -172,6 +143,9 @@ public class UI {
 				status = game.movePlayer(1);
 				if (status == 1) {
 					valid = true;
+				} else if (status == 4) {
+					printSpyGotStabMessage();
+					valid = true;
 				} else {
 					System.out.print("Can not go there! Try again: ");
 				}
@@ -181,6 +155,9 @@ public class UI {
 				status = game.movePlayer(2);
 				if (status == 1) {
 					valid = true;
+				} else if (status == 4) {
+					printSpyGotStabMessage();
+					valid = true;
 				} else {
 					System.out.print("Can not go there! Try again: ");
 				}
@@ -189,6 +166,9 @@ public class UI {
 				// Move down
 				status = game.movePlayer(3);
 				if (status == 1) {
+					valid = true;
+				} else if (status == 4) {
+					printSpyGotStabMessage();
 					valid = true;
 				} else if (status == 3) {
 					System.out.print("This room is empty, keep going: ");
@@ -200,6 +180,9 @@ public class UI {
 				// Move right
 				status = game.movePlayer(4);
 				if (status == 1) {
+					valid = true;
+				} else if (status == 4) {
+					printSpyGotStabMessage();
 					valid = true;
 				} else {
 					System.out.print("Can not go there! Try again: ");
@@ -245,6 +228,16 @@ public class UI {
 		System.out.println("Lives: " + game.getSpy().getLives());
 		System.out.println("Bullets: " + game.getSpy().getBullets());
 		System.out.println("------------------");
+	}
+	
+	/**
+	 * Print out the message to notify the player that the spy got stabbed by a ninja.
+	 * User need to press any key to acknowledge the information.
+	 */
+	public void printSpyGotStabMessage() {
+		System.out.println("\nYOU GOT STABBED BY A NINJA!\n\n");
+		System.out.println("Press enter to countinue...");
+		input.nextLine();
 	}
 	
 }
