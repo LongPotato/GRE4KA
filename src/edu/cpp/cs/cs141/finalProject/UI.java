@@ -104,7 +104,7 @@ public class UI {
 	 */
 	private void gameLoop() {
 		
-		while(!game.gameOver()) {
+		while(game.gameOver() == 0) {
 			printMap(game.getMap());
 			printGameInfo(game);
 			
@@ -117,9 +117,16 @@ public class UI {
 			}
 		}
 		
-		if (game.gameOver()) {
+		if (game.gameOver() == 1) {
 			System.out.println("YOU HAVE FOUND THE GRE4KA, YOU WIN!");
 		}
+		if (game.gameOver() == 2){
+			System.out.println("YOU HAVE DIED TOO MANY TIMES. YOU LOSE.");
+		}
+		System.out.println("Press enter to continue...");
+		input.nextLine();
+		System.out.print("\f");
+		startGame();
 	}
 
 	/**
