@@ -188,6 +188,10 @@ public class UI {
 					System.out.print("Can not go there! Try again: ");
 				}
 				break;
+				
+			case "P":
+				//Shoot
+				break;
 			default:
 				System.out.println("Invalid Entry. Try Again.");
 				break;
