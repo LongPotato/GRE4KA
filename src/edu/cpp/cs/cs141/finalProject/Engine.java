@@ -16,7 +16,6 @@
 package edu.cpp.cs.cs141.finalProject;
 
 import static java.lang.Math.abs;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -51,6 +50,10 @@ public class Engine {
 	 * The status code that indicate how the game end.
 	 */
 	private int gameEndStatus = 0;
+	/**
+	 * The number of turns the spy will be invulnerable from ninjas.
+	 */
+	private int invincibilityTurns = 5;
 	/**
 	 * To randomize the position of the map.
 	 */
@@ -349,23 +352,57 @@ public class Engine {
 	}
 
 	/**
-	 * Move the spy to the directed direction, can enter room, look for the
-	 * document, and activate the power up if found.
+	 * Move the spy to the directed direction. The spy can look it room, look for the
+	 * gre4ka, get stab if walk into ninja, and activate the power up if found.
 	 * @param direction an integer from 1-4: 1-up, 2-left, 3-down, 4-right.
-	 * @return the status code: 1 - the player moved sucessfully, 2 - move failed, 3 - room empty.
+	 * @return the status code: 1 - the player moved sucessfully, 2 - move failed, 3 - room empty, 4 - the player got stabbed,
+	 * 5 - the player activated Bullet power up, 6 - the player activated Radar power up, 7 - the player activated Invincibility power up,
+	 * 8- the spy is invicible, he can not get stabbed or walk into another ninja.
 	 */
-	// TODO: Activate power up if step on.
 	public int movePlayer(int direction) {
 		int row = spy.getRow();
 		int col = spy.getCol();
+		
+		// Check for spy invicibility status, decrement the turn number by 1 each turn.
+		if (spy.isInvincible()) {
+			invincibilityTurns -= 1;
+			if (invincibilityTurns <= 0) {
+				spy.setInvincibility(false);
+			}
+		}
 
 		switch (direction) {
 		case 1: // Move up
 			if (row - 1 >= 0) {
 				if (!isRoom(map[row - 1][col])) {
 					if (isNinja(map[row - 1][col])) {
-						stabSpy();
-						return 4;
+						if (spy.isInvincible()) {
+							// The spy can not get stabbed or walk into another ninja.
+							return 8;
+						} else {
+							stabSpy();
+							return 4;
+						}
+					} else if (map[row - 1][col] instanceof Bullet) {
+						if (spy.getBullets() < 1) {
+							spy.addBullet();
+							spy.setRow(row - 1);
+							map[row - 1][col] = spy;
+							map[row][col] = new Square(debug, row, col);
+							return 5;
+						}
+					} else if (map[row - 1][col] instanceof Radar) {
+						briefCaseRoom.setSymbol("*");
+						spy.setRow(row - 1);
+						map[row - 1][col] = spy;
+						map[row][col] = new Square(debug, row, col);
+						return 6;
+					} else if (map[row - 1][col] instanceof Invincibility) {
+						spy.setInvincibility(true);
+						spy.setRow(row - 1);
+						map[row - 1][col] = spy;
+						map[row][col] = new Square(debug, row, col);
+						return 7;
 					} else {
 						spy.setRow(row - 1);
 						map[row - 1][col] = spy;
@@ -382,8 +419,33 @@ public class Engine {
 			if (col - 1 >= 0) {
 				if (!isRoom(map[row][col - 1])) {
 					if (isNinja(map[row][col - 1])) {
-						stabSpy();
-						return 4;
+						if (spy.isInvincible()) {
+							// The spy can not get stabbed or walk into another ninja.
+							return 8;
+						} else {
+							stabSpy();
+							return 4;
+						}
+					} else if (map[row][col - 1] instanceof Bullet) {
+						if (spy.getBullets() < 1) {
+							spy.addBullet();
+							spy.setCol(col - 1);
+							map[row][col - 1] = spy;
+							map[row][col] = new Square(debug, row, col);
+							return 5;
+						}
+					} else if (map[row][col - 1] instanceof Radar) {
+						briefCaseRoom.setSymbol("*");
+						spy.setCol(col - 1);
+						map[row][col - 1] = spy;
+						map[row][col] = new Square(debug, row, col);
+						return 6;
+					} else if (map[row][col - 1] instanceof Invincibility) {
+						spy.setInvincibility(true);
+						spy.setCol(col - 1);
+						map[row][col - 1] = spy;
+						map[row][col] = new Square(debug, row, col);
+						return 7;
 					} else {
 						spy.setCol(col - 1);
 						map[row][col - 1] = spy;
@@ -400,8 +462,33 @@ public class Engine {
 			if (row + 1 <= 8) {
 				if (!isRoom(map[row + 1][col])) {
 					if (isNinja(map[row + 1][col])) {
-						stabSpy();
-						return 4;
+						if (spy.isInvincible()) {
+							// The spy can not get stabbed or walk into another ninja.
+							return 8;
+						} else {
+							stabSpy();
+							return 4;
+						}
+					} else if (map[row + 1][col] instanceof Bullet) {
+						if (spy.getBullets() < 1) {
+							spy.addBullet();
+							spy.setRow(row + 1);
+							map[row + 1][col] = spy;
+							map[row][col] = new Square(debug, row, col);
+							return 5;
+						}
+					} else if (map[row + 1][col] instanceof Radar) {
+						briefCaseRoom.setSymbol("*");
+						spy.setRow(row + 1);
+						map[row + 1][col] = spy;
+						map[row][col] = new Square(debug, row, col);
+						return 6;
+					} else if (map[row + 1][col] instanceof Invincibility) {
+						spy.setInvincibility(true);
+						spy.setRow(row + 1);
+						map[row + 1][col] = spy;
+						map[row][col] = new Square(debug, row, col);
+						return 7;
 					} else {
 						spy.setRow(row + 1);
 						map[row + 1][col] = spy;
@@ -427,8 +514,33 @@ public class Engine {
 			if (col + 1 <= 8) {
 				if (!isRoom(map[row][col + 1])) {
 					if (isNinja(map[row][col + 1])) {
-						stabSpy();
-						return 4;
+						if (spy.isInvincible()) {
+							// The spy can not get stabbed or walk into another ninja.
+							return 8;
+						} else {
+							stabSpy();
+							return 4;
+						}
+					} else if (map[row][col + 1] instanceof Bullet) {
+						if (spy.getBullets() < 1) {
+							spy.addBullet();
+							spy.setCol(col + 1);
+							map[row][col + 1] = spy;
+							map[row][col] = new Square(debug, row, col);
+							return 5;
+						}
+					} else if (map[row][col + 1] instanceof Radar) {
+						briefCaseRoom.setSymbol("*");
+						spy.setCol(col + 1);
+						map[row][col + 1] = spy;
+						map[row][col] = new Square(debug, row, col);
+						return 6;
+					} else if (map[row][col + 1] instanceof Invincibility) {
+						spy.setInvincibility(true);
+						spy.setCol(col + 1);
+						map[row][col + 1] = spy;
+						map[row][col] = new Square(debug, row, col);
+						return 7;
 					} else {
 						spy.setCol(col + 1);
 						map[row][col + 1] = spy;
@@ -525,9 +637,21 @@ public class Engine {
 				}
 			}
 
-			// If there's the spy next to this ninja, stab him!
-			if (checkForSpy(ninja)) {
-				return false;
+			// The ninja can not stab the spy if the spy has invincibility.
+			if (!spy.isInvincible()) {
+				// If there's the spy next to this ninja, stab him!
+				if (checkForSpy(ninja)) {
+					return false;
+				}
+			} else {
+				// Remove the spy location from ninja's possible moves when the spy is invincible.
+				Iterator<Square> iter = validLocations.iterator();
+				while (iterator.hasNext()) {
+					Square loc = iter.next();
+					if (loc instanceof Spy) {
+						iterator.remove();
+					}
+				}
 			}
 
 			// If the ninja got place in the dead end corner and has no where to
@@ -644,6 +768,14 @@ public class Engine {
 	 */
 	public Spy getSpy() {
 		return spy;
+	}
+	
+	/**
+	 * Return the number of the turn of the the spy's invincibility.
+	 * @return an int from 0-5
+	 */
+	public int getInvincibilityTurns() {
+		return invincibilityTurns;
 	}
 	
 	/**

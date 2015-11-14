@@ -42,14 +42,4 @@ public abstract class PowerUp extends Square {
 	public boolean isActive() {
 		return active;
 	}
-
-	/**
-	 * Set the active status of the power up item to true.
-	 * This methods will also be override by it sup classes to activate special effect for each item.
-	 * @param spy the spy object that the power up item will have effect on.
-	 * @param rooms the array contains all the rooms on the map.
-	 */
-	public void activate(Spy spy, Room[] room) {
-		this.active = true;
-	}
 }

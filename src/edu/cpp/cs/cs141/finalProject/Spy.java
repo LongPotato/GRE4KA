@@ -97,13 +97,12 @@ public class Spy extends Square {
 	}
 
 	/**
-	 * Set the number of bullets the spy have
-	 * @param bullets the number of bullets
+	 * Increase the current number of bullet the spy has by 1.
 	 */
-	public void setBullets(int bullets) {
-		this.bullets = bullets;
+	public void addBullet() {
+		bullets += 1;
 	}
-
+	
 	/**
 	 * Check if the spy is immune to death.
 	 * @return true if invincible

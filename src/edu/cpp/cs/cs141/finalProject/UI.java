@@ -153,6 +153,15 @@ public class UI {
 				status = game.movePlayer(1);
 				if (status == 1) {
 					valid = true;
+				} else if (status == 5) {
+					printActivateBulletMessage();
+					valid = true;
+				} else if (status == 6) {
+					printActivateRadarMessage();
+					valid = true;
+				} else if (status == 7) {
+					printActivateInvincibilityMessage();
+					valid = true;
 				} else if (status == 4) {
 					printSpyGotStabMessage();
 					valid = true;
@@ -165,6 +174,15 @@ public class UI {
 				status = game.movePlayer(2);
 				if (status == 1) {
 					valid = true;
+				} else if (status == 5) {
+					printActivateBulletMessage();
+					valid = true;
+				} else if (status == 6) {
+					printActivateRadarMessage();
+					valid = true;
+				} else if (status == 7) {
+					printActivateInvincibilityMessage();
+					valid = true;
 				} else if (status == 4) {
 					printSpyGotStabMessage();
 					valid = true;
@@ -176,6 +194,15 @@ public class UI {
 				// Move down
 				status = game.movePlayer(3);
 				if (status == 1) {
+					valid = true;
+				} else if (status == 5) {
+					printActivateBulletMessage();
+					valid = true;
+				} else if (status == 6) {
+					printActivateRadarMessage();
+					valid = true;
+				} else if (status == 7) {
+					printActivateInvincibilityMessage();
 					valid = true;
 				} else if (status == 4) {
 					printSpyGotStabMessage();
@@ -190,6 +217,15 @@ public class UI {
 				// Move right
 				status = game.movePlayer(4);
 				if (status == 1) {
+					valid = true;
+				} else if (status == 5) {
+					printActivateBulletMessage();
+					valid = true;
+				} else if (status == 6) {
+					printActivateRadarMessage();
+					valid = true;
+				} else if (status == 7) {
+					printActivateInvincibilityMessage();
 					valid = true;
 				} else if (status == 4) {
 					printSpyGotStabMessage();
@@ -234,11 +270,14 @@ public class UI {
 	}
 	
 	/**
-	 * Display the game informtaion: number of lives, number of bullets, what kind of power up is activated.
+	 * Display the game informtaion: number of lives, number of bullets, how many turn of invicibility if activated.
 	 * @param game the game engine of the current game.
 	 */
 	public void printGameInfo(Engine game) {
 		System.out.println("------------------");
+		if (game.getSpy().isInvincible()) {
+			System.out.println("Invincible for: " + game.getInvincibilityTurns() + " turns");
+		}
 		System.out.println("Lives: " + game.getSpy().getLives());
 		System.out.println("Bullets: " + game.getSpy().getBullets());
 		System.out.println("------------------");
@@ -250,6 +289,37 @@ public class UI {
 	 */
 	public void printSpyGotStabMessage() {
 		System.out.println("\nYOU GOT STABBED BY A NINJA!\n\n");
+		System.out.println("Press enter to countinue...");
+		input.nextLine();
+	}
+	
+	/**
+	 * Print out the message to notify the player that he activated the Bullet power up.
+	 * User need to press any key to acknowledge the information.
+	 */
+	public void printActivateBulletMessage() {
+		System.out.println("\nYOU HAVE FOUND AN ADITIONAL BULLET! USE IT WISELY\n\n");
+		System.out.println("Press enter to countinue...");
+		input.nextLine();
+	}
+	
+	/**
+	 * Print out the message to notify the player that he activated the Radar power up.
+	 * User need to press any key to acknowledge the information.
+	 */
+	public void printActivateRadarMessage() {
+		System.out.println("\nYOU HAVE FOUND A RARA!\n\n");
+		printSecretRoom();
+		System.out.println("Press enter to countinue...");
+		input.nextLine();
+	}
+	
+	/**
+	 * Print out the message to notify the player that he activated the Invincibility power up.
+	 * User need to press any key to acknowledge the information.
+	 */
+	public void printActivateInvincibilityMessage() {
+		System.out.println("\nYOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS\n\n");
 		System.out.println("Press enter to countinue...");
 		input.nextLine();
 	}
