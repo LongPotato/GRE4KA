@@ -48,9 +48,9 @@ public class Engine {
 	 */
 	private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
 	/**
-	 * The winning status of the current game.
+	 * The status code that indicate how the game end.
 	 */
-	private int win = 0;
+	private int gameEndStatus = 0;
 	/**
 	 * To randomize the position of the map.
 	 */
@@ -411,7 +411,7 @@ public class Engine {
 					// The spy can only enter the room from this north side by moving down.
 					// Enter room, check for brief case.
 					if (((Room) map[row + 1][col]).hasBriefCase()) {
-						win = 1;
+						gameEndStatus = 1;
 					} else {
 						// Return code 3 if room is empty.
 						return 3;
@@ -622,8 +622,7 @@ public class Engine {
 		spy.getStabbed();
 		int spyLives = spy.getLives();
 		if(spyLives == 0){
-			win = 2;
-			System.out.println("You have lost the game");
+			gameEndStatus = 2;
 		}
 		map[8][0] = spy;
 		spy.setRow(8);
@@ -633,10 +632,10 @@ public class Engine {
 
 	/**
 	 * Check for the winning condition of the game.
-	 * @return true if game is over
+	 * @return and integer for game end status code: 1-found the briefcase, 2-got stabbed to death.
 	 */
 	public int gameOver() {
-		return win;
+		return gameEndStatus;
 	}
 
 	/**

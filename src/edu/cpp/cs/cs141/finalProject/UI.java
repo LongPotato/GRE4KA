@@ -32,27 +32,34 @@ public class UI {
 	 * and execute the game loop logic.
 	 */
 	public void startGame() {
-		game = new Engine();
-		// Fill & set up the map with game objects.
-		game.fillMapWithSquare();
-        game.setUpMap();
-        
-        printWelcomeMessage();
-        int choice = mainMenu();
-        switch (choice) {
-        case 1:
-        	gameLoop();
-        	break;
-        case 2:
-        	game.activateDebugMode();
-        	printSecretRoom();
-        	gameLoop();
-        	break;
-        default:
-        	System.out.println("Game exited!");
-        	break;
-        }
-        	
+		String repeat;
+		
+		do {
+			game = new Engine();
+			// Fill & set up the map with game objects.
+			game.fillMapWithSquare();
+	        game.setUpMap();
+	        
+	        printWelcomeMessage();
+	        int choice = mainMenu();
+	        switch (choice) {
+	        case 1:
+	        	gameLoop();
+	        	break;
+	        case 2:
+	        	game.activateDebugMode();
+	        	printSecretRoom();
+	        	gameLoop();
+	        	break;
+	        default:
+	        	System.out.println("Game exited!");
+	        	break;
+	        }
+			System.out.print("Game over. Play again? (y/n):");
+			repeat = input.nextLine();
+		} while (repeat.toLowerCase().equals("y"));
+		
+		System.out.println("Game exited!");
 	}
 	
 	/**
@@ -118,15 +125,11 @@ public class UI {
 		}
 		
 		if (game.gameOver() == 1) {
-			System.out.println("YOU HAVE FOUND THE GRE4KA, YOU WIN!");
+			System.out.println("YOU HAVE FOUND THE GRE4KA. YOU WIN!");
 		}
 		if (game.gameOver() == 2){
-			System.out.println("YOU HAVE DIED TOO MANY TIMES. YOU LOSE.");
+			System.out.println("YOU HAVE DIED TOO MANY TIMES. YOU LOSE!");
 		}
-		System.out.println("Press enter to continue...");
-		input.nextLine();
-		System.out.print("\f");
-		startGame();
 	}
 
 	/**
