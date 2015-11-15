@@ -35,15 +35,4 @@ public class Radar extends PowerUp {
 		super("D", row, col);
 	}
 	
-	/**
-	 * Override from the parent class, loop through all the rooms to find the room object that contains the briefcase.
-	 * Set that room's visibility attribute to true to display the location.
-	 * @param spy the spy object that the power up item will have effect on.
-	 * @param rooms the array contains all the rooms on the map.
-	 */
-	public void activate(Spy spy, Room[] rooms) {
-		// Code here
-		super.activate(spy, rooms);
-	}
-
 }
