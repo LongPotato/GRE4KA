@@ -104,6 +104,13 @@ public class Spy extends Square {
 	}
 	
 	/**
+	 * Decrease the current number of bullets the spy has by 1.
+	 */
+	public void useBullet() {
+		bullets -= 1;
+	}
+	
+	/**
 	 * Check if the spy is immune to death.
 	 * @return true if invincible
 	 */
