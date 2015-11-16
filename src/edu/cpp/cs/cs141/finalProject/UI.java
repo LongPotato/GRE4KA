@@ -53,6 +53,19 @@ public class UI {
 	    	System.out.println("Game exited!");
 	    	break;
 	    }
+	    
+	    String repeat;
+		do{
+			System.out.print("Game over. Play again? (y/n):");
+			repeat = input.nextLine();
+			if(repeat.toLowerCase().equals("y")) {
+				for(int i = 0; i < 50; ++i)
+					System.out.println();
+				startGame();
+			}
+		} while(!repeat.toLowerCase().equals("y") || !repeat.toLowerCase().equals("n"));
+			System.out.println("Invalid Entry. Try Again...");
+
 	}
 	
 	/**
@@ -103,8 +116,6 @@ public class UI {
 	 * Keep printing out map and getting user input, pass it into the game engine to handle the logic.
 	 */
 	private void gameLoop() {
-		String repeat;
-		
 		while(game.gameOver() == 0) {
 			printMap(game.getMap());
 			printGameInfo(game);
@@ -124,21 +135,6 @@ public class UI {
 		if (game.gameOver() == 2){
 			System.out.println("YOU HAVE DIED TOO MANY TIMES. YOU LOSE!");
 		}
-		
-		do{
-			System.out.print("Game over. Play again? (y/n):");
-			repeat = input.nextLine();
-			if(repeat.toLowerCase().equals("y")) {
-				for(int i = 0; i < 50; ++i)
-					System.out.println();
-				startGame();
-			}
-			else if(repeat.toLowerCase().equals("n")){
-				System.out.println("Game exited!");
-				System.exit(0);
-			}
-		} while(!repeat.toLowerCase().equals("y") || !repeat.toLowerCase().equals("n"));
-			System.out.println("Invalid Entry. Try Again...");
 	}
 
 	/**
@@ -245,6 +241,11 @@ public class UI {
 				break;
 			case "P":
 				//Shoot
+				int bulletCount = game.getSpy().getBullets();
+				if (bulletCount > 0)
+					getShootDirection();
+				else
+					System.out.println("You have no bullets...");
 				valid = true;
 				break;
 			default:
@@ -331,6 +332,45 @@ public class UI {
 		System.out.println("\nYOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS\n\n");
 		System.out.println("Press enter to countinue...");
 		input.nextLine();
+	}
+	
+	public void getShootDirection() {
+		int parameter = 0;
+		boolean valid = false;
+		
+		do{
+			System.out.println("Which direction would you like to shoot?");
+			String direction = input.nextLine().toUpperCase();
+			switch (direction) {
+			case "W":
+				parameter = 1;
+				valid = true;
+				break;
+			case "A":
+				parameter = 2;
+				valid = true;
+				break;
+			case "S":
+				parameter = 3;
+				valid = true;
+				break;
+			case "D":
+				parameter = 4;
+				valid = true;
+				break;
+			default:
+				parameter = 0;
+				valid = false;
+				break;
+			}
+		} while(valid = false);
+		
+		int status = game.shootNinja(parameter);
+		
+		if(status == 1) {
+			System.out.println("YOU HAVE KILLED A NINJA!");
+		} else
+			System.out.println("YOUR SHOT MISSED EVERYTHING");
 	}
 	
 }

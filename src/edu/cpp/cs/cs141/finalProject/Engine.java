@@ -700,9 +700,11 @@ public class Engine {
 		int col = spy.getCol();
 		
 		switch(direction){
-		case 1:
-			if(row - 1 < 0) 
+		case 1: //shoot up
+			if(row == 0) {
+				spy.useBullet();
 				return 2;
+			}
 			else 
 				for (int i = 1; row - i > 0 ; i++)
 				{
@@ -718,31 +720,99 @@ public class Engine {
 								iterator.remove();
 							}
 						}
-						
-						break;
-					}
-					
-
+						spy.useBullet();
+						return 1;
+					}	
 				}
 			
-				
-				return 1;
+				spy.useBullet();
+				return 2;
 			
-		case 2:
-			if (row + 1 >0)
-			return 2;
+		case 2: //shoot down
+			if (row == 8) {
+				spy.useBullet();
+				return 2;
+			}
+			else 
+				for (int i = 1; row + i > 0 ; i++)
+				{
+					//isNinja replace with Square object
+					if (isNinja(map[row + i][col])) {
+						Ninja deleteNinja = (Ninja) map[row + i][col];
+						map[row + i][col] = new Square(debug, row + i, col);
+						
+						Iterator<Ninja> iterator = ninjas.iterator();
+						while (iterator.hasNext()) {
+							Square loc = iterator.next();
+							if (loc.equals(deleteNinja)) {
+								iterator.remove();
+							}
+						}
+						spy.useBullet();
+						return 1;
+					}
+				}
 			
-		case 3:
-			if (col - 1 < 0)
-			return 2;
+				spy.useBullet();
+				return 2;
 			
-		case 4: 
-			if( col + 1 > 0)
-			return 2;
+		case 3: //shoot left
+			if (col == 0) {
+				spy.useBullet();
+				return 2;
+			}
+			else 
+				for (int i = 1; col - i > 0 ; i++)
+				{
+					//isNinja replace with Square object
+					if (isNinja(map[row][col - i])) {
+						Ninja deleteNinja = (Ninja) map[row][col - i];
+						map[row][col - i] = new Square(debug, row, col - i);
+						
+						Iterator<Ninja> iterator = ninjas.iterator();
+						while (iterator.hasNext()) {
+							Square loc = iterator.next();
+							if (loc.equals(deleteNinja)) {
+								iterator.remove();
+							}
+						}
+						spy.useBullet();
+						return 1;
+					}
+				}
+			
+				spy.useBullet();
+				return 2;
+			
+		case 4: // shoot right
+			if(col == 8) {
+				spy.useBullet();
+				return 2;
+			}
+			else 
+				for (int i = 1; col + i > 0 ; i++)
+				{
+					//isNinja replace with Square object
+					if (isNinja(map[row][col + i])) {
+						Ninja deleteNinja = (Ninja) map[row][col + i];
+						map[row][col + i] = new Square(debug, row, col + i);
+						
+						Iterator<Ninja> iterator = ninjas.iterator();
+						while (iterator.hasNext()) {
+							Square loc = iterator.next();
+							if (loc.equals(deleteNinja)) {
+								iterator.remove();
+							}
+						}
+						spy.useBullet();
+						return 1;
+					}
+				}
+			
+				spy.useBullet();
+				return 2;
 		}
-		
 		return direction;
-		
 	}
 
 	/**
