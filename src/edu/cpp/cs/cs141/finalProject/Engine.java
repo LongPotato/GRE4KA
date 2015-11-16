@@ -693,6 +693,57 @@ public class Engine {
 
 		return 1;
 	}
+	
+	public int shootNinja(int direction) {
+		
+		int row = spy.getRow();
+		int col = spy.getCol();
+		
+		switch(direction){
+		case 1:
+			if(row - 1 < 0) 
+				return 2;
+			else 
+				for (int i = 1; row - i > 0 ; i++)
+				{
+					//isNinja replace with Square object
+					if (isNinja(map[row - i][col])) {
+						Ninja deleteNinja = (Ninja) map[row - i][col];
+						map[row - i][col] = new Square(debug, row - i, col);
+						
+						Iterator<Ninja> iterator = ninjas.iterator();
+						while (iterator.hasNext()) {
+							Square loc = iterator.next();
+							if (loc.equals(deleteNinja)) {
+								iterator.remove();
+							}
+						}
+						
+						break;
+					}
+					
+
+				}
+			
+				
+				return 1;
+			
+		case 2:
+			if (row + 1 >0)
+			return 2;
+			
+		case 3:
+			if (col - 1 < 0)
+			return 2;
+			
+		case 4: 
+			if( col + 1 > 0)
+			return 2;
+		}
+		
+		return direction;
+		
+	}
 
 	/**
 	 * The Spy can not overlap the room. Check if the object belongs to the Room
@@ -739,6 +790,8 @@ public class Engine {
 	 * @param square
 	 */
 	public void playerShoot(Square square) {
+		
+		
 
 	}
 
