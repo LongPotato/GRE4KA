@@ -151,6 +151,9 @@ public class Engine {
 	 * are nearby.
 	 */
 	public void assignSpyVisibility() {
+		int row = spy.getRow();
+		int col = spy.getCol();
+		
 		// Traverse through the spyVisibilityLocations array to switch visibility location from previous turn to false.
 		if (!spyVisibilityLocations.isEmpty()){
 			for (Square a : spyVisibilityLocations){
@@ -169,6 +172,7 @@ public class Engine {
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
 				if (i == spy.getRow() && abs(spy.getCol() - j) < 3) {
+					
 					// Check for ninjas and powerups near by to switch their visibility to true.
 					if (isNinja(map[i][j])) {
 						map[i][j].setVisible(true);
@@ -180,18 +184,6 @@ public class Engine {
 						spyVisibilityLocations.add(map[i][j]);
 					}
 					
-					/**
-					if (isRoom(map[i][j-1])) {
-						map[i][j+2].setSymbol("X");
-						map[i][j-2].setVisible(false);
-					}
-					
-					if (isRoom(map[i][j+1])) {
-						map[i][j-2].setSymbol("X");
-						map[i][j+2].setVisible(false);	
-					}
-					*/
-					
 					if (map[i][j].getSymbol().equals("X")) {
 						map[i][j].setSymbol(" ");
 						map[i][j].setVisible(true);
@@ -200,6 +192,7 @@ public class Engine {
 						map[i][j].getSymbol();
 					}
 				}
+				
 				if (j == spy.getCol() && abs(spy.getRow() - i) < 3) {
 					if (isNinja(map[i][j])) {
 						map[i][j].setVisible(true);
@@ -210,17 +203,6 @@ public class Engine {
 						map[i][j].setVisible(true);
 						spyVisibilityLocations.add(map[i][j]);
 					}
-					/**
-					if (isRoom(map[i - 1][j])) {
-						map[i+2][j].setSymbol("X");
-						map[i+2][j].setVisible(false);
-					}
-					
-					if (isRoom(map[i + 1][j])) {
-						map[i-2][j].setSymbol("X");
-						map[i-2][j].setVisible(false);	
-					}
-					*/
 
 					if (map[i][j].getSymbol().equals("X")) {
 						map[i][j].setSymbol(" ");
@@ -231,8 +213,134 @@ public class Engine {
 					}
 				}
 			}
-
 		}
+		
+		// If the spy stands next to a room, switch the visibility of the square beihnd the room to false.
+		if (col == 0) {
+			Square behindRoom = null;
+			
+			if (isRoom(map[row][col + 1])) {
+				behindRoom = map[row][col + 2];
+				
+				if (behindRoom.getSymbol().equals(" "))
+				{
+					behindRoom.setSymbol("X");
+					behindRoom.setVisible(false);
+				}
+				
+				if (isNinja(behindRoom) || isPowerUp(behindRoom)) {
+					behindRoom.setVisible(false);
+				}
+			}
+		} else if (col == 8) {
+			Square behindRoom = null;
+			
+			if (isRoom(map[row][col - 1])) {
+				behindRoom = map[row][col - 2];
+				
+				if (behindRoom.getSymbol().equals(" "))
+				{
+					behindRoom.setSymbol("X");
+					behindRoom.setVisible(false);
+				}
+				if (isNinja(behindRoom) || isPowerUp(behindRoom)) {
+					behindRoom.setVisible(false);
+				}
+			}
+		} else {
+			Square behindRoom = null;
+			
+			if (isRoom(map[row][col + 1])) {
+				behindRoom = map[row][col + 2];
+				
+				if (behindRoom.getSymbol().equals(" "))
+				{
+					behindRoom.setSymbol("X");
+					behindRoom.setVisible(false);
+				}
+				
+				if (isNinja(behindRoom) || isPowerUp(behindRoom)) {
+					behindRoom.setVisible(false);
+				}
+			}
+			
+			if (isRoom(map[row][col - 1])) {
+				behindRoom = map[row][col - 2];
+				
+				if (behindRoom.getSymbol().equals(" "))
+				{
+					behindRoom.setSymbol("X");
+					behindRoom.setVisible(false);
+				}
+				if (isNinja(behindRoom) || isPowerUp(behindRoom)) {
+					behindRoom.setVisible(false);
+				}
+			}
+		}
+		
+		if (row == 0) {
+			Square behindRoom = null;
+			
+			if (isRoom(map[row + 1][col])) {
+				behindRoom = map[row + 2][col];
+				
+				if (behindRoom.getSymbol().equals(" "))
+				{
+					behindRoom.setSymbol("X");
+					behindRoom.setVisible(false);
+				}
+				
+				if (isNinja(behindRoom) || isPowerUp(behindRoom)) {
+					behindRoom.setVisible(false);
+				}
+			}
+		} else if (row == 8) {
+			Square behindRoom = null;
+			
+			if (isRoom(map[row - 1][col])) {
+				behindRoom = map[row - 2][col];
+				
+				if (behindRoom.getSymbol().equals(" "))
+				{
+					behindRoom.setSymbol("X");
+					behindRoom.setVisible(false);
+				}
+				
+				if (isNinja(behindRoom) || isPowerUp(behindRoom)) {
+					behindRoom.setVisible(false);
+				}
+			}
+		} else {
+			Square behindRoom = null;
+			
+			if (isRoom(map[row + 1][col])) {
+				behindRoom = map[row + 2][col];
+				
+				if (behindRoom.getSymbol().equals(" "))
+				{
+					behindRoom.setSymbol("X");
+					behindRoom.setVisible(false);
+				}
+				
+				if (isNinja(behindRoom) || isPowerUp(behindRoom)) {
+					behindRoom.setVisible(false);
+				}
+			}
+			
+			if (isRoom(map[row - 1][col])) {
+				behindRoom = map[row - 2][col];
+				
+				if (behindRoom.getSymbol().equals(" "))
+				{
+					behindRoom.setSymbol("X");
+					behindRoom.setVisible(false);
+				}
+				
+				if (isNinja(behindRoom) || isPowerUp(behindRoom)) {
+					behindRoom.setVisible(false);
+				}
+			}
+		}	
 	}
 
 	/**
@@ -337,6 +445,11 @@ public class Engine {
 
 			Ninja ninja = new Ninja(rRow, rCol);
 			map[rRow][rCol] = ninja;
+			
+			if (debug) {
+				ninja.setVisible(true);
+			}
+			
 			// Store the ninja to the array, and mark the location as occupied.
 			ninjas.add(ninja);
 			occupiedLocations.add(map[rRow][rCol]);
@@ -767,14 +880,35 @@ public class Engine {
 		int oldRow = spy.getRow();
 		int oldCol = spy.getCol();
 		spy.getStabbed();
+		
+		// Game end if the spy reach 0 live.
 		int spyLives = spy.getLives();
 		if(spyLives == 0){
 			gameEndStatus = 2;
 		}
+		
+		// Bring the spy back to the original postion.
 		map[8][0] = spy;
 		spy.setRow(8);
 		spy.setCol(0);
 		map[oldRow][oldCol] = new Square(debug, oldRow, oldCol);
+		
+		// Resuffle ninjas locations.
+		// Delete old ninja locations from the occupied array.
+		Iterator<Square> iterator = occupiedLocations.iterator();
+		while (iterator.hasNext()) {
+			Square loc = iterator.next();
+			if (isNinja(loc)) {
+				iterator.remove();
+			}
+		}
+		
+		// Kill all current ninjas & assign 6 new ninjas.
+		for (Square ninja : ninjas) {
+			map[ninja.getRow()][ninja.getCol()] = new Square(debug, ninja.getRow(), ninja.getCol());
+		}
+		ninjas.clear();
+		assignNinjas();	
 	}
 
 	/**
