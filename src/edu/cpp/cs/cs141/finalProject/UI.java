@@ -32,34 +32,27 @@ public class UI {
 	 * and execute the game loop logic.
 	 */
 	public void startGame() {
-		String repeat;
 		
-		do {
-			game = new Engine();
-			// Fill & set up the map with game objects.
-			game.fillMapWithSquare();
-	        game.setUpMap();
+		game = new Engine();
+		// Fill & set up the map with game objects.
+		game.fillMapWithSquare();
+	    game.setUpMap();
 	        
-	        printWelcomeMessage();
-	        int choice = mainMenu();
-	        switch (choice) {
-	        case 1:
-	        	gameLoop();
-	        	break;
-	        case 2:
-	        	game.activateDebugMode();
-	        	printSecretRoom();
-	        	gameLoop();
-	        	break;
-	        default:
-	        	System.out.println("Game exited!");
-	        	break;
-	        }
-			System.out.print("Game over. Play again? (y/n):");
-			repeat = input.nextLine();
-		} while (repeat.toLowerCase().equals("y"));
-		
-		System.out.println("Game exited!");
+	    printWelcomeMessage();
+	    int choice = mainMenu();
+	    switch (choice) {
+	    case 1:
+	    	gameLoop();
+	        break;
+	    case 2:
+	    	game.activateDebugMode();
+	    	printSecretRoom();
+	    	gameLoop();
+	    	break;
+	    default:
+	    	System.out.println("Game exited!");
+	    	break;
+	    }
 	}
 	
 	/**
@@ -110,6 +103,7 @@ public class UI {
 	 * Keep printing out map and getting user input, pass it into the game engine to handle the logic.
 	 */
 	private void gameLoop() {
+		String repeat;
 		
 		while(game.gameOver() == 0) {
 			printMap(game.getMap());
@@ -130,11 +124,24 @@ public class UI {
 		if (game.gameOver() == 2){
 			System.out.println("YOU HAVE DIED TOO MANY TIMES. YOU LOSE!");
 		}
+		
+		do{
+			System.out.print("Game over. Play again? (y/n):");
+			repeat = input.nextLine();
+			if(repeat.toLowerCase().equals("y")) {
+				startGame();
+			}
+			else if(repeat.toLowerCase().equals("n")){
+				System.out.println("Game exited!");
+				System.exit(0);
+			}
+		} while(!repeat.toLowerCase().equals("y") || !repeat.toLowerCase().equals("n"));
+			System.out.println("Invalid Entry. Try Again...");
 	}
 
 	/**
 	 * Get the use input: moving direction, shooting direction.
-	 * Call the coressponding method from the engine to perfom the action.
+	 * Call the corresponding method from the engine to perform the action.
 	 */
 	private void getPlayerDecision() {
 		String directionM = "";
@@ -270,7 +277,7 @@ public class UI {
 	}
 	
 	/**
-	 * Display the game informtaion: number of lives, number of bullets, how many turn of invicibility if activated.
+	 * Display the game information: number of lives, number of bullets, how many turn of invincibility if activated.
 	 * @param game the game engine of the current game.
 	 */
 	public void printGameInfo(Engine game) {
