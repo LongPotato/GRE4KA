@@ -129,6 +129,8 @@ public class UI {
 			System.out.print("Game over. Play again? (y/n):");
 			repeat = input.nextLine();
 			if(repeat.toLowerCase().equals("y")) {
+				for(int i = 0; i < 50; ++i)
+					System.out.println();
 				startGame();
 			}
 			else if(repeat.toLowerCase().equals("n")){
@@ -305,7 +307,7 @@ public class UI {
 	 * User need to press any key to acknowledge the information.
 	 */
 	public void printActivateBulletMessage() {
-		System.out.println("\nYOU HAVE FOUND AN ADITIONAL BULLET! USE IT WISELY\n\n");
+		System.out.println("\nYOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY\n\n");
 		System.out.println("Press enter to countinue...");
 		input.nextLine();
 	}
@@ -315,7 +317,7 @@ public class UI {
 	 * User need to press any key to acknowledge the information.
 	 */
 	public void printActivateRadarMessage() {
-		System.out.println("\nYOU HAVE FOUND A RARA!\n\n");
+		System.out.println("\nYOU HAVE FOUND A RADAR!\n\n");
 		printSecretRoom();
 		System.out.println("Press enter to countinue...");
 		input.nextLine();
