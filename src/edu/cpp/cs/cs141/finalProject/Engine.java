@@ -180,6 +180,18 @@ public class Engine {
 						spyVisibilityLocations.add(map[i][j]);
 					}
 					
+					/**
+					if (isRoom(map[i][j-1])) {
+						map[i][j+2].setSymbol("X");
+						map[i][j-2].setVisible(false);
+					}
+					
+					if (isRoom(map[i][j+1])) {
+						map[i][j-2].setSymbol("X");
+						map[i][j+2].setVisible(false);	
+					}
+					*/
+					
 					if (map[i][j].getSymbol().equals("X")) {
 						map[i][j].setSymbol(" ");
 						map[i][j].setVisible(true);
@@ -198,6 +210,17 @@ public class Engine {
 						map[i][j].setVisible(true);
 						spyVisibilityLocations.add(map[i][j]);
 					}
+					/**
+					if (isRoom(map[i - 1][j])) {
+						map[i+2][j].setSymbol("X");
+						map[i+2][j].setVisible(false);
+					}
+					
+					if (isRoom(map[i + 1][j])) {
+						map[i-2][j].setSymbol("X");
+						map[i-2][j].setVisible(false);	
+					}
+					*/
 
 					if (map[i][j].getSymbol().equals("X")) {
 						map[i][j].setSymbol(" ");
