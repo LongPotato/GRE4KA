@@ -334,6 +334,10 @@ public class UI {
 		input.nextLine();
 	}
 	
+	/**
+	 * Ask and handle the input of the direction that player want to shoot.
+	 * Handle the return status code from the game engine and print out the information about shot missed or killed a ninja.
+	 */
 	public void getShootDirection() {
 		int parameter = 0;
 		@SuppressWarnings("unused")
