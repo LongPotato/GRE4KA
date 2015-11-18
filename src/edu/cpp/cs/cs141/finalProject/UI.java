@@ -146,7 +146,7 @@ public class UI {
 		int status;
 		boolean valid = false;
 		System.out.println("What do you want to do? "
-				+ "Enter W to move up, A to move left, S to move down, D to move right or P to shoot.");
+				+ "Enter W to move up, A to move left, S to move down, D to move right or P to shoot, press M for more options:");
 		
 		do {
 			directionM = input.nextLine();
@@ -248,6 +248,11 @@ public class UI {
 					System.out.println("\nYOU DON'T HAVE ANY BULLETS!\n\n");
 				valid = true;
 				break;
+			case "M":
+				// More options.
+				getOptionInput();
+				valid = true;
+				break;
 			default:
 				System.out.println("Invalid Entry. Try Again.");
 				break;
@@ -340,7 +345,6 @@ public class UI {
 	 */
 	public void getShootDirection() {
 		int parameter = 0;
-		@SuppressWarnings("unused")
 		boolean valid = false;
 		
 		do{
@@ -368,7 +372,7 @@ public class UI {
 				valid = false;
 				break;
 			}
-		} while(valid = false);
+		} while(!valid);
 		
 		int status = game.shootNinja(parameter);
 		
@@ -383,4 +387,35 @@ public class UI {
 		}
 	}
 	
+	/**
+	 * Get and handle user input for more options such as activate debug mid game, save game, quit game...
+	 */
+	void getOptionInput() {
+		String choice;
+		boolean valid = false;
+		
+		System.out.println("More options: ");
+		System.out.println("1. Activate debug mode.");
+		System.out.println("2. Quit.");
+		
+		do {
+			choice = input.nextLine();
+			
+			switch(choice) {
+			case "1":
+				game.activateDebugMode();
+		    	printSecretRoom();
+		    	valid = true;
+		    	break;
+			case "2":
+				System.out.println("Game exited!");
+				System.exit(0);
+				valid = true;
+				break;
+			default:
+				System.out.println("Invalid Entry. Try Again.");
+				break;
+			} 
+		} while (!valid);
+	}
 }
