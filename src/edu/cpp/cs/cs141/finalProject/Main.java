@@ -15,19 +15,17 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
-import java.util.Scanner;
-
+/**
+ * The main method, where the program get executed.
+ */
 public class Main {
 
 	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
 		
 		UI ui = new UI();
 		ui.startGame();
-		
-					
+				
 		System.out.println("Game exited!");
-		input.close();
 	}
 
 }

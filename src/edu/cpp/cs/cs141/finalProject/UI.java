@@ -32,40 +32,40 @@ public class UI {
 	 * and execute the game loop logic.
 	 */
 	public void startGame() {
+		String repeat = "";
 		
-		game = new Engine();
-		// Fill & set up the map with game objects.
-		game.fillMapWithSquare();
-	    game.setUpMap();
-	        
-	    printWelcomeMessage();
-	    int choice = mainMenu();
-	    switch (choice) {
-	    case 1:
-	    	gameLoop();
-	        break;
-	    case 2:
-	    	game.activateDebugMode();
-	    	printSecretRoom();
-	    	gameLoop();
-	    	break;
-	    default:
-	    	System.out.println("Game exited!");
-	    	break;
-	    }
-	    
-	    String repeat;
 		do{
-			System.out.print("Game over. Play again? (y/n):");
-			repeat = input.nextLine();
+			// Clear the screen.
 			if(repeat.toLowerCase().equals("y")) {
 				for(int i = 0; i < 50; ++i)
 					System.out.println();
-				startGame();
 			}
-		} while(!repeat.toLowerCase().equals("y") || !repeat.toLowerCase().equals("n"));
-			System.out.println("Invalid Entry. Try Again...");
-
+			
+			game = new Engine();
+			// Fill & set up the map with game objects.
+			game.fillMapWithSquare();
+		    game.setUpMap();
+		        
+		    printWelcomeMessage();
+		    int choice = mainMenu();
+		    switch (choice) {
+		    case 1:
+		    	gameLoop();
+		        break;
+		    case 2:
+		    	game.activateDebugMode();
+		    	printSecretRoom();
+		    	gameLoop();
+		    	break;
+		    default:
+		    	System.out.println("Game exited!");
+		    	System.exit(0);
+		    	break;
+		    }
+	    
+			System.out.print("Game over. Play again? (y/n):");
+			repeat = input.nextLine();
+		} while(repeat.toLowerCase().equals("y"));
 	}
 	
 	/**
@@ -245,7 +245,7 @@ public class UI {
 				if (bulletCount > 0)
 					getShootDirection();
 				else
-					System.out.println("You have no bullets...");
+					System.out.println("\nYOU DON'T HAVE ANY BULLETS!\n\n");
 				valid = true;
 				break;
 			default:
@@ -336,6 +336,7 @@ public class UI {
 	
 	public void getShootDirection() {
 		int parameter = 0;
+		@SuppressWarnings("unused")
 		boolean valid = false;
 		
 		do{
@@ -368,9 +369,14 @@ public class UI {
 		int status = game.shootNinja(parameter);
 		
 		if(status == 1) {
-			System.out.println("YOU HAVE KILLED A NINJA!");
-		} else
-			System.out.println("YOUR SHOT MISSED EVERYTHING");
+			System.out.println("\nYOU HAVE KILLED A NINJA!\n\n");
+			System.out.println("Press enter to countinue...");
+			input.nextLine();
+		} else {
+			System.out.println("\nYOUR SHOT MISSED EVERYTHING\n\n");
+			System.out.println("Press enter to countinue...");
+			input.nextLine();
+		}
 	}
 	
 }
