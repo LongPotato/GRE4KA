@@ -26,6 +26,11 @@ public class UI {
 	
 	private Scanner input = new Scanner(System.in);
 	private Engine game = null;
+	
+	/**
+	 * To check if the user input actually want to move the spy, not open option menu.
+	 */
+	private boolean validMove = true;
 
 	/**
 	 * Starts up the game: initialize the game engine, set up the game map, get users preferences, 
@@ -119,13 +124,16 @@ public class UI {
 		while(game.gameOver() == 0) {
 			printMap(game.getMap());
 			printGameInfo(game);
-			
 			getPlayerDecision();
-			if (!game.moveNinja()) {
-				printSpyGotStabMessage();
-			}
-			if (!game.getDebug()) {
-				game.assignSpyVisibility();
+			
+			// If the user actually want to move a spy, move the ninjas.
+			if (validMove) {
+				if (!game.moveNinja()) {
+					printSpyGotStabMessage();
+				}
+				if (!game.getDebug()) {
+					game.assignSpyVisibility();
+				}
 			}
 		}
 		
@@ -154,6 +162,7 @@ public class UI {
 			
 			switch (directionM) {
 			case "W":
+				validMove = true;
 				// Move up
 				status = game.movePlayer(1);
 				if (status == 1) {
@@ -175,6 +184,7 @@ public class UI {
 				}
 				break;
 			case "A":
+				validMove = true;
 				// Move left
 				status = game.movePlayer(2);
 				if (status == 1) {
@@ -196,6 +206,7 @@ public class UI {
 				}
 				break;
 			case "S":
+				validMove = true;
 				// Move down
 				status = game.movePlayer(3);
 				if (status == 1) {
@@ -219,6 +230,7 @@ public class UI {
 				}
 				break;
 			case "D":
+				validMove = true;
 				// Move right
 				status = game.movePlayer(4);
 				if (status == 1) {
@@ -240,6 +252,7 @@ public class UI {
 				}
 				break;
 			case "P":
+				validMove = true;
 				//Shoot
 				int bulletCount = game.getSpy().getBullets();
 				if (bulletCount > 0)
@@ -249,6 +262,7 @@ public class UI {
 				valid = true;
 				break;
 			case "M":
+				validMove = false;
 				// More options.
 				getOptionInput();
 				valid = true;
