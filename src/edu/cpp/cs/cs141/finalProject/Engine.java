@@ -47,7 +47,7 @@ public class Engine {
 	 */
 	private ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
 	/**
-	 * The status code that indicate how the game end.
+	 * The status code that indicate how the game end: 1 - found briefcase, 2 - no more lives.
 	 */
 	private int gameEndStatus = 0;
 	/**
@@ -94,7 +94,7 @@ public class Engine {
 		spy = assignSpy();
 		assignSpyVisibility();
 		assignPowerUps();
-		assignNinjas();
+		assignNinjas(true);
 	}
 
 	/**
@@ -423,36 +423,60 @@ public class Engine {
 	}
 
 	/**
-	 * Put 6 ninja into different random positions on the map.
+	 * Put 6 ninjas into different random positions on the map or randomize current ninjas locations.
+	 * @param initial if first fill up the map with 6 ninjas, set this to true.
 	 */
-	private void assignNinjas() {
+	private void assignNinjas(boolean initial) {
 		int rRow;
 		int rCol;
-
-		// The ninja will be spawn far away from the spy at least 3 squares.
-		for (int i = 1; i < 4; i++) {
-			occupiedLocations.add(map[8 - i][0]);
-			occupiedLocations.add(map[8][0 + i]);
-		}
-		occupiedLocations.add(map[7][2]);
-		occupiedLocations.add(map[6][1]);
-
-		for (int i = 0; i < 6; i++) {
-			do {
-				rRow = random.nextInt(8);
-				rCol = random.nextInt(8);
-			} while (isOccupied(rRow, rCol));
-
-			Ninja ninja = new Ninja(rRow, rCol);
-			map[rRow][rCol] = ninja;
-			
-			if (debug) {
-				ninja.setVisible(true);
+		
+		if (initial) {
+	
+			// The ninja will be spawn far away from the spy at least 3 squares.
+			for (int i = 1; i < 4; i++) {
+				occupiedLocations.add(map[8 - i][0]);
+				occupiedLocations.add(map[8][0 + i]);
 			}
+			occupiedLocations.add(map[7][2]);
+			occupiedLocations.add(map[6][1]);
+	
+			for (int i = 0; i < 6; i++) {
+				do {
+					rRow = random.nextInt(8);
+					rCol = random.nextInt(8);
+				} while (isOccupied(rRow, rCol));
+	
+				Ninja ninja = new Ninja(rRow, rCol);
+				map[rRow][rCol] = ninja;
+				
+				if (debug) {
+					ninja.setVisible(true);
+				}
+				
+				// Store the ninja to the array, and mark the new location as occupied.
+				ninjas.add(ninja);
+				occupiedLocations.add(map[rRow][rCol]);
+			}
+		} else {
 			
-			// Store the ninja to the array, and mark the location as occupied.
-			ninjas.add(ninja);
-			occupiedLocations.add(map[rRow][rCol]);
+			// Relocation current ninjas.
+			for (Ninja ninja : ninjas) {
+				do {
+					rRow = random.nextInt(8);
+					rCol = random.nextInt(8);
+				} while (isOccupied(rRow, rCol));
+	
+				ninja.setRow(rRow);
+				ninja.setCol(rCol);
+				map[rRow][rCol] = ninja;
+				
+				if (debug) {
+					ninja.setVisible(true);
+				}
+				
+				// Mark the new location as occupied.
+				occupiedLocations.add(map[rRow][rCol]);
+			}
 		}
 	}
 
@@ -471,7 +495,6 @@ public class Engine {
 
 	/**
 	 * Return the game map.
-	 * 
 	 * @return a 2 dimensional array of type Square.
 	 */
 	public Square[][] getMap() {
@@ -480,7 +503,6 @@ public class Engine {
 
 	/**
 	 * Return the room that contains the briefcase that has gre4ka inside it.
-	 * 
 	 * @return a Room object.
 	 */
 	public Room getRoomWithBriefCase() {
@@ -694,6 +716,11 @@ public class Engine {
 		return 1;
 	}
 	
+	/**
+	 * Perform the shooting action, kill the first ninja that stands in the bullet direction.
+	 * @param direction 1-up, 2-down, 3-left, 4-right.
+	 * @return the status code of the action: 1 - killed a ninja, 2 - missed.
+	 */
 	public int shootNinja(int direction) {
 		
 		int row = spy.getRow();
@@ -706,7 +733,7 @@ public class Engine {
 				return 2;
 			}
 			else 
-				for (int i = 1; row - i > 0 ; i++)
+				for (int i = 1; row - i >= 0 ; i++)
 				{
 					//isNinja replace with Square object
 					if (isNinja(map[row - i][col])) {
@@ -734,7 +761,7 @@ public class Engine {
 				return 2;
 			}
 			else 
-				for (int i = 1; row + i > 0 ; i++)
+				for (int i = 1; row + i >= 0 ; i++)
 				{
 					//isNinja replace with Square object
 					if (isNinja(map[row + i][col])) {
@@ -762,7 +789,7 @@ public class Engine {
 				return 2;
 			}
 			else 
-				for (int i = 1; col - i > 0 ; i++)
+				for (int i = 1; col - i >= 0 ; i++)
 				{
 					//isNinja replace with Square object
 					if (isNinja(map[row][col - i])) {
@@ -790,7 +817,7 @@ public class Engine {
 				return 2;
 			}
 			else 
-				for (int i = 1; col + i > 0 ; i++)
+				for (int i = 1; col + i >= 0 ; i++)
 				{
 					//isNinja replace with Square object
 					if (isNinja(map[row][col + i])) {
@@ -853,16 +880,6 @@ public class Engine {
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * 
-	 * @param square
-	 */
-	public void playerShoot(Square square) {
-		
-		
-
 	}
 
 	/**
@@ -1026,12 +1043,12 @@ public class Engine {
 			}
 		}
 		
-		// Kill all current ninjas & assign 6 new ninjas.
+		// Randomize & relocations current ninjas.
 		for (Square ninja : ninjas) {
 			map[ninja.getRow()][ninja.getCol()] = new Square(debug, ninja.getRow(), ninja.getCol());
 		}
-		ninjas.clear();
-		assignNinjas();	
+
+		assignNinjas(false);	
 	}
 
 	/**
