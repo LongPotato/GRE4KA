@@ -171,7 +171,9 @@ public class Engine {
 		
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[i].length; ++j) {
-				if (i == spy.getRow() && abs(spy.getCol() - j) < 3) {
+				
+				//looks at the 8 squares right next to the spy
+				if (abs(spy.getRow() - i) < 2 && abs(spy.getCol() - j) < 2) {
 					
 					// Check for ninjas and powerups near by to switch their visibility to true.
 					if (isNinja(map[i][j])) {
@@ -193,6 +195,7 @@ public class Engine {
 					}
 				}
 				
+				//looks two spaces left and right
 				if (j == spy.getCol() && abs(spy.getRow() - i) < 3) {
 					if (isNinja(map[i][j])) {
 						map[i][j].setVisible(true);
@@ -204,6 +207,27 @@ public class Engine {
 						spyVisibilityLocations.add(map[i][j]);
 					}
 
+					if (map[i][j].getSymbol().equals("X")) {
+						map[i][j].setSymbol(" ");
+						map[i][j].setVisible(true);
+						spyVisibilityLocations.add(map[i][j]);
+					} else {
+						map[i][j].getSymbol();
+					}
+				}
+				
+				//looks two spaces up and down
+				if (i == spy.getRow() && abs(spy.getCol() - j) < 3) {
+					if (isNinja(map[i][j])) {
+						map[i][j].setVisible(true);
+						spyVisibilityLocations.add(map[i][j]);
+					}
+					
+					if (isPowerUp(map[i][j])) {
+						map[i][j].setVisible(true);
+						spyVisibilityLocations.add(map[i][j]);
+					}
+					
 					if (map[i][j].getSymbol().equals("X")) {
 						map[i][j].setSymbol(" ");
 						map[i][j].setVisible(true);
