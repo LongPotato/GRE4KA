@@ -180,7 +180,7 @@ public class UI {
 					printSpyGotStabMessage();
 					valid = true;
 				} else {
-					System.out.print("Can not go there! Try again: ");
+					System.out.println("Can not go there! Try again: ");
 				}
 				break;
 			case "A":
