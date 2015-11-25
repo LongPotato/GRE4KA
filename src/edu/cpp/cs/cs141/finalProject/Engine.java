@@ -29,6 +29,10 @@ import java.util.Random;
 public class Engine implements Serializable {
 
 	/**
+	 * Default serial key.
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * The map is a 2 dimensional array of type Square.
 	 */
 	private Square[][] map = new Square[9][9];
@@ -1084,16 +1088,6 @@ public class Engine implements Serializable {
 		}
 
 		assignNinjas(false);	
-	}
-	
-	public void saveObject() {
-		Save s = new Save();
-		s.saveGame(null, this);
-	}
-	
-	public void loadObject() {
-		Save s = new Save();
-		s.loadGame(null);
 	}
 
 	/**

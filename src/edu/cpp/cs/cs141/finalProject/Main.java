@@ -26,11 +26,6 @@ public class Main {
 		ui.startGame();
 				
 		System.out.println("Game exited!");
-	
-	//MOVE ALL OF THIS INSIDE THE UI PLEASE, DO SAVE LOAD INSIDE UI...
-	Save s = new Save();
-	s.saveGame(null, null);
-	s.loadGame(null);
 	}
 
 }

@@ -22,6 +22,11 @@ package edu.cpp.cs.cs141.finalProject;
 public class Room extends Square {
 
 	/**
+	 * Default serial id.
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * True if the room contains the briefcase, false by default.
 	 */
 	boolean briefcase = false;
