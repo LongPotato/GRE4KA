@@ -16,7 +16,6 @@
 package edu.cpp.cs.cs141.finalProject;
 
 import static java.lang.Math.abs;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;

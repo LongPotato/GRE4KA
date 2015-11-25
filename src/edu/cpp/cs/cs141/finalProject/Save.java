@@ -28,7 +28,7 @@ public class Save implements Serializable {
 			fos.close();
 			oos.close();
 			
-			System.out.println("Game saved\n");
+			System.out.println("Game saved!\n");
 		} catch (IOException e) {
 			System.out.println("There is an error. Can not save this game!\n");
 			e.printStackTrace();
@@ -53,10 +53,16 @@ public class Save implements Serializable {
 			ois.close();
 			
 			System.out.println("Game loaded!\n");
+		
+		// If can not find the game file, initialize a new game
 		} catch (IOException e) {
-			System.err.println("Can not find the game! Starting new game..");
+			System.out.println("Can not find the game! Starting new game..\n");
+			game.fillMapWithSquare();
+		    game.setUpMap();
 		} catch (ClassNotFoundException e) {
-			System.err.println("Can not find the game! Starting new game..");
+			System.out.println("Can not find the game! Starting new game..\n");
+			game.fillMapWithSquare();
+		    game.setUpMap();
 		}
 		
 		return game;
