@@ -98,9 +98,9 @@ public class Engine implements Serializable {
 	public void setUpMap() {
 		assignRooms();
 		spy = assignSpy();
-		assignSpyVisibility();
 		assignPowerUps();
 		assignNinjas(true);
+		assignSpyVisibility();
 	}
 
 	/**
@@ -516,10 +516,16 @@ public class Engine implements Serializable {
 	 */
 	public void activateDebugMode() {
 		debug = true;
+		
 		for (Square[] locations : map) {
 			for (Square location : locations) {
 				location.setVisible(true);
 			}
+		}
+		
+		// Activate the PowerUps also, in case of ninja step on it
+		for (PowerUp powerUp : powerUps) {
+			powerUp.setVisible(true);
 		}
 	}
 
