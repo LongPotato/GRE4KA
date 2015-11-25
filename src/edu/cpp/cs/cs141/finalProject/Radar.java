@@ -21,6 +21,11 @@ package edu.cpp.cs.cs141.finalProject;
  */
 public class Radar extends PowerUp {
 
+	/**
+	 * Default serial id.
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/** 
 	 * The constructor method to create the radar powerup.
 	 * @param symbol the string symbol of the item, such as: D for radar detection, A for ammo...

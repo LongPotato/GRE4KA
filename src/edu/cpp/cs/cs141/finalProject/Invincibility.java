@@ -21,6 +21,11 @@ package edu.cpp.cs.cs141.finalProject;
 public class Invincibility extends PowerUp {
 
 	/**
+	 * Default serial id.
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * The constructor method to create the invincibility powerup.
 	 * @param symbol the string symbol of the item, such as: D for radar detection, A for ammo...
 	 * @param row a number from 0-8, for array position

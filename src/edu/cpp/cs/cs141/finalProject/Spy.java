@@ -22,6 +22,11 @@ package edu.cpp.cs.cs141.finalProject;
 public class Spy extends Square {
 
 	/**
+	 * Default serial id.
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * The status of the player for current turn, false if died.
 	 */
 	boolean alive = true;
