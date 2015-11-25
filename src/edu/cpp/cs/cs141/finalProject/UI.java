@@ -19,56 +19,56 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * The UI class for handling the console interface.
- * Take user input, print out game information.
+ * The UI class for handling the console interface. Take user input, print out
+ * game information.
  */
 public class UI {
-	
+
 	private Scanner input = new Scanner(System.in);
 	private Engine game = null;
 
 	/**
-	 * Starts up the game: initialize the game engine, set up the game map, get users preferences, 
-	 * and execute the game loop logic.
+	 * Starts up the game: initialize the game engine, set up the game map, get
+	 * users preferences, and execute the game loop logic.
 	 */
 	public void startGame() {
 		String repeat;
-		
+
 		do {
 			game = new Engine();
 			// Fill & set up the map with game objects.
 			game.fillMapWithSquare();
-	        game.setUpMap();
-	        
-	        printWelcomeMessage();
-	        int choice = mainMenu();
-	        switch (choice) {
-	        case 1:
-	        	gameLoop();
-	        	break;
-	        case 2:
-	        	game.activateDebugMode();
-	        	printSecretRoom();
-	        	gameLoop();
-	        	break;
-	        default:
-	        	System.out.println("Game exited!");
-	        	break;
-	        }
+			game.setUpMap();
+
+			printWelcomeMessage();
+			int choice = mainMenu();
+			switch (choice) {
+			case 1:
+				gameLoop();
+				break;
+			case 2:
+				game.activateDebugMode();
+				printSecretRoom();
+				gameLoop();
+				break;
+			default:
+				System.out.println("Game exited!");
+				break;
+			}
 			System.out.print("Game over. Play again? (y/n):");
 			repeat = input.nextLine();
 		} while (repeat.toLowerCase().equals("y"));
-		
+
 		System.out.println("Game exited!");
 	}
-	
+
 	/**
 	 * Display the location of the room that contains the briefcase.
 	 */
 	private void printSecretRoom() {
 		Room secretRoom = game.getRoomWithBriefCase();
-		System.out.println("The room that has your Gre4ka is at " 
-							+ secretRoom.getRow() + " " + secretRoom.getCol() + "\n");
+		System.out.println(
+				"The room that has your Gre4ka is at " + secretRoom.getRow() + " " + secretRoom.getCol() + "\n");
 	}
 
 	/**
@@ -76,12 +76,13 @@ public class UI {
 	 */
 	private void printWelcomeMessage() {
 		System.out.println("========================");
-        System.out.println("*   FIND YOUR GRE4KA   *");
-        System.out.println("========================");
+		System.out.println("*   FIND YOUR GRE4KA   *");
+		System.out.println("========================");
 	}
-	
+
 	/**
 	 * The main menu for selection at the beginning of the game.
+	 * 
 	 * @return an integer.
 	 */
 	private int mainMenu() {
@@ -91,7 +92,8 @@ public class UI {
 		System.out.println("1. New game");
 		System.out.println("2. Debug mode");
 		System.out.println("3. Quit");
-		
+		System.out.println("4. Load game");
+
 		while (!valid) {
 			try {
 				option = input.nextInt();
@@ -101,20 +103,21 @@ public class UI {
 				System.out.print("Invalid input, select again: ");
 				input.nextLine();
 			}
-		}	
+		}
 		return option;
 	}
 
 	/**
-	 * Using the game engine field, play until the game is over.
-	 * Keep printing out map and getting user input, pass it into the game engine to handle the logic.
+	 * Using the game engine field, play until the game is over. Keep printing
+	 * out map and getting user input, pass it into the game engine to handle
+	 * the logic.
 	 */
 	private void gameLoop() {
-		
-		while(game.gameOver() == 0) {
+
+		while (game.gameOver() == 0) {
 			printMap(game.getMap());
 			printGameInfo(game);
-			
+
 			getPlayerDecision();
 			if (!game.moveNinja()) {
 				printSpyGotStabMessage();
@@ -123,30 +126,30 @@ public class UI {
 				game.assignSpyVisibility();
 			}
 		}
-		
+
 		if (game.gameOver() == 1) {
 			System.out.println("YOU HAVE FOUND THE GRE4KA. YOU WIN!");
 		}
-		if (game.gameOver() == 2){
+		if (game.gameOver() == 2) {
 			System.out.println("YOU HAVE DIED TOO MANY TIMES. YOU LOSE!");
 		}
 	}
 
 	/**
-	 * Get the use input: moving direction, shooting direction.
-	 * Call the coressponding method from the engine to perfom the action.
+	 * Get the use input: moving direction, shooting direction. Call the
+	 * coressponding method from the engine to perfom the action.
 	 */
 	private void getPlayerDecision() {
 		String directionM = "";
 		int status;
 		boolean valid = false;
 		System.out.println("What do you want to do? "
-				+ "Enter W to move up, A to move left, S to move down, D to move right or P to shoot.");
-		
+				+ "Enter W to move up, A to move left, S to move down, D to move right, P to shoot, or C to Save.");
+
 		do {
 			directionM = input.nextLine();
 			directionM = directionM.toUpperCase();
-			
+
 			switch (directionM) {
 			case "W":
 				// Move up
@@ -234,8 +237,14 @@ public class UI {
 					System.out.print("Can not go there! Try again: ");
 				}
 				break;
+
+			case "C":
+				// save game
+				game.saveObject();
+				break;
+				
 			case "P":
-				//Shoot
+				// Shoot
 				valid = true;
 				break;
 			default:
@@ -247,7 +256,9 @@ public class UI {
 
 	/**
 	 * Print out the game map.
-	 * @param map the initialized 2 dimensional array.
+	 * 
+	 * @param map
+	 *            the initialized 2 dimensional array.
 	 */
 	public void printMap(Square[][] map) {
 		String display = "X";
@@ -268,10 +279,13 @@ public class UI {
 			System.out.println("\n");
 		}
 	}
-	
+
 	/**
-	 * Display the game informtaion: number of lives, number of bullets, how many turn of invicibility if activated.
-	 * @param game the game engine of the current game.
+	 * Display the game informtaion: number of lives, number of bullets, how
+	 * many turn of invicibility if activated.
+	 * 
+	 * @param game
+	 *            the game engine of the current game.
 	 */
 	public void printGameInfo(Engine game) {
 		System.out.println("------------------");
@@ -282,30 +296,30 @@ public class UI {
 		System.out.println("Bullets: " + game.getSpy().getBullets());
 		System.out.println("------------------");
 	}
-	
+
 	/**
-	 * Print out the message to notify the player that the spy got stabbed by a ninja.
-	 * User need to press any key to acknowledge the information.
+	 * Print out the message to notify the player that the spy got stabbed by a
+	 * ninja. User need to press any key to acknowledge the information.
 	 */
 	public void printSpyGotStabMessage() {
 		System.out.println("\nYOU GOT STABBED BY A NINJA!\n\n");
 		System.out.println("Press enter to countinue...");
 		input.nextLine();
 	}
-	
+
 	/**
-	 * Print out the message to notify the player that he activated the Bullet power up.
-	 * User need to press any key to acknowledge the information.
+	 * Print out the message to notify the player that he activated the Bullet
+	 * power up. User need to press any key to acknowledge the information.
 	 */
 	public void printActivateBulletMessage() {
 		System.out.println("\nYOU HAVE FOUND AN ADITIONAL BULLET! USE IT WISELY\n\n");
 		System.out.println("Press enter to countinue...");
 		input.nextLine();
 	}
-	
+
 	/**
-	 * Print out the message to notify the player that he activated the Radar power up.
-	 * User need to press any key to acknowledge the information.
+	 * Print out the message to notify the player that he activated the Radar
+	 * power up. User need to press any key to acknowledge the information.
 	 */
 	public void printActivateRadarMessage() {
 		System.out.println("\nYOU HAVE FOUND A RARA!\n\n");
@@ -313,15 +327,16 @@ public class UI {
 		System.out.println("Press enter to countinue...");
 		input.nextLine();
 	}
-	
+
 	/**
-	 * Print out the message to notify the player that he activated the Invincibility power up.
-	 * User need to press any key to acknowledge the information.
+	 * Print out the message to notify the player that he activated the
+	 * Invincibility power up. User need to press any key to acknowledge the
+	 * information.
 	 */
 	public void printActivateInvincibilityMessage() {
 		System.out.println("\nYOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS\n\n");
 		System.out.println("Press enter to countinue...");
 		input.nextLine();
 	}
-	
+
 }

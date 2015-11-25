@@ -21,6 +21,10 @@ public class Main {
 	public static void main(String[] args) {
 		UI ui = new UI();
 		ui.startGame();
+	
+	Save s = new Save();
+	s.saveGame(null);
+	s.loadGame(null);
 	}
 
 }
