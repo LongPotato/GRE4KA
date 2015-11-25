@@ -49,7 +49,6 @@ public class UI {
 			game = new Engine();
 			// Fill & set up the map with game objects.
 			game.fillMapWithSquare();
-<<<<<<< HEAD
 		    game.setUpMap();
 		        
 		    printWelcomeMessage();
@@ -68,29 +67,6 @@ public class UI {
 		    	System.exit(0);
 		    	break;
 		    }
-	    
-=======
-			game.setUpMap();
-
-			printWelcomeMessage();
-			int choice = mainMenu();
-			switch (choice) {
-			case 1:
-				gameLoop();
-				break;
-			case 2:
-				game.activateDebugMode();
-				printSecretRoom();
-				gameLoop();
-				break;
-			case 4:
-				game.loadObject();
-				break;
-			default:
-				System.out.println("Game exited!");
-				break;
-			}
->>>>>>> alexandrakl-master
 			System.out.print("Game over. Play again? (y/n):");
 			repeat = input.nextLine();
 		} while(repeat.toLowerCase().equals("y"));
