@@ -51,6 +51,9 @@ public class UI {
 				printSecretRoom();
 				gameLoop();
 				break;
+			case 4:
+				game.loadObject();
+				break;
 			default:
 				System.out.println("Game exited!");
 				break;

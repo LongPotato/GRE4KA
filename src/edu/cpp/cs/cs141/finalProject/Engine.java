@@ -969,12 +969,12 @@ public class Engine implements Serializable {
 	
 	public void saveObject() {
 		Save s = new Save();
-		s.saveGame(this);
+		s.saveGame(null, this);
 	}
 	
 	public void loadObject() {
 		Save s = new Save();
-		s.loadGame(this);
+		s.loadGame(null);
 	}
 
 	/**

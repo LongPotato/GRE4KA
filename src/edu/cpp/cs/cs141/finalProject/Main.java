@@ -23,7 +23,7 @@ public class Main {
 		ui.startGame();
 	
 	Save s = new Save();
-	s.saveGame(null);
+	s.saveGame(null, null);
 	s.loadGame(null);
 	}
 

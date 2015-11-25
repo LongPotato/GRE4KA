@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Save implements Serializable {
 
-	public void saveGame(Engine game) {
+	public void saveGame(String filename, Engine game) {
 		try {
-			FileOutputStream fos = new FileOutputStream("GameSave.dat");
+			FileOutputStream fos = new FileOutputStream(filename + ".dat");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 
 			oos.writeObject(game);
@@ -15,31 +15,36 @@ public class Save implements Serializable {
 			fos.close();
 			oos.close();
 
-			// } catch (ClassNotFoundException e){
-			// System.out.println("The class is not found" + e);
+		} catch (FileNotFoundException e) {
+			System.err.println("The file is not found" + e.getMessage());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void loadGame(Engine game) {
+	public Engine loadGame(String filename) {
+		
+		Engine game = null;
 
 		try {
-			FileInputStream fis = new FileInputStream("GameSave.dat");
+			FileInputStream fis = new FileInputStream(filename + ".dat");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
-			Save object = (Save) ois.readObject();
-
+			Engine engine = (Engine)ois.readObject();
+			game = engine;
 			fis.close();
 			ois.close();
 
-		} catch (ClassNotFoundException e) {
-			System.out.println("The class is not found" + e);
+		} catch (FileNotFoundException e) {
+			System.err.println(filename + ".dat is not found");
+			game = null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-
+		} catch (ClassNotFoundException e) {
+			return game;
+			}
+		return game;
 		}
-	}
 }
