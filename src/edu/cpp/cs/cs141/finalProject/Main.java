@@ -29,7 +29,7 @@ public class Main {
 	
 	//MOVE ALL OF THIS INSIDE THE UI PLEASE, DO SAVE LOAD INSIDE UI...
 	Save s = new Save();
-	s.saveGame(null);
+	s.saveGame(null, null);
 	s.loadGame(null);
 	}
 

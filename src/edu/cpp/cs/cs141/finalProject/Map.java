@@ -15,10 +15,12 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
+import java.io.Serializable;
+
 /**
  * This is represent the game map, a 2 dimensional array of 81 Square objects.
  */
-public class Map {
+public class Map implements Serializable{
 
 	/**
 	 * The map is a 2 dimensional array of type Square.

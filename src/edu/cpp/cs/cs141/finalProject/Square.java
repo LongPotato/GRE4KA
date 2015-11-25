@@ -15,12 +15,14 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
+import java.io.Serializable;
+
 /**
  * The Square class formed the grid with 81 squares, every object class will inherit from this class.
  * Each square has a string symbol to display the object at the current square,
  * it also has the row & column attributes to keep track of the position of the object on the map.
  */
-public class Square {
+public class Square implements Serializable{
 	
 	/**
 	 * Row & Column to keep track of the object position on the 2 dimensional array.

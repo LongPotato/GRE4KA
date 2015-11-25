@@ -15,6 +15,7 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
+
 /**
  * Abstract class. This class represents the notion of the game power up items.
  */
