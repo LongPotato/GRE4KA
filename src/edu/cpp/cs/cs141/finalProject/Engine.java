@@ -575,6 +575,8 @@ public class Engine implements Serializable {
 							map[row - 1][col] = spy;
 							map[row][col] = new Square(debug, row, col);
 							return 5;
+						}else if(spy.getBullets() == 1) {
+							return 2;
 						}
 					} else if (map[row - 1][col] instanceof Radar) {
 						briefCaseRoom.setSymbol("*");
@@ -618,6 +620,8 @@ public class Engine implements Serializable {
 							map[row][col - 1] = spy;
 							map[row][col] = new Square(debug, row, col);
 							return 5;
+						}else if(spy.getBullets() == 1) {
+							return 2;
 						}
 					} else if (map[row][col - 1] instanceof Radar) {
 						briefCaseRoom.setSymbol("*");
@@ -661,6 +665,8 @@ public class Engine implements Serializable {
 							map[row + 1][col] = spy;
 							map[row][col] = new Square(debug, row, col);
 							return 5;
+						}else if(spy.getBullets() == 1) {
+							return 2;
 						}
 					} else if (map[row + 1][col] instanceof Radar) {
 						briefCaseRoom.setSymbol("*");
@@ -713,6 +719,8 @@ public class Engine implements Serializable {
 							map[row][col + 1] = spy;
 							map[row][col] = new Square(debug, row, col);
 							return 5;
+						}else if(spy.getBullets() == 1) {
+							return 2;
 						}
 					} else if (map[row][col + 1] instanceof Radar) {
 						briefCaseRoom.setSymbol("*");
