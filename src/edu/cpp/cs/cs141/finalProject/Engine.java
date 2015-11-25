@@ -16,6 +16,8 @@
 package edu.cpp.cs.cs141.finalProject;
 
 import static java.lang.Math.abs;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -24,7 +26,7 @@ import java.util.Random;
 /**
  * Game Engine, handle the logic execution of the game.
  */
-public class Engine {
+public class Engine implements Serializable {
 
 	/**
 	 * The map is a 2 dimensional array of type Square.
@@ -70,6 +72,7 @@ public class Engine {
 	 * The array to store the locations of the spy visibily, from the previous turn.
 	 */
 	private ArrayList<Square> spyVisibilityLocations = new ArrayList<Square>();
+	
 
 	/**
 	 * Initialize/fill up the 2 dimensional array map with Square objects.
@@ -1073,6 +1076,16 @@ public class Engine {
 		}
 
 		assignNinjas(false);	
+	}
+	
+	public void saveObject() {
+		Save s = new Save();
+		s.saveGame(this);
+	}
+	
+	public void loadObject() {
+		Save s = new Save();
+		s.loadGame(this);
 	}
 
 	/**

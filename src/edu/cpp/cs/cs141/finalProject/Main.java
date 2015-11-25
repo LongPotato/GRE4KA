@@ -26,6 +26,10 @@ public class Main {
 		ui.startGame();
 				
 		System.out.println("Game exited!");
+	
+	Save s = new Save();
+	s.saveGame(null);
+	s.loadGame(null);
 	}
 
 }
