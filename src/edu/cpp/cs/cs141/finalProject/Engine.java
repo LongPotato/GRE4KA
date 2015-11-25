@@ -16,7 +16,6 @@
 package edu.cpp.cs.cs141.finalProject;
 
 import static java.lang.Math.abs;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +27,10 @@ import java.util.Random;
  */
 public class Engine implements Serializable {
 
+	/**
+	 * Default serial key.
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * The map is a 2 dimensional array of type Square.
 	 */
@@ -1084,16 +1087,6 @@ public class Engine implements Serializable {
 		}
 
 		assignNinjas(false);	
-	}
-	
-	public void saveObject() {
-		Save s = new Save();
-		s.saveGame(null, this);
-	}
-	
-	public void loadObject() {
-		Save s = new Save();
-		s.loadGame(null);
 	}
 
 	/**

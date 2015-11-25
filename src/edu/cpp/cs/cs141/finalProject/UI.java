@@ -45,21 +45,31 @@ public class UI {
 				for(int i = 0; i < 50; ++i)
 					System.out.println();
 			}
-			
-			game = new Engine();
-			// Fill & set up the map with game objects.
-			game.fillMapWithSquare();
-		    game.setUpMap();
 		        
 		    printWelcomeMessage();
 		    int choice = mainMenu();
 		    switch (choice) {
 		    case 1:
+				game = new Engine();
+				// Fill & set up the map with game objects.
+				game.fillMapWithSquare();
+			    game.setUpMap();
+			    
 		    	gameLoop();
 		        break;
 		    case 2:
+				game = new Engine();
+				// Fill & set up the map with game objects.
+				game.fillMapWithSquare();
+			    game.setUpMap();
+			    
 		    	game.activateDebugMode();
 		    	printSecretRoom();
+		    	gameLoop();
+		    	break;
+		    case 3:
+		    	// Load the stored game object.
+		    	game = Save.loadGame();
 		    	gameLoop();
 		    	break;
 		    default:
@@ -101,8 +111,8 @@ public class UI {
 		System.out.println("Select an option:");
 		System.out.println("1. New game");
 		System.out.println("2. Debug mode");
-		System.out.println("3. Quit");
-		System.out.println("4. Load game");
+		System.out.println("3. Load game");
+		System.out.println("4. Quit");
 
 		while (!valid) {
 			try {
@@ -254,12 +264,6 @@ public class UI {
 					System.out.print("Can not go there! Try again: ");
 				}
 				break;
-
-			case "C":
-				// save game
-				game.saveObject();
-				break;
-				
 			case "P":
 				validMove = true;
 				//Shoot
@@ -424,7 +428,8 @@ public class UI {
 		
 		System.out.println("More options: ");
 		System.out.println("1. Activate debug mode.");
-		System.out.println("2. Quit.");
+		System.out.println("2. Save game.");
+		System.out.println("3. Quit.");
 		
 		do {
 			choice = input.nextLine();
@@ -436,6 +441,11 @@ public class UI {
 		    	valid = true;
 		    	break;
 			case "2":
+				// Save the current game object to a file.
+				Save.saveGame(game);
+				valid = true;
+				break;
+			case "3":
 				System.out.println("Game exited!");
 				System.exit(0);
 				valid = true;

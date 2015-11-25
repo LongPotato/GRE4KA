@@ -22,8 +22,12 @@ import java.io.Serializable;
  * Each square has a string symbol to display the object at the current square,
  * it also has the row & column attributes to keep track of the position of the object on the map.
  */
-public class Square implements Serializable{
+public class Square implements Serializable {
 	
+	/**
+	 * Default serial id.
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Row & Column to keep track of the object position on the 2 dimensional array.
 	 */

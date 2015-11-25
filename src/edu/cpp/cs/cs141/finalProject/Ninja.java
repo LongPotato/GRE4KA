@@ -22,6 +22,11 @@ package edu.cpp.cs.cs141.finalProject;
 public class Ninja extends Square {
 
 	/**
+	 * Default serial id.
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * The status of ninja for current live, default true.
 	 */
 	boolean alive = true;

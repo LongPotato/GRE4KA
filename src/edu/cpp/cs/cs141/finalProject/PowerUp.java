@@ -22,6 +22,11 @@ package edu.cpp.cs.cs141.finalProject;
 public abstract class PowerUp extends Square {
 
 	/**
+	 * Default serial id.
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * The status of the item, initially not active.
 	 */
 	boolean active = false;
