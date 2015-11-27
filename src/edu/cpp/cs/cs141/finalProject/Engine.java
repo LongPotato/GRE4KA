@@ -932,7 +932,7 @@ public class Engine implements Serializable {
 	 */
 	public boolean moveNinja() {
 
-		// Check if the ninja has steped on any power up last turn, assign them
+		// Check if the ninja has stepped on any power up last turn, assign them
 		// back to their location.
 		if (!powerUps.isEmpty()) {
 			for (PowerUp p : powerUps) {
@@ -1009,6 +1009,11 @@ public class Engine implements Serializable {
 		}
 
 		return true;
+	}
+	
+	public boolean moveSmartNinja(){
+		
+		return false;
 	}
 
 	/**
