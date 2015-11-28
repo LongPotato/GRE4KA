@@ -98,9 +98,9 @@ public class Engine implements Serializable {
 	public void setUpMap() {
 		assignRooms();
 		spy = assignSpy();
-		assignSpyVisibility();
 		assignPowerUps();
 		assignNinjas(true);
+		assignSpyVisibility();
 	}
 
 	/**
@@ -516,10 +516,16 @@ public class Engine implements Serializable {
 	 */
 	public void activateDebugMode() {
 		debug = true;
+		
 		for (Square[] locations : map) {
 			for (Square location : locations) {
 				location.setVisible(true);
 			}
+		}
+		
+		// Activate the PowerUps also, in case of ninja step on it
+		for (PowerUp powerUp : powerUps) {
+			powerUp.setVisible(true);
 		}
 	}
 
@@ -926,7 +932,7 @@ public class Engine implements Serializable {
 	 */
 	public boolean moveNinja() {
 
-		// Check if the ninja has steped on any power up last turn, assign them
+		// Check if the ninja has stepped on any power up last turn, assign them
 		// back to their location.
 		if (!powerUps.isEmpty()) {
 			for (PowerUp p : powerUps) {
@@ -1003,6 +1009,11 @@ public class Engine implements Serializable {
 		}
 
 		return true;
+	}
+	
+	public boolean moveSmartNinja(){
+		
+		return false;
 	}
 
 	/**

@@ -10,7 +10,7 @@ Our ninja game
 
 3. Clone your new fork, in the command line type: `git clone git@github.com:YOUR-USERNAME/GRE4KA.git`
 
-4. At a remote to sync with this original repository, type: `git remote add upstream https://github.com/LongPotato/GRE4KA.git`
+4. Add a remote to sync with this original repository, type: `git remote add upstream https://github.com/LongPotato/GRE4KA.git`
 
 ## How to commit:
 
@@ -18,7 +18,7 @@ Our ninja game
 
 2. Add your change: `git add -A`
 
-3. Name your commit: `git commit -m 'You commit here'`
+3. Name your commit: `git commit -m 'Your commit here'`
 
 4. Push your commit to your repository: `git push`
 

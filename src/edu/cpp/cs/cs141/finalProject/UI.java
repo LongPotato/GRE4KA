@@ -31,7 +31,7 @@ public class UI {
 	 * To check if the user input actually want to move the spy, not open option menu.
 	 */
 	private boolean validMove = true;
-
+	private boolean hardMode = false;
 	/**
 	 * Starts up the game: initialize the game engine, set up the game map, get
 	 * users preferences, and execute the game loop logic.
@@ -50,6 +50,13 @@ public class UI {
 		    int choice = mainMenu();
 		    switch (choice) {
 		    case 1:
+				int mode;
+				mode = getGameModeOption();
+				
+				if (mode == 2){
+					hardMode = true;
+				}
+				
 				game = new Engine();
 				// Fill & set up the map with game objects.
 				game.fillMapWithSquare();
@@ -140,12 +147,23 @@ public class UI {
 			getPlayerDecision();
 			
 			// If the user actually want to move a spy, move the ninjas.
-			if (validMove) {
-				if (!game.moveNinja()) {
-					printSpyGotStabMessage();
+			if(!hardMode){
+				if (validMove) {
+					if (!game.moveSmartNinja()) {
+						printSpyGotStabMessage();
+					}
+					if (!game.getDebug()) {
+						game.assignSpyVisibility();
+					}
 				}
-				if (!game.getDebug()) {
-					game.assignSpyVisibility();
+			} else {
+				if (validMove) {
+					if (!game.moveNinja()) {
+						printSpyGotStabMessage();
+					}
+					if (!game.getDebug()) {
+						game.assignSpyVisibility();
+					}
 				}
 			}
 		}
@@ -160,7 +178,7 @@ public class UI {
 
 	/**
 	 * Get the use input: moving direction, shooting direction. Call the
-	 * coressponding method from the engine to perfom the action.
+	 * corresponding method from the engine to perform the action.
 	 */
 	private void getPlayerDecision() {
 		String directionM = "";
@@ -455,5 +473,36 @@ public class UI {
 				break;
 			} 
 		} while (!valid);
+	}
+	
+	/**
+	 * 
+	 */
+	private int getGameModeOption(){
+		String choice;
+		boolean valid = false;
+		
+		System.out.println("Which Mode?:");
+		System.out.println("1. Regular Mode");
+		System.out.println("2. Hard Mode");
+		
+		
+		do{
+			choice = input.nextLine();
+			
+			switch(choice){
+			case "1":
+				valid = true;
+				return 1;
+			case "2":
+				valid = true;
+				return 2;
+			default:
+				System.out.println("Invalid Entry. Try Again.");
+				return 0;
+			}
+			
+		} while (!valid);
+		
 	}
 }
