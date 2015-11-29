@@ -72,7 +72,7 @@ public class Engine implements Serializable {
 	 */
 	private ArrayList<Square> occupiedLocations = new ArrayList<Square>();
 	/**
-	 * The array to store the locations of the spy visibily, from the previous turn.
+	 * The array to store the locations of the spy visibility, from the previous turn.
 	 */
 	private ArrayList<Square> spyVisibilityLocations = new ArrayList<Square>();
 	
@@ -245,7 +245,7 @@ public class Engine implements Serializable {
 			}
 		}
 		
-		// If the spy stands next to a room, switch the visibility of the square beihnd the room to false.
+		// If the spy stands next to a room, switch the visibility of the square behind the room to false.
 		if (col == 0) {
 			Square behindRoom = null;
 			

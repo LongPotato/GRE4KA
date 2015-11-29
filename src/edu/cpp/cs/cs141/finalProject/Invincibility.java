@@ -15,6 +15,9 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  * Inherit from PowerUp, make player invulnerable for 5 turns.
  */
@@ -24,6 +27,8 @@ public class Invincibility extends PowerUp {
 	 * Default serial id.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private JLabel StrongPic = new JLabel(new ImageIcon("GameImgs/Invincibility.jpg"));
 	
 	/**
 	 * The constructor method to create the invincibility powerup.
@@ -37,6 +42,10 @@ public class Invincibility extends PowerUp {
 	
 	public Invincibility(int row, int col){
 		super("I", row, col);
+	}
+	
+	public JLabel getPic() {
+		return StrongPic;
 	}
 	
 }
