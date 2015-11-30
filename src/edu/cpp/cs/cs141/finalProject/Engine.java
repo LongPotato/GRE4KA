@@ -1088,10 +1088,15 @@ public class Engine implements Serializable {
 			//If the ninja is in the same row or the same column, evaluate which (row or column) and 
 			//find if they are above or below you
 			if (spyRow == ninjaRow || spyCol == ninjaCol) {
-				
-				//scenario 1: ninja and spy are in the same row, spy is to the left of the ninja
-				if (spyRow == ninjaRow && spyRow < ninjaRow) {
+
+				//scenario 1: ninja and spy are in the same column, spy is above the ninja
+				if (spyCol == ninjaCol && spyRow < ninjaRow) {
+					
+					//is the location one spot closer the spy a valid location
 					if (validLocations.contains(map[ninjaRow - 1][ninjaCol])) {
+						
+						//This is SUPPOSED to move the ninja to the location one spot closer to 
+						//the spy and handle the power up properly
 						if (isPowerUp(map[ninjaRow - 1][ninjaCol])) {
 							powerUps.add((PowerUp) map[ninjaRow - 1][ninjaCol]);
 							map[ninjaRow - 1][ninjaCol] = ninja;
@@ -1109,8 +1114,8 @@ public class Engine implements Serializable {
 					}
 				}
 
-				//scenario 2: ninja and spy are in the same row, spy is to the right of the ninja
-				if (spyRow == ninjaRow && spyRow > ninjaRow) {
+				//scenario 2: ninja and spy are in the same col, spy is below the ninja
+				if (spyCol == ninjaCol && spyRow > ninjaRow) {
 					if (validLocations.contains(map[ninjaRow + 1][ninjaCol])) {
 						if (isPowerUp(map[ninjaRow + 1][ninjaCol])) {
 							powerUps.add((PowerUp) map[ninjaRow + 1][ninjaCol]);
@@ -1129,8 +1134,8 @@ public class Engine implements Serializable {
 					}
 				}
 				
-				//scenario 3: ninja and spy are in the same column, spy is above ninja
-				if (spyCol == ninjaCol && spyCol < ninjaCol) {
+				//scenario 3: ninja and spy are in the same row, spy is to the left of the ninja
+				if (spyRow == ninjaRow && spyCol < ninjaCol) {
 					if (validLocations.contains(map[ninjaRow][ninjaCol - 1])) {
 						if (isPowerUp(map[ninjaRow][ninjaCol - 1])) {
 							powerUps.add((PowerUp) map[ninjaRow][ninjaCol - 1]);
@@ -1150,8 +1155,8 @@ public class Engine implements Serializable {
 				}
 				
 			
-				//ninja and spy are in the same column, spy is below ninja
-				if (spyCol == ninjaCol && spyCol > ninjaCol) {
+				//ninja and spy are in the same row, spy is to the right of the ninja
+				if (spyRow == ninjaRow && spyCol > ninjaCol) {
 					if (validLocations.contains(map[ninjaRow][ninjaCol + 1])) {
 						if (isPowerUp(map[ninjaRow][ninjaCol + 1])) {
 							powerUps.add((PowerUp) map[ninjaRow][ninjaCol + 1]);
