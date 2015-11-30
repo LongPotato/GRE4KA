@@ -405,11 +405,11 @@ public class UI {
 				valid = true;
 				break;
 			case "A":
-				parameter = 2;
+				parameter = 3;
 				valid = true;
 				break;
 			case "S":
-				parameter = 3;
+				parameter = 2;
 				valid = true;
 				break;
 			case "D":

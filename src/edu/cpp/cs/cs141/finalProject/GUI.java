@@ -232,7 +232,6 @@ public class GUI implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		boolean valid = false;
 		int status;
 			if(e.getKeyCode() == KeyEvent.VK_W) {
 				game.assignSpyVisibility();
@@ -243,20 +242,15 @@ public class GUI implements KeyListener {
 				// Move up
 				status = game.movePlayer(1);
 				if (status == 1) {
-					valid = true;
 				} else if (status == 5) {
 					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY");
-					valid = true;
 				} else if (status == 6) {
 					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND A RADAR!");
-					valid = true;
 				} else if (status == 7) {
 					JOptionPane.showMessageDialog(frame, "YOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS");
-					valid = true;
 				} else if (status == 4) {
 					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
 					spy.getStabbed();
-					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
@@ -297,20 +291,15 @@ public class GUI implements KeyListener {
 				// Move left
 				status = game.movePlayer(2);
 				if (status == 1) {
-					valid = true;
 				} else if (status == 5) {
 					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY");
-					valid = true;
 				} else if (status == 6) {
 					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND A RADAR!");
-					valid = true;
 				} else if (status == 7) {
 					JOptionPane.showMessageDialog(frame, "YOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS");
-					valid = true;
 				} else if (status == 4) {
 					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
 					spy.getStabbed();
-					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
@@ -350,23 +339,17 @@ public class GUI implements KeyListener {
 				// Move down
 				status = game.movePlayer(3);
 				if (status == 1) {
-					valid = true;
 				} else if (status == 3) {
 					JOptionPane.showMessageDialog(frame, "THIS ROOM IS EMPTY!");
-					valid = true;
 				} else if (status == 5) {
 					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY");
-					valid = true;
 				} else if (status == 6) {
 					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND A RADAR!");
-					valid = true;
 				} else if (status == 7) {
 					JOptionPane.showMessageDialog(frame, "YOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS");
-					valid = true;
 				} else if (status == 4) {
 					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
 					spy.getStabbed();
-					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
@@ -406,20 +389,15 @@ public class GUI implements KeyListener {
 				// Move right
 				status = game.movePlayer(4);
 				if (status == 1) {
-					valid = true;
 				} else if (status == 5) {
 					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY");
-					valid = true;
 				} else if (status == 6) {
 					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND A RADAR!");
-					valid = true;
 				} else if (status == 7) {
 					JOptionPane.showMessageDialog(frame, "YOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS");
-					valid = true;
 				} else if (status == 4) {
 					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
 					spy.getStabbed();
-					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
@@ -459,7 +437,6 @@ public class GUI implements KeyListener {
 					shootNinja(parameter);
 				} else {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
-					valid = true;
 				}
 				game.assignSpyVisibility();
 				printMap(game.getMap());
@@ -475,7 +452,6 @@ public class GUI implements KeyListener {
 					shootNinja(parameter);
 				} else {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
-					valid = true;
 				}
 				game.assignSpyVisibility();
 				printMap(game.getMap());
@@ -491,7 +467,6 @@ public class GUI implements KeyListener {
 					shootNinja(parameter);
 				} else {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
-					valid = true;
 				}
 				game.assignSpyVisibility();
 				printMap(game.getMap());
@@ -507,7 +482,6 @@ public class GUI implements KeyListener {
 					shootNinja(parameter);
 				} else {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
-					valid = true;
 				}
 				game.assignSpyVisibility();
 				printMap(game.getMap());
@@ -516,7 +490,6 @@ public class GUI implements KeyListener {
 			
 			else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 				validMove = false;
-				valid = true;
 				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
