@@ -82,7 +82,6 @@ public class GUI implements KeyListener {
     			game = new Engine();
     			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
     			game.activateDebugMode();
-    			printMap(game.getMap());
     		}
     	
     	});
@@ -173,6 +172,7 @@ public class GUI implements KeyListener {
 		JLabel display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
 		for (Square[] row : map) {
 			for (Square location : row) {
+				if (location.isVisible()) {
 					String symbol = location.getSymbol();
 					switch(symbol) {
 					case "R":
@@ -181,15 +181,26 @@ public class GUI implements KeyListener {
 					case "S":
 						display = new JLabel(new ImageIcon("GamePics/spy.jpg"));
 						break;
-					case " ":
-						display = new JLabel(new ImageIcon("GamePics/show2.jpg"));
+					case "N":
+						display = new JLabel(new ImageIcon("GamePics/spy.jpg"));
+						break;
+					case "I":
+						display = new JLabel(new ImageIcon("GamePics/invincible.jpg"));
+						break;
+					case "B":
+						display = new JLabel(new ImageIcon("GamePics/bullet.jpg"));
+						break;
+					case "D":
+						display = new JLabel(new ImageIcon("GamePics/radar.jpg"));
 						break;
 					default:
-						display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
+						display = new JLabel(new ImageIcon("GamePics/show2.jpg"));
 						break;
 					}
-					
-					panel.add(display);
+				} else {
+					display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
+				}
+				panel.add(display);
 			}
 		}
 	}
