@@ -230,7 +230,6 @@ public class GUI implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		boolean valid = false;
 		int status;
-		//while (game.gameOver() == 0) {
 			if(e.getKeyCode() == KeyEvent.VK_W) {
 				validMove = true;
 				// Move up
@@ -238,20 +237,23 @@ public class GUI implements KeyListener {
 				if (status == 1) {
 					valid = true;
 				} else if (status == 5) {
-					//printActivateBulletMessage();
+					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY");
 					valid = true;
 				} else if (status == 6) {
-					//printActivateRadarMessage();
+					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND A RADAR!");
 					valid = true;
 				} else if (status == 7) {
-					//printActivateInvincibilityMessage();
+					JOptionPane.showMessageDialog(frame, "YOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS");
 					valid = true;
 				} else if (status == 4) {
-					//printSpyGotStabMessage();
+					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
 					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
 			}
 			
 			else if(e.getKeyCode() == KeyEvent.VK_A) {
@@ -261,20 +263,23 @@ public class GUI implements KeyListener {
 				if (status == 1) {
 					valid = true;
 				} else if (status == 5) {
-					//printActivateBulletMessage();
+					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY");
 					valid = true;
 				} else if (status == 6) {
-					//printActivateRadarMessage();
+					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND A RADAR!");
 					valid = true;
 				} else if (status == 7) {
-					//printActivateInvincibilityMessage();
+					JOptionPane.showMessageDialog(frame, "YOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS");
 					valid = true;
 				} else if (status == 4) {
-					//printSpyGotStabMessage();
+					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
 					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
 			}
 			
 			else if(e.getKeyCode() == KeyEvent.VK_S) {
@@ -284,20 +289,23 @@ public class GUI implements KeyListener {
 				if (status == 1) {
 					valid = true;
 				} else if (status == 5) {
-					//printActivateBulletMessage();
+					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY");
 					valid = true;
 				} else if (status == 6) {
-					//printActivateRadarMessage();
+					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND A RADAR!");
 					valid = true;
 				} else if (status == 7) {
-					//printActivateInvincibilityMessage();
+					JOptionPane.showMessageDialog(frame, "YOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS");
 					valid = true;
 				} else if (status == 4) {
-					//printSpyGotStabMessage();
+					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
 					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
 			}
 			
 			else if(e.getKeyCode() == KeyEvent.VK_D) {
@@ -307,20 +315,23 @@ public class GUI implements KeyListener {
 				if (status == 1) {
 					valid = true;
 				} else if (status == 5) {
-					//printActivateBulletMessage();
+					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY");
 					valid = true;
 				} else if (status == 6) {
-					//printActivateRadarMessage();
+					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND A RADAR!");
 					valid = true;
 				} else if (status == 7) {
-					//printActivateInvincibilityMessage();
+					JOptionPane.showMessageDialog(frame, "YOU ACTIVATED GOD MODE! YOU ARE INVINCIBLE FOR 5 TURNS");
 					valid = true;
 				} else if (status == 4) {
-					//printSpyGotStabMessage();
+					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
 					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
 			}
 			
 			else if(e.getKeyCode() == KeyEvent.VK_P) {
@@ -333,6 +344,9 @@ public class GUI implements KeyListener {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
 					valid = true;
 				}*/
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
 			}
 			
 			else if(e.getKeyCode() == KeyEvent.VK_M) {
@@ -340,19 +354,24 @@ public class GUI implements KeyListener {
 				// More options.
 				//getOptionInput();
 				valid = true;
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
 			}
 			
 			else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 				validMove = false;
 				valid = true;
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
 			}
 			
 			else {
 				JOptionPane.showMessageDialog(frame, "Invalid Entry. Try Again.\n\nPress Enter To Continue...");
 			}
 			
-			printMap(game.getMap());
-			game.assignSpyVisibility();
+			
 		}
 		
 	//}
