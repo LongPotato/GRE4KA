@@ -15,9 +15,6 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 /**
  * The Ninja class that represents the enemies.
  * These ninjas will wonder around the map and stab the spy if found.

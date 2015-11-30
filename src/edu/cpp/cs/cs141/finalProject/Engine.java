@@ -986,10 +986,10 @@ public class Engine implements Serializable {
 				// Remove the spy location from ninja's possible moves when the
 				// spy is invincible.
 				Iterator<Square> iter = validLocations.iterator();
-				while (iterator.hasNext()) {
+				while (iter.hasNext()) {
 					Square loc = iter.next();
 					if (loc instanceof Spy) {
-						iterator.remove();
+						iter.remove();
 					}
 				}
 			}
@@ -1071,10 +1071,10 @@ public class Engine implements Serializable {
 				// Remove the spy location from ninja's possible moves when the
 				// spy is invincible.
 				Iterator<Square> iter = validLocations.iterator();
-				while (iterator.hasNext()) {
+				while (iter.hasNext()) {
 					Square loc = iter.next();
 					if (loc instanceof Spy) {
-						iterator.remove();
+						iter.remove();
 					}
 				}
 			}

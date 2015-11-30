@@ -15,9 +15,6 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 /**
  * Inherit from PowerUp, make player invulnerable for 5 turns.
  */

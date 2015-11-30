@@ -15,9 +15,6 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 /**
  * The Spy Class represents the player. It inherits the symbol and position from
  * the Square class.

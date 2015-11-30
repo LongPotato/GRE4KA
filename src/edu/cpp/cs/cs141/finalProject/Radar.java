@@ -15,9 +15,6 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 /**
  * Create a Radar Class that inherits from PowerUp. It shows the location of the
  * brief case when get activated.
