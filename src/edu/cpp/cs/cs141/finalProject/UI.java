@@ -52,7 +52,6 @@ public class UI {
 		    switch (choice) {
 		    case 1:
 				getGameModeOption();
-				System.out.println(hardMode);
 				game = new Engine();
 				// Fill & set up the map with game objects.
 				game.fillMapWithSquare();
@@ -340,6 +339,11 @@ public class UI {
 		}
 		System.out.println("Lives: " + game.getSpy().getLives());
 		System.out.println("Bullets: " + game.getSpy().getBullets());
+		if(hardMode){
+			System.out.println("Game Mode: Hard");
+		}else{
+			System.out.println("Game Mode: Normal");
+		}
 		System.out.println("------------------");
 	}
 
