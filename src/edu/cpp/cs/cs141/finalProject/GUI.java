@@ -50,14 +50,61 @@ public class GUI implements KeyListener {
     	menuBar.add(options);
     	menuBar.add(help);
     	
-    	JMenuItem newGame = new JMenuItem("New Game");
-    	newGame.addActionListener(new ActionListener(){
+    	JMenuItem newGameEasy = new JMenuItem("New Game-Easy");
+    	newGameEasy.addActionListener(new ActionListener(){
     		
     		public void actionPerformed(ActionEvent e)
     		{
     			game = new Engine();
     			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
-    			//paint(0);
+    			printMap(game.getMap());
+    		}
+    	
+    	});
+    	
+    	JMenuItem newGameHard = new JMenuItem("New Game-Hard");
+    	newGameHard.addActionListener(new ActionListener(){
+    		
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			game = new Engine();
+    			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
+    			printMap(game.getMap());
+    		}
+    	
+    	});
+    	
+    	JMenuItem newDebugGame = new JMenuItem("Activate Debug Mode");
+    	newDebugGame.addActionListener(new ActionListener(){
+    		
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			game = new Engine();
+    			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
+    			game.activateDebugMode();
+    			printMap(game.getMap());
+    		}
+    	
+    	});
+    	
+    	JMenuItem save = new JMenuItem("Save Game");
+    	save.addActionListener(new ActionListener(){
+    		
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			JOptionPane.showMessageDialog(frame,"GAME HAS BEEN SAVED!!");
+    			
+    		}
+    	
+    	});
+    	
+    	JMenuItem load = new JMenuItem("Load Game");
+    	load.addActionListener(new ActionListener(){
+    		
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			JOptionPane.showMessageDialog(frame,"GAME HAS BEEN LOADED!!");
+    			
     		}
     	
     	});
@@ -78,7 +125,7 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			JOptionPane.showMessageDialog(frame, "Development Team:\n\nMario Garcia\nAnuja Joshi\nMichelle Duong\nKristin Adachi\nMatthew Musquiz");
+    			JOptionPane.showMessageDialog(frame, "Development Team:\n\nAlexandra Klimenko\nVictor Ruiz\nKhanh Nyguyen\nIan Garrett");
     		}
     	
     	});
@@ -88,23 +135,27 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			JOptionPane.showMessageDialog(frame, "Move with the following keys:\nUP_ARROW - move up\nDOWN_ARROW - move down\nLEFT_ARROW - move left\nRIGHT_ARROW - move right"
+    			JOptionPane.showMessageDialog(frame, "Move with the following keys:\nW - move up\nS - move down\nA - move left\nD - move right"
     					+ "\n\nPowerups:\nInvincibility - Invincible for 5 turns\nRadar - Reveal the location of the document\nAmmo Increase - Increase your ammo count by 1"
-    					+ "\n\nShooting: " + "\nW - shoot up\nS - shoot down\nA - shoot left\nD - shoot right\n\nSearching Tile Spaces:\n\n1 - Look Up\n2 - Look Down\n3 - Look Left \n4 - Look Right"
-    					+"\n\nLook for the document hiding in one of these rooms\nWatch for ninjas, they want to rek you.");
+    					+ "\n\nShooting: Press P to shoot, then select a direction" + "\nW - shoot up\nS - shoot down\nA - shoot left\nD - shoot right"
+    					+"\n\nLook for the document hiding in one of these rooms\nWatch out for ninjas, they want to shank you.");
     		}
     	
     	});
+    	
+    	
 
-    	options.add(newGame);
-    	//options.add(save);
-    	//options.add(load);
+    	options.add(newGameEasy);
+    	options.add(newGameHard);
+    	options.add(newDebugGame);
+    	options.add(save);
+    	options.add(load);
     	options.add(quit);
     	help.add(about);
     	help.add(howtoplay);
     	
     	frame.setJMenuBar(menuBar);
-		printMap(game.getMap());;
+		printMap(game.getMap());
 		frame.addKeyListener(this);
 		frame.setFocusable(true);
 		frame.setFocusTraversalKeysEnabled(false);
@@ -114,7 +165,7 @@ public class GUI implements KeyListener {
     	frame.add(panel);
     	frame.pack();
     	frame.setVisible(true);
-    	frame.setSize(470, 650);
+    	frame.setSize(925, 850);
 
 	}
 	
@@ -122,21 +173,23 @@ public class GUI implements KeyListener {
 		JLabel display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
 		for (Square[] row : map) {
 			for (Square location : row) {
-				if (location.isVisible()) {
 					String symbol = location.getSymbol();
-					if (symbol.equals("R"))
+					switch(symbol) {
+					case "R":
 						display = new JLabel(new ImageIcon("GamePics/room.jpg"));
-					else if (symbol.equals("S"))
+						break;
+					case "S":
 						display = new JLabel(new ImageIcon("GamePics/spy.jpg"));
-					// Clear out all the "X"
-					if (location.getSymbol().equals("X")) {
-						display = new JLabel(new ImageIcon("GamePics/shown.png"));
+						break;
+					case " ":
+						display = new JLabel(new ImageIcon("GamePics/show2.jpg"));
+						break;
+					default:
+						display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
+						break;
 					}
-				} else {
-					// If the object is not visible, display "X"
-					display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
-				}
-				panel.add(display);
+					
+					panel.add(display);
 			}
 		}
 	}
