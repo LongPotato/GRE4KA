@@ -3,14 +3,14 @@
  * CS 141: Introduction to Programming and Problem Solving
  * Professor: Edwin Rodriguez
  *
- * Programming Assignment Gre4ka
+ * Programming Assignment Гречка
  *
  * <Create an Assassin game,
  *  where the player is a spy
  *  that is trying to get the briefcase with documents
  *  and the ninja assassins are trying to catch him.>
  *
- * Team Gre4ka 
+ * Team Гречка 
  *   <Alexandra Klimenko, Khanh Nguyen, Victor Ruiz, Ian Garrett>
  */
 package edu.cpp.cs.cs141.finalProject;
@@ -89,7 +89,7 @@ public class UI {
 	private void printSecretRoom() {
 		Room secretRoom = game.getRoomWithBriefCase();
 		System.out.println(
-				"The room that has your Gre4ka is at " + secretRoom.getRow() + " " + secretRoom.getCol() + "\n");
+				"The room that has your Гречка is at " + secretRoom.getRow() + " " + secretRoom.getCol() + "\n");
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class UI {
 	 */
 	private void printWelcomeMessage() {
 		System.out.println("========================");
-		System.out.println("*   FIND YOUR GRE4KA   *");
+		System.out.println("*   FIND YOUR ГРЕЧКА   *");
 		System.out.println("========================");
 	}
 
@@ -163,7 +163,7 @@ public class UI {
 		}
 
 		if (game.gameOver() == 1) {
-			System.out.println("YOU HAVE FOUND THE GRE4KA. YOU WIN!");
+			System.out.println("YOU HAVE FOUND THE ГРЕЧКА. YOU WIN!");
 		}
 		if (game.gameOver() == 2) {
 			System.out.println("YOU HAVE DIED TOO MANY TIMES. YOU LOSE!");
