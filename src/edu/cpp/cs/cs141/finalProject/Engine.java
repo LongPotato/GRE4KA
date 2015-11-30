@@ -246,9 +246,15 @@ public class Engine implements Serializable {
 				}
 			}
 		}
+<<<<<<< HEAD
 		
 		// If the spy stands next to a room, switch the visibility of the square behind the room to false.
 
+=======
+
+		// If the spy stands next to a room, switch the visibility of the square
+		// beihnd the room to false.
+>>>>>>> b8290bf4bff4917510d506ae23e4f868a65e8375
 		if (col == 0) {
 			Square behindRoom = null;
 
