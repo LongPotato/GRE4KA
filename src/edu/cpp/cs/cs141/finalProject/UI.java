@@ -31,13 +31,14 @@ public class UI {
 	 * To check if the user input actually want to move the spy, not open option menu.
 	 */
 	private boolean validMove = true;
-	private boolean hardMode = false;
+	private boolean hardMode = true;
 	/**
 	 * Starts up the game: initialize the game engine, set up the game map, get
 	 * users preferences, and execute the game loop logic.
 	 */
 	public void startGame() {
 		String repeat = "";
+		
 		
 		do{
 			// Clear the screen.
@@ -50,13 +51,8 @@ public class UI {
 		    int choice = mainMenu();
 		    switch (choice) {
 		    case 1:
-				int mode;
-				mode = getGameModeOption();
-				
-				if (mode == 2){
-					hardMode = true;
-				}
-				
+				getGameModeOption();
+				System.out.println(hardMode);
 				game = new Engine();
 				// Fill & set up the map with game objects.
 				game.fillMapWithSquare();
@@ -147,7 +143,7 @@ public class UI {
 			getPlayerDecision();
 			
 			// If the user actually want to move a spy, move the ninjas.
-			if(!hardMode){
+			if(hardMode){
 				if (validMove) {
 					if (!game.moveSmartNinja()) {
 						printSpyGotStabMessage();
@@ -478,7 +474,7 @@ public class UI {
 	/**
 	 * 
 	 */
-	private int getGameModeOption(){
+	private void getGameModeOption(){
 		String choice;
 		boolean valid = false;
 		
@@ -492,17 +488,19 @@ public class UI {
 			
 			switch(choice){
 			case "1":
+				hardMode = false;
 				valid = true;
-				return 1;
+				break;
 			case "2":
+				hardMode = true;
 				valid = true;
-				return 2;
+				break;
 			default:
 				System.out.println("Invalid Entry. Try Again.");
-				return 0;
+				break;
 			}
-			
 		} while (!valid);
+		
 		
 	}
 }
