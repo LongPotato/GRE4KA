@@ -821,7 +821,7 @@ public class Engine implements Serializable {
 				spy.useBullet();
 				return 2;
 			} else
-				for (int i = 1; row + i >= 0; i++) {
+				for (int i = 1; row + i <= 8; i++) {
 					// isNinja replace with Square object
 					if (isNinja(map[row + i][col])) {
 						Ninja deleteNinja = (Ninja) map[row + i][col];
@@ -873,7 +873,7 @@ public class Engine implements Serializable {
 				spy.useBullet();
 				return 2;
 			} else
-				for (int i = 1; col + i >= 0; i++) {
+				for (int i = 1; col + i <= 8; i++) {
 					// isNinja replace with Square object
 					if (isNinja(map[row][col + i])) {
 						Ninja deleteNinja = (Ninja) map[row][col + i];
