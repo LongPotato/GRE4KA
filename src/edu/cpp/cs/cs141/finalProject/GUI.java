@@ -34,15 +34,18 @@ import javax.swing.JPanel;
  */
 public class GUI implements KeyListener {
 	
-	private Engine game = new Engine();
+	private Engine game;
 	private Spy spy = new Spy(8,0);
+	
 	private JPanel panel = new JPanel(new GridLayout(9,9));
 	private JPanel HUD = new JPanel(new BorderLayout());
 	private JFrame frame = new JFrame("Find Your GRE4KA");
 	
+	private boolean validMove = true;
+	private boolean hardMode = false;
+	
 	public void startGame() {
-		game.fillMapWithSquare();
-		game.setUpMap();
+		
 		JMenuBar menuBar = new JMenuBar();
     	JMenu options = new JMenu("Options");
     	JMenu help = new JMenu("Help");
@@ -55,8 +58,13 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
+    			game = new Engine();
+    			game.fillMapWithSquare();
+    			game.setUpMap();
+    			
     			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
     			printMap(game.getMap());
+    			setHUD();
     		}
     	
     	});
@@ -66,8 +74,13 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
+    			game = new Engine();
+    			game.fillMapWithSquare();
+    			game.setUpMap();
+    			
     			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
     			printMap(game.getMap());
+    			setHUD();
     		}
     	
     	});
@@ -154,12 +167,10 @@ public class GUI implements KeyListener {
     	help.add(howtoplay);
     	
     	frame.setJMenuBar(menuBar);
-		printMap(game.getMap());
 		frame.addKeyListener(this);
 		frame.setFocusable(true);
 		frame.setFocusTraversalKeysEnabled(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setHUD();
 		frame.add(HUD, BorderLayout.SOUTH);
     	frame.add(panel);
     	frame.pack();
@@ -169,10 +180,12 @@ public class GUI implements KeyListener {
 	}
 	
 	public void printMap(Square[][] map) {
+		panel.removeAll();
 		JLabel display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
 		for (Square[] row : map) {
 			for (Square location : row) {
 				if (location.isVisible()) {
+					
 					String symbol = location.getSymbol();
 					switch(symbol) {
 					case "R":
@@ -185,13 +198,13 @@ public class GUI implements KeyListener {
 						display = new JLabel(new ImageIcon("GamePics/ninja.jpg"));
 						break;
 					case "I":
-						display = new JLabel(new ImageIcon("GamePics/invincible.jpg"));
+						display = new JLabel(new ImageIcon("GamePics/invincibility.jpg"));
 						break;
 					case "B":
 						display = new JLabel(new ImageIcon("GamePics/bullet.jpg"));
 						break;
 					case "D":
-						display = new JLabel(new ImageIcon("GamePics/radar.jpg"));
+						display = new JLabel(new ImageIcon("GamePics/radar.png"));
 						break;
 					default:
 						display = new JLabel(new ImageIcon("GamePics/show2.jpg"));
@@ -201,15 +214,37 @@ public class GUI implements KeyListener {
 					display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
 				}
 				panel.add(display);
+				
 			}
 		}
+		panel.validate();
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		boolean valid = false;
+		int status;
 		if(e.getKeyCode() == KeyEvent.VK_W) {
-			game.movePlayer(1);
-			game.moveNinja();
+			validMove = true;
+			// Move up
+			status = game.movePlayer(1);
+			if (status == 1) {
+				valid = true;
+			} else if (status == 5) {
+				//printActivateBulletMessage();
+				valid = true;
+			} else if (status == 6) {
+				//printActivateRadarMessage();
+				valid = true;
+			} else if (status == 7) {
+				//printActivateInvincibilityMessage();
+				valid = true;
+			} else if (status == 4) {
+				//printSpyGotStabMessage();
+				valid = true;
+			} else {
+				System.out.println("Can not go there! Try again: ");
+			}
 		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_A) {
