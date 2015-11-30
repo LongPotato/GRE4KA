@@ -98,6 +98,7 @@ public class GUI implements KeyListener {
     		{
     			JOptionPane.showMessageDialog(frame, "Activating Debug Mode");
     			game.activateDebugMode();
+    			
     			printMap(game.getMap());
     		}
     	
@@ -215,6 +216,8 @@ public class GUI implements KeyListener {
 					case "D":
 						display = new JLabel(new ImageIcon("GamePics/radar.png"));
 						break;
+					case "*":
+						display = new JLabel(new ImageIcon("GamePics/gre4ka.jpg"));
 					default:
 						display = new JLabel(new ImageIcon("GamePics/show2.jpg"));
 						break;
@@ -282,8 +285,7 @@ public class GUI implements KeyListener {
 					}
 				}
 				
-				gameOver();
-				
+				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
@@ -336,6 +338,7 @@ public class GUI implements KeyListener {
 					}
 				}
 				
+				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
@@ -388,6 +391,7 @@ public class GUI implements KeyListener {
 					}
 				}
 				
+				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
@@ -440,6 +444,7 @@ public class GUI implements KeyListener {
 					}
 				}
 				
+				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
@@ -524,15 +529,13 @@ public class GUI implements KeyListener {
 			
 			if (game.gameOver() == 1) {
 				JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND THE GRE4KA. YOU WIN!");
-				game = new Engine();
-				game.fillMapWithSquare();
-				game.setUpMap();
+				JOptionPane.showMessageDialog(frame, "Thank You For Playing!");
+				System.exit(0);
 			}
 			if (game.gameOver() == 2) {
 				JOptionPane.showMessageDialog(frame, "YOU HAVE DIED TOO MANY TIMES. YOU LOSE!");
-				game = new Engine();
-				game.fillMapWithSquare();
-				game.setUpMap();
+				JOptionPane.showMessageDialog(frame, "Thank You For Playing!");
+				System.exit(0);
 			}
 			
 		}
