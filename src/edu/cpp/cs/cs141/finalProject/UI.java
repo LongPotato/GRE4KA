@@ -147,7 +147,7 @@ public class UI {
 			getPlayerDecision();
 			
 			// If the user actually want to move a spy, move the ninjas.
-			if(!hardMode){
+			if(hardMode){
 				if (validMove) {
 					if (!game.moveSmartNinja()) {
 						printSpyGotStabMessage();

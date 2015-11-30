@@ -55,7 +55,6 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			game = new Engine();
     			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
     			printMap(game.getMap());
     		}
@@ -67,7 +66,6 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			game = new Engine();
     			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
     			printMap(game.getMap());
     		}
@@ -79,9 +77,9 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			game = new Engine();
     			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
     			game.activateDebugMode();
+    			printMap(game.getMap());
     		}
     	
     	});
@@ -91,6 +89,7 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
+    			Save.saveGame(game);
     			JOptionPane.showMessageDialog(frame,"GAME HAS BEEN SAVED!!");
     			
     		}
@@ -102,6 +101,7 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
+    			game = Save.loadGame();
     			JOptionPane.showMessageDialog(frame,"GAME HAS BEEN LOADED!!");
     			
     		}
@@ -182,7 +182,7 @@ public class GUI implements KeyListener {
 						display = new JLabel(new ImageIcon("GamePics/spy.jpg"));
 						break;
 					case "N":
-						display = new JLabel(new ImageIcon("GamePics/spy.jpg"));
+						display = new JLabel(new ImageIcon("GamePics/ninja.jpg"));
 						break;
 					case "I":
 						display = new JLabel(new ImageIcon("GamePics/invincible.jpg"));
@@ -206,13 +206,38 @@ public class GUI implements KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_W) {
+			game.movePlayer(1);
+			game.moveNinja();
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_A) {
+			game.movePlayer(2);
+			game.moveNinja();
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_S) {
+			game.movePlayer(3);
+			game.moveNinja();
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_D) {
+			game.movePlayer(4);
+			game.moveNinja();
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_P) {
+			//game.shootNinja(direction);
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_M) {
+			
+		}
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
