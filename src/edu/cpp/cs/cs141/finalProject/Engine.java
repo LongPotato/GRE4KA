@@ -1065,7 +1065,7 @@ public class Engine implements Serializable {
 	 * Stab the spy, move back to original postion, minus on live. Clear the spy
 	 * off the current position on the map.
 	 */
-	private void stabSpy() {
+	public void stabSpy() {
 		int oldRow = spy.getRow();
 		int oldCol = spy.getCol();
 		spy.getStabbed();

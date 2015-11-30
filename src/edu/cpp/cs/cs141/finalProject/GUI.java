@@ -28,6 +28,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
+
 /**
  * The UI class for handling the console interface. Take user input, print out
  * game information.
@@ -43,6 +45,7 @@ public class GUI implements KeyListener {
 	
 	private boolean validMove = true;
 	private boolean hardMode = false;
+	private int parameter = 0;
 	
 	public void startGame() {
 		game = new Engine();
@@ -152,7 +155,7 @@ public class GUI implements KeyListener {
     		{
     			JOptionPane.showMessageDialog(frame, "Move with the following keys:\nW - move up\nS - move down\nA - move left\nD - move right"
     					+ "\n\nPowerups:\nInvincibility - Invincible for 5 turns\nRadar - Reveal the location of the document\nAmmo Increase - Increase your ammo count by 1"
-    					+ "\n\nShooting: Press P to shoot, then select a direction" + "\nW - shoot up\nS - shoot down\nA - shoot left\nD - shoot right"
+    					+ "\n\nShooting: Press P to shoot, then select a direction" + "\nUP_Arrow - shoot up\nDOWN_ARROW - shoot down\nLEFT_ARROW - shoot left\nRIGHT_ARROW - shoot right"
     					+"\n\nLook for the document hiding in one of these rooms\nWatch out for ninjas, they want to shank you.");
     		}
     	
@@ -220,10 +223,10 @@ public class GUI implements KeyListener {
 					display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
 				}
 				panel.add(display);
-				
+				panel.validate();
 			}
 		}
-		panel.validate();
+		
 	}
 
 	@Override
@@ -231,6 +234,10 @@ public class GUI implements KeyListener {
 		boolean valid = false;
 		int status;
 			if(e.getKeyCode() == KeyEvent.VK_W) {
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
+				
 				validMove = true;
 				// Move up
 				status = game.movePlayer(1);
@@ -247,16 +254,44 @@ public class GUI implements KeyListener {
 					valid = true;
 				} else if (status == 4) {
 					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+					spy.getStabbed();
 					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
+				
+				if(hardMode){
+					if (validMove) {
+						if (!game.moveSmartNinja()) {
+							JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+							spy.getStabbed();
+						}
+						if (!game.getDebug()) {
+							game.assignSpyVisibility();
+						}
+					}
+				} else {
+					if (validMove) {
+						if (!game.moveNinja()) {
+							JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+							spy.getStabbed();
+						}
+						if (!game.getDebug()) {
+							game.assignSpyVisibility();
+						}
+					}
+				}
+				
 				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
 			
 			else if(e.getKeyCode() == KeyEvent.VK_A) {
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
+				
 				validMove = true;
 				// Move left
 				status = game.movePlayer(2);
@@ -273,16 +308,43 @@ public class GUI implements KeyListener {
 					valid = true;
 				} else if (status == 4) {
 					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+					spy.getStabbed();
 					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
-				game.assignSpyVisibility();
+				if(hardMode){
+					if (validMove) {
+						if (!game.moveSmartNinja()) {
+							JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+							spy.getStabbed();
+						}
+						if (!game.getDebug()) {
+							game.assignSpyVisibility();
+						}
+					}
+				} else {
+					if (validMove) {
+						if (!game.moveNinja()) {
+							JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+							spy.getStabbed();
+						}
+						if (!game.getDebug()) {
+							game.assignSpyVisibility();
+						}
+					}
+				}
+				
+				//game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
 			
 			else if(e.getKeyCode() == KeyEvent.VK_S) {
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
+				
 				validMove = true;
 				// Move down
 				status = game.movePlayer(3);
@@ -299,16 +361,43 @@ public class GUI implements KeyListener {
 					valid = true;
 				} else if (status == 4) {
 					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+					spy.getStabbed();
 					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
 				}
-				game.assignSpyVisibility();
+				if(hardMode){
+					if (validMove) {
+						if (!game.moveSmartNinja()) {
+							JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+							spy.getStabbed();
+						}
+						if (!game.getDebug()) {
+							game.assignSpyVisibility();
+						}
+					}
+				} else {
+					if (validMove) {
+						if (!game.moveNinja()) {
+							JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+							spy.getStabbed();
+						}
+						if (!game.getDebug()) {
+							game.assignSpyVisibility();
+						}
+					}
+				}
+				
+				//game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
 			
 			else if(e.getKeyCode() == KeyEvent.VK_D) {
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
+				
 				validMove = true;
 				// Move right
 				status = game.movePlayer(4);
@@ -325,25 +414,93 @@ public class GUI implements KeyListener {
 					valid = true;
 				} else if (status == 4) {
 					JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+					spy.getStabbed();
 					valid = true;
 				} else {
 					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
+				}
+				if(hardMode){
+					if (validMove) {
+						if (!game.moveSmartNinja()) {
+							JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+							spy.getStabbed();
+						}
+						if (!game.getDebug()) {
+							game.assignSpyVisibility();
+						}
+					}
+				} else {
+					if (validMove) {
+						if (!game.moveNinja()) {
+							JOptionPane.showMessageDialog(frame, "YOU GOT STABBED BY A NINJA!");
+							spy.getStabbed();
+						}
+						if (!game.getDebug()) {
+							game.assignSpyVisibility();
+						}
+					}
+				}
+				
+				//game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
+			}
+			
+			if(e.getKeyCode() == KeyEvent.VK_UP) {
+				validMove = true;
+				//Shoot
+				int bulletCount = game.getSpy().getBullets();
+				if (bulletCount > 0)
+					parameter = 1;
+				else {
+					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
+					valid = true;
 				}
 				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
 			
-			else if(e.getKeyCode() == KeyEvent.VK_P) {
+			if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 				validMove = true;
 				//Shoot
 				int bulletCount = game.getSpy().getBullets();
-				/*if (bulletCount > 0)
-					//getShootDirection();
+				if (bulletCount > 0)
+					parameter = 2;
 				else {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
 					valid = true;
-				}*/
+				}
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
+			}
+			
+			if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+				validMove = true;
+				//Shoot
+				int bulletCount = game.getSpy().getBullets();
+				if (bulletCount > 0)
+					parameter = 3;
+				else {
+					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
+					valid = true;
+				}
+				game.assignSpyVisibility();
+				printMap(game.getMap());
+				setHUD();
+			}
+			
+			if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				validMove = true;
+				//Shoot
+				int bulletCount = game.getSpy().getBullets();
+				if (bulletCount > 0)
+					parameter = 4;
+				else {
+					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
+					valid = true;
+				}
 				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
@@ -371,6 +528,12 @@ public class GUI implements KeyListener {
 				JOptionPane.showMessageDialog(frame, "Invalid Entry. Try Again.\n\nPress Enter To Continue...");
 			}
 			
+			int shootStatus = game.shootNinja(parameter);
+			if(shootStatus == 1) {
+				JOptionPane.showMessageDialog(frame, "YOU KILLED A NINJA!");
+			} else
+				JOptionPane.showMessageDialog(frame, "YOUR SHOT MISSED EVERYTHING");
+			
 			
 		}
 		
@@ -389,18 +552,19 @@ public class GUI implements KeyListener {
 	}
 	
 	public void setHUD()
-	{
-		int lives = spy.getLives();
-		int bullets = spy.getBullets();
-		int invincible = game.getInvincibilityTurns();
-		
+	{		
 		HUD.removeAll();
-	    JLabel HUDLives = new JLabel("Lives: " + lives);
-	    JLabel HUDBullets = new JLabel("Bullets: " + bullets);
-	    JLabel HUDInv = new JLabel("Turns of invincibility: " + invincible);
+	    JLabel HUDLives = new JLabel("Lives: " + spy.getLives());
+	    JLabel HUDBullets = new JLabel("Bullets: " + spy.getBullets());
+	    if (game.getSpy().isInvincible()) {
+	    	JLabel HUDInv = new JLabel("Turns of invincibility: " + game.getInvincibilityTurns());
+	    	HUD.add(HUDInv, BorderLayout.CENTER);
+	    }
 		HUD.add(HUDLives, BorderLayout.PAGE_START);
 		HUD.add(HUDBullets, BorderLayout.SOUTH);
-		HUD.add(HUDInv, BorderLayout.CENTER);
+		
 		HUD.revalidate();
 	}
+	
+	
 }
