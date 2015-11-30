@@ -73,12 +73,7 @@ public class Engine implements Serializable {
 	 */
 	private ArrayList<Square> occupiedLocations = new ArrayList<Square>();
 	/**
-<<<<<<< HEAD
-	 * The array to store the locations of the spy visibily, from the previous
-	 * turn.
-=======
 	 * The array to store the locations of the spy visibility, from the previous turn.
->>>>>>> a3d7155ac973d03040920ab21192de6c72add07b
 	 */
 	private ArrayList<Square> spyVisibilityLocations = new ArrayList<Square>();
 
@@ -522,6 +517,7 @@ public class Engine implements Serializable {
 	 */
 	public void activateDebugMode() {
 		debug = true;
+		briefCaseRoom.setSymbol("*");
 
 		for (Square[] locations : map) {
 			for (Square location : locations) {

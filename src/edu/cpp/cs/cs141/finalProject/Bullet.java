@@ -29,7 +29,7 @@ public class Bullet extends PowerUp {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JLabel BulletPic = new JLabel(new ImageIcon("GameImgs/Bullet.jpg"));
+	//private JLabel BulletPic = new JLabel(new ImageIcon("GameImgs/Bullet.jpg"));
 
 	/**
 	 * The constructor method to create the bullet powerup.
@@ -45,8 +45,10 @@ public class Bullet extends PowerUp {
 		super("B", row, col);
 	}
 	
+	/**
 	public JLabel getPic() {
 		return BulletPic;
 	}
+	*/
 	
 }

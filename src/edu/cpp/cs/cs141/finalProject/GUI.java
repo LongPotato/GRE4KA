@@ -28,8 +28,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
-
 /**
  * The UI class for handling the console interface. Take user input, print out
  * game information.
@@ -83,6 +81,7 @@ public class GUI implements KeyListener {
     			game = new Engine();
     			game.fillMapWithSquare();
     			game.setUpMap();
+    			hardMode = true;
     			
     			JOptionPane.showMessageDialog(frame, "Launching game on Hard.");
     			printMap(game.getMap());
@@ -111,7 +110,7 @@ public class GUI implements KeyListener {
     		{
     			Save.saveGame(game);
     			JOptionPane.showMessageDialog(frame,"Your game has been saved.");
-    			
+    			printMap(game.getMap());
     		}
     	
     	});
@@ -123,7 +122,7 @@ public class GUI implements KeyListener {
     		{
     			game = Save.loadGame();
     			JOptionPane.showMessageDialog(frame,"Your game has been loaded.");
-    			
+    			printMap(game.getMap());
     		}
     	
     	});
@@ -161,8 +160,6 @@ public class GUI implements KeyListener {
     		}
     	
     	});
-    	
-    	
 
     	options.add(newGameEasy);
     	options.add(newGameHard);
@@ -194,10 +191,13 @@ public class GUI implements KeyListener {
 		JLabel display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
 		for (Square[] row : map) {
 			for (Square location : row) {
-				if (location.isVisible()) {
+				if (location.isVisible() || game.getDebug()) {
 					
 					String symbol = location.getSymbol();
 					switch(symbol) {
+					case "*":
+						display = new JLabel(new ImageIcon("GamePics/gre4ka.jpg"));
+						break;
 					case "R":
 						display = new JLabel(new ImageIcon("GamePics/room.jpg"));
 						break;
@@ -216,8 +216,6 @@ public class GUI implements KeyListener {
 					case "D":
 						display = new JLabel(new ImageIcon("GamePics/radar.png"));
 						break;
-					case "*":
-						display = new JLabel(new ImageIcon("GamePics/gre4ka.jpg"));
 					default:
 						display = new JLabel(new ImageIcon("GamePics/show2.jpg"));
 						break;
@@ -353,6 +351,9 @@ public class GUI implements KeyListener {
 				status = game.movePlayer(3);
 				if (status == 1) {
 					valid = true;
+				} else if (status == 3) {
+					JOptionPane.showMessageDialog(frame, "THIS ROOM IS EMPTY!");
+					valid = true;
 				} else if (status == 5) {
 					JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND AN ADDITIONAL BULLET! USE IT WISELY");
 					valid = true;
@@ -478,9 +479,7 @@ public class GUI implements KeyListener {
 				}
 				game.assignSpyVisibility();
 				printMap(game.getMap());
-				setHUD();
-				
-				
+				setHUD();	
 			}
 			
 			if(e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -564,8 +563,8 @@ public class GUI implements KeyListener {
 	public void setHUD()
 	{		
 		HUD.removeAll();
-	    JLabel HUDLives = new JLabel("Lives: " + spy.getLives());
-	    JLabel HUDBullets = new JLabel("Bullets: " + spy.getBullets());
+	    JLabel HUDLives = new JLabel("Lives: " + game.getSpy().getLives());
+	    JLabel HUDBullets = new JLabel("Bullets: " + game.getSpy().getBullets());
 	    if (game.getSpy().isInvincible()) {
 	    	JLabel HUDInv = new JLabel("Turns of invincibility: " + game.getInvincibilityTurns());
 	    	HUD.add(HUDInv, BorderLayout.CENTER);

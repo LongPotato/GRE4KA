@@ -46,7 +46,7 @@ public class Spy extends Square {
 	 */
 	boolean invincibility = false;
 	
-	private JLabel SpyPic = new JLabel(new ImageIcon("GameImgs/Spy.jpg"));
+	//private JLabel SpyPic = new JLabel(new ImageIcon("GameImgs/Spy.jpg"));
 	
 	/**
 	 * The constructor method to create the spy object.
@@ -136,8 +136,10 @@ public class Spy extends Square {
 		this.invincibility = invincibility;
 	}
 	
+	/**
 	public JLabel getPic() {
 		return SpyPic;
 	}
+	*/
 
 }

@@ -70,10 +70,12 @@ public class Room extends Square {
 		this.briefcase = briefcase;
 	}
 	
+	/**
 	private JLabel RoomPic = new JLabel(new ImageIcon("GameImgs/Room.jpg"));
 	
 	public JLabel getPic() {
 		return RoomPic;
 	}
+	*/
 
 }

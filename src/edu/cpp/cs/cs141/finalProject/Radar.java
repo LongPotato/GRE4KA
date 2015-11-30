@@ -43,10 +43,12 @@ public class Radar extends PowerUp {
 		super("D", row, col);
 	}
 	
+	/**
 	private JLabel RadarPic = new JLabel(new ImageIcon("GameImgs/Radar.jpg"));
 	
 	public JLabel getPic() {
 		return RadarPic;
 	}
+	*/
 	
 }

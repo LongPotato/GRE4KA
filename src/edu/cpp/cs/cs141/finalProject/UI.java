@@ -39,7 +39,6 @@ public class UI {
 	public void startGame() {
 		String repeat = "";
 		
-		
 		do{
 			// Clear the screen.
 			if(repeat.toLowerCase().equals("y")) {
