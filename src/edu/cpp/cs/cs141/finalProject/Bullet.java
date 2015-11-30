@@ -15,9 +15,6 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 /**
  * The Bullet Class inherits from PowerUp.
  * It has a symbol "B", the player will get extra ammo if this gets activated.
@@ -29,7 +26,7 @@ public class Bullet extends PowerUp {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JLabel BulletPic = new JLabel(new ImageIcon("GameImgs/Bullet.jpg"));
+	//private JLabel BulletPic = new JLabel(new ImageIcon("GameImgs/Bullet.jpg"));
 
 	/**
 	 * The constructor method to create the bullet powerup.
@@ -45,8 +42,10 @@ public class Bullet extends PowerUp {
 		super("B", row, col);
 	}
 	
+	/**
 	public JLabel getPic() {
 		return BulletPic;
 	}
+	*/
 	
 }

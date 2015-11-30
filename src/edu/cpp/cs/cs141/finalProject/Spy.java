@@ -15,9 +15,6 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 /**
  * The Spy Class represents the player. It inherits the symbol and position from
  * the Square class.
@@ -46,7 +43,7 @@ public class Spy extends Square {
 	 */
 	boolean invincibility = false;
 	
-	private JLabel SpyPic = new JLabel(new ImageIcon("GameImgs/Spy.jpg"));
+	//private JLabel SpyPic = new JLabel(new ImageIcon("GameImgs/Spy.jpg"));
 	
 	/**
 	 * The constructor method to create the spy object.
@@ -136,8 +133,10 @@ public class Spy extends Square {
 		this.invincibility = invincibility;
 	}
 	
+	/**
 	public JLabel getPic() {
 		return SpyPic;
 	}
+	*/
 
 }

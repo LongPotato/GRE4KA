@@ -15,9 +15,6 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 /**
  * The Ninja class that represents the enemies.
  * These ninjas will wonder around the map and stab the spy if found.
@@ -34,7 +31,7 @@ public class Ninja extends Square {
 	 */
 	boolean alive = true;
 	
-	private JLabel NinjaPic = new JLabel(new ImageIcon("GameImgs/Ninja.jpg"));
+	//private JLabel NinjaPic = new JLabel(new ImageIcon("GameImgs/Ninja.jpg"));
 	
 	/**
 	 * The constructor method to create the a ninja object.
@@ -66,8 +63,10 @@ public class Ninja extends Square {
 		this.alive = alive;
 	}
 	
+	/**
 	public JLabel getPic() {
 		return NinjaPic;
 	}
+	*/
 	
 }
