@@ -339,6 +339,11 @@ public class UI {
 		}
 		System.out.println("Lives: " + game.getSpy().getLives());
 		System.out.println("Bullets: " + game.getSpy().getBullets());
+		if(hardMode){
+			System.out.println("Game Mode: Hard");
+		}else{
+			System.out.println("Game Mode: Normal");
+		}
 		System.out.println("------------------");
 	}
 
