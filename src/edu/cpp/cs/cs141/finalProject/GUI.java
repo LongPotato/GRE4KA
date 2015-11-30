@@ -282,7 +282,8 @@ public class GUI implements KeyListener {
 					}
 				}
 				
-				game.assignSpyVisibility();
+				gameOver();
+				
 				printMap(game.getMap());
 				setHUD();
 			}
@@ -335,7 +336,6 @@ public class GUI implements KeyListener {
 					}
 				}
 				
-				//game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
@@ -388,7 +388,6 @@ public class GUI implements KeyListener {
 					}
 				}
 				
-				//game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
@@ -441,7 +440,6 @@ public class GUI implements KeyListener {
 					}
 				}
 				
-				//game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
 			}
@@ -450,9 +448,10 @@ public class GUI implements KeyListener {
 				validMove = true;
 				//Shoot
 				int bulletCount = game.getSpy().getBullets();
-				if (bulletCount > 0)
+				if (bulletCount > 0) {
 					parameter = 1;
-				else {
+					shootNinja(parameter);
+				} else {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
 					valid = true;
 				}
@@ -465,24 +464,28 @@ public class GUI implements KeyListener {
 				validMove = true;
 				//Shoot
 				int bulletCount = game.getSpy().getBullets();
-				if (bulletCount > 0)
+				if (bulletCount > 0) {
 					parameter = 2;
-				else {
+					shootNinja(parameter);
+				} else {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
 					valid = true;
 				}
 				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
+				
+				
 			}
 			
 			if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 				validMove = true;
 				//Shoot
 				int bulletCount = game.getSpy().getBullets();
-				if (bulletCount > 0)
+				if (bulletCount > 0) {
 					parameter = 3;
-				else {
+					shootNinja(parameter);
+				} else {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
 					valid = true;
 				}
@@ -495,22 +498,13 @@ public class GUI implements KeyListener {
 				validMove = true;
 				//Shoot
 				int bulletCount = game.getSpy().getBullets();
-				if (bulletCount > 0)
+				if (bulletCount > 0) {
 					parameter = 4;
-				else {
+					shootNinja(parameter);
+				} else {
 					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
 					valid = true;
 				}
-				game.assignSpyVisibility();
-				printMap(game.getMap());
-				setHUD();
-			}
-			
-			else if(e.getKeyCode() == KeyEvent.VK_M) {
-				validMove = false;
-				// More options.
-				//getOptionInput();
-				valid = true;
 				game.assignSpyVisibility();
 				printMap(game.getMap());
 				setHUD();
@@ -524,20 +518,33 @@ public class GUI implements KeyListener {
 				setHUD();
 			}
 			
-			else {
+			/*else {
 				JOptionPane.showMessageDialog(frame, "Invalid Entry. Try Again.\n\nPress Enter To Continue...");
+			}*/
+			
+			if (game.gameOver() == 1) {
+				JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND THE GRE4KA. YOU WIN!");
+				game = new Engine();
+				game.fillMapWithSquare();
+				game.setUpMap();
 			}
-			
-			int shootStatus = game.shootNinja(parameter);
-			if(shootStatus == 1) {
-				JOptionPane.showMessageDialog(frame, "YOU KILLED A NINJA!");
-			} else
-				JOptionPane.showMessageDialog(frame, "YOUR SHOT MISSED EVERYTHING");
-			
+			if (game.gameOver() == 2) {
+				JOptionPane.showMessageDialog(frame, "YOU HAVE DIED TOO MANY TIMES. YOU LOSE!");
+				game = new Engine();
+				game.fillMapWithSquare();
+				game.setUpMap();
+			}
 			
 		}
 		
-	//}
+	public void shootNinja(int parameter) {
+		int shootStatus = game.shootNinja(parameter);
+		if(shootStatus == 1) {
+			JOptionPane.showMessageDialog(frame, "YOU KILLED A NINJA!");
+		} else
+			JOptionPane.showMessageDialog(frame, "YOUR SHOT MISSED EVERYTHING");
+	}
+
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
