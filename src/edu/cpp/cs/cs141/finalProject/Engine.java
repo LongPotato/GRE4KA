@@ -73,8 +73,12 @@ public class Engine implements Serializable {
 	 */
 	private ArrayList<Square> occupiedLocations = new ArrayList<Square>();
 	/**
+<<<<<<< HEAD
 	 * The array to store the locations of the spy visibily, from the previous
 	 * turn.
+=======
+	 * The array to store the locations of the spy visibility, from the previous turn.
+>>>>>>> a3d7155ac973d03040920ab21192de6c72add07b
 	 */
 	private ArrayList<Square> spyVisibilityLocations = new ArrayList<Square>();
 
@@ -247,9 +251,14 @@ public class Engine implements Serializable {
 				}
 			}
 		}
+<<<<<<< HEAD
 
 		// If the spy stands next to a room, switch the visibility of the square
 		// beihnd the room to false.
+=======
+		
+		// If the spy stands next to a room, switch the visibility of the square behind the room to false.
+>>>>>>> a3d7155ac973d03040920ab21192de6c72add07b
 		if (col == 0) {
 			Square behindRoom = null;
 
@@ -1269,7 +1278,7 @@ public class Engine implements Serializable {
 	 * Stab the spy, move back to original postion, minus on live. Clear the spy
 	 * off the current position on the map.
 	 */
-	private void stabSpy() {
+	public void stabSpy() {
 		int oldRow = spy.getRow();
 		int oldCol = spy.getCol();
 		spy.getStabbed();

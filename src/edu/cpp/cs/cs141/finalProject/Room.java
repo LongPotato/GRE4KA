@@ -15,6 +15,9 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  * This class represents the rooms in game. 
  * One of them will contain the briefcase or gre4ka that lead to victory.
@@ -65,6 +68,12 @@ public class Room extends Square {
 	 */
 	public void setBriefcase(boolean briefcase) {
 		this.briefcase = briefcase;
+	}
+	
+	private JLabel RoomPic = new JLabel(new ImageIcon("GameImgs/Room.jpg"));
+	
+	public JLabel getPic() {
+		return RoomPic;
 	}
 
 }

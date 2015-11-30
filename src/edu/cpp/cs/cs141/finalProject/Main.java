@@ -15,6 +15,8 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
+import java.util.Scanner;
+
 /**
  * The main method, where the program get executed.
  */
@@ -22,8 +24,27 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		UI ui = new UI();
-		ui.startGame();
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("Press T to play in text mode or G to play in GUI mode.\n\nAny other button will close the program.");
+		String choice = scan.next();
+		choice = choice.toUpperCase();
+		
+		switch(choice) {
+		case "T":
+			UI ui = new UI();
+			ui.startGame();
+			break;
+		case "G":
+			GUI gui = new GUI();
+			gui.startGame();
+			break;
+		default:
+			System.out.println("Game exited!");
+			System.exit(0);
+		}
+		
+		scan.close();	
 				
 		System.out.println("Game exited!");
 	}

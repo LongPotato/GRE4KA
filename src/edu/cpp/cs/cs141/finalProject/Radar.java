@@ -15,6 +15,9 @@
  */
 package edu.cpp.cs.cs141.finalProject;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  * Create a Radar Class that inherits from PowerUp. It shows the location of the
  * brief case when get activated.
@@ -38,6 +41,12 @@ public class Radar extends PowerUp {
 
 	public Radar(int row, int col) {
 		super("D", row, col);
+	}
+	
+	private JLabel RadarPic = new JLabel(new ImageIcon("GameImgs/Radar.jpg"));
+	
+	public JLabel getPic() {
+		return RadarPic;
 	}
 	
 }
