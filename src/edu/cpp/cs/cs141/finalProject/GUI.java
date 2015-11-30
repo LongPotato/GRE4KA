@@ -45,6 +45,9 @@ public class GUI implements KeyListener {
 	private boolean hardMode = false;
 	
 	public void startGame() {
+		game = new Engine();
+		game.fillMapWithSquare();
+		game.setUpMap();
 		
 		JMenuBar menuBar = new JMenuBar();
     	JMenu options = new JMenu("Options");
@@ -62,7 +65,7 @@ public class GUI implements KeyListener {
     			game.fillMapWithSquare();
     			game.setUpMap();
     			
-    			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
+    			JOptionPane.showMessageDialog(frame, "Launching game on Easy.");
     			printMap(game.getMap());
     			setHUD();
     		}
@@ -78,7 +81,7 @@ public class GUI implements KeyListener {
     			game.fillMapWithSquare();
     			game.setUpMap();
     			
-    			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
+    			JOptionPane.showMessageDialog(frame, "Launching game on Hard.");
     			printMap(game.getMap());
     			setHUD();
     		}
@@ -90,7 +93,7 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			JOptionPane.showMessageDialog(frame, "NEW GAME!!");
+    			JOptionPane.showMessageDialog(frame, "Activating Debug Mode");
     			game.activateDebugMode();
     			printMap(game.getMap());
     		}
@@ -103,7 +106,7 @@ public class GUI implements KeyListener {
     		public void actionPerformed(ActionEvent e)
     		{
     			Save.saveGame(game);
-    			JOptionPane.showMessageDialog(frame,"GAME HAS BEEN SAVED!!");
+    			JOptionPane.showMessageDialog(frame,"Your game has been saved.");
     			
     		}
     	
@@ -115,7 +118,7 @@ public class GUI implements KeyListener {
     		public void actionPerformed(ActionEvent e)
     		{
     			game = Save.loadGame();
-    			JOptionPane.showMessageDialog(frame,"GAME HAS BEEN LOADED!!");
+    			JOptionPane.showMessageDialog(frame,"Your game has been loaded.");
     			
     		}
     	
@@ -176,6 +179,9 @@ public class GUI implements KeyListener {
     	frame.pack();
     	frame.setVisible(true);
     	frame.setSize(925, 850);
+    	
+    	printMap(game.getMap());
+    	setHUD();
 
 	}
 	
@@ -224,52 +230,132 @@ public class GUI implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		boolean valid = false;
 		int status;
-		if(e.getKeyCode() == KeyEvent.VK_W) {
-			validMove = true;
-			// Move up
-			status = game.movePlayer(1);
-			if (status == 1) {
-				valid = true;
-			} else if (status == 5) {
-				//printActivateBulletMessage();
-				valid = true;
-			} else if (status == 6) {
-				//printActivateRadarMessage();
-				valid = true;
-			} else if (status == 7) {
-				//printActivateInvincibilityMessage();
-				valid = true;
-			} else if (status == 4) {
-				//printSpyGotStabMessage();
-				valid = true;
-			} else {
-				System.out.println("Can not go there! Try again: ");
+		//while (game.gameOver() == 0) {
+			if(e.getKeyCode() == KeyEvent.VK_W) {
+				validMove = true;
+				// Move up
+				status = game.movePlayer(1);
+				if (status == 1) {
+					valid = true;
+				} else if (status == 5) {
+					//printActivateBulletMessage();
+					valid = true;
+				} else if (status == 6) {
+					//printActivateRadarMessage();
+					valid = true;
+				} else if (status == 7) {
+					//printActivateInvincibilityMessage();
+					valid = true;
+				} else if (status == 4) {
+					//printSpyGotStabMessage();
+					valid = true;
+				} else {
+					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
+				}
 			}
-		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_A) {
-			game.movePlayer(2);
-			game.moveNinja();
-		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_S) {
-			game.movePlayer(3);
-			game.moveNinja();
-		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_D) {
-			game.movePlayer(4);
-			game.moveNinja();
-		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_P) {
-			//game.shootNinja(direction);
-		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_M) {
 			
+			else if(e.getKeyCode() == KeyEvent.VK_A) {
+				validMove = true;
+				// Move left
+				status = game.movePlayer(2);
+				if (status == 1) {
+					valid = true;
+				} else if (status == 5) {
+					//printActivateBulletMessage();
+					valid = true;
+				} else if (status == 6) {
+					//printActivateRadarMessage();
+					valid = true;
+				} else if (status == 7) {
+					//printActivateInvincibilityMessage();
+					valid = true;
+				} else if (status == 4) {
+					//printSpyGotStabMessage();
+					valid = true;
+				} else {
+					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
+				}
+			}
+			
+			else if(e.getKeyCode() == KeyEvent.VK_S) {
+				validMove = true;
+				// Move down
+				status = game.movePlayer(3);
+				if (status == 1) {
+					valid = true;
+				} else if (status == 5) {
+					//printActivateBulletMessage();
+					valid = true;
+				} else if (status == 6) {
+					//printActivateRadarMessage();
+					valid = true;
+				} else if (status == 7) {
+					//printActivateInvincibilityMessage();
+					valid = true;
+				} else if (status == 4) {
+					//printSpyGotStabMessage();
+					valid = true;
+				} else {
+					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
+				}
+			}
+			
+			else if(e.getKeyCode() == KeyEvent.VK_D) {
+				validMove = true;
+				// Move right
+				status = game.movePlayer(4);
+				if (status == 1) {
+					valid = true;
+				} else if (status == 5) {
+					//printActivateBulletMessage();
+					valid = true;
+				} else if (status == 6) {
+					//printActivateRadarMessage();
+					valid = true;
+				} else if (status == 7) {
+					//printActivateInvincibilityMessage();
+					valid = true;
+				} else if (status == 4) {
+					//printSpyGotStabMessage();
+					valid = true;
+				} else {
+					JOptionPane.showMessageDialog(frame, "Can not go there! Try again: ");
+				}
+			}
+			
+			else if(e.getKeyCode() == KeyEvent.VK_P) {
+				validMove = true;
+				//Shoot
+				int bulletCount = game.getSpy().getBullets();
+				/*if (bulletCount > 0)
+					//getShootDirection();
+				else {
+					JOptionPane.showMessageDialog(frame, "\nYOU DON'T HAVE ANY BULLETS!\n\n");
+					valid = true;
+				}*/
+			}
+			
+			else if(e.getKeyCode() == KeyEvent.VK_M) {
+				validMove = false;
+				// More options.
+				//getOptionInput();
+				valid = true;
+			}
+			
+			else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+				validMove = false;
+				valid = true;
+			}
+			
+			else {
+				JOptionPane.showMessageDialog(frame, "Invalid Entry. Try Again.\n\nPress Enter To Continue...");
+			}
+			
+			printMap(game.getMap());
+			game.assignSpyVisibility();
 		}
-	}
+		
+	//}
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
