@@ -20,11 +20,11 @@ package edu.cpp.cs.cs141.finalProject;
  * These ninjas will wonder around the map and stab the spy if found.
  */
 public class Ninja extends Square {
-
+	
 	/**
-	 * Default serial id.
+	 * Generated serial id.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7519846425649306535L;
 	
 	/**
 	 * The status of ninja for current live, default true.

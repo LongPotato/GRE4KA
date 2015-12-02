@@ -19,14 +19,12 @@ package edu.cpp.cs.cs141.finalProject;
  * Inherit from PowerUp, make player invulnerable for 5 turns.
  */
 public class Invincibility extends PowerUp {
-
+	
 	/**
-	 * Default serial id.
+	 * Generated serial id.
 	 */
-	private static final long serialVersionUID = 1L;
-	
-	//private JLabel StrongPic = new JLabel(new ImageIcon("GameImgs/Invincibility.jpg"));
-	
+	private static final long serialVersionUID = -5061874876041795144L;
+
 	/**
 	 * The constructor method to create the invincibility powerup.
 	 * @param symbol the string symbol of the item, such as: D for radar detection, A for ammo...
@@ -40,11 +38,5 @@ public class Invincibility extends PowerUp {
 	public Invincibility(int row, int col){
 		super("I", row, col);
 	}
-	
-	/**
-	public JLabel getPic() {
-		return StrongPic;
-	}
-	*/
 	
 }

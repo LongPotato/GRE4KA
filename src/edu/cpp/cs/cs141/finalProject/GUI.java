@@ -3,14 +3,14 @@
  * CS 141: Introduction to Programming and Problem Solving
  * Professor: Edwin Rodriguez
  *
- * Programming Assignment Гречка
+ * Programming Assignment Ð“Ñ€ÐµÑ‡ÐºÐ°
  *
  * <Create an Assassin game,
  *  where the player is a spy
  *  that is trying to get the briefcase with documents
  *  and the ninja assassins are trying to catch him.>
  *
- * Team Гречка 
+ * Team Ð“Ñ€ÐµÑ‡ÐºÐ° 
  *   <Alexandra Klimenko, Khanh Nguyen, Victor Ruiz, Ian Garrett>
  */
 package edu.cpp.cs.cs141.finalProject;
@@ -42,7 +42,7 @@ public class GUI implements KeyListener {
 	 */
 	private JPanel panel = new JPanel(new GridLayout(9,9));
 	private JPanel HUD = new JPanel(new BorderLayout());
-	private JFrame frame = new JFrame("Find Your Гречка");
+	private JFrame frame = new JFrame("Find Your Ð“Ñ€ÐµÑ‡ÐºÐ°");
 	
 	private boolean validMove = true;
 	private boolean hardMode = false;
@@ -528,7 +528,7 @@ public class GUI implements KeyListener {
 			
 			//Game Won
 			if (game.gameOver() == 1) {
-				JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND THE ГРЕЧКА. YOU WIN!");
+				JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND THE Ð“Ð Ð•Ð§ÐšÐ�. YOU WIN!");
 				JOptionPane.showMessageDialog(frame, "Thank You For Playing!");
 				System.exit(0);
 			}
