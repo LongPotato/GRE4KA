@@ -10,9 +10,9 @@ import java.io.*;
 public class Save implements Serializable {
 
 	/**
-	 * Default serial key.
+	 * Generated serial key.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6748448343229471723L;
 
 	/**
 	 * Save the game engine to a file.

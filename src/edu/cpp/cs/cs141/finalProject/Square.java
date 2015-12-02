@@ -25,9 +25,10 @@ import java.io.Serializable;
 public class Square implements Serializable {
 	
 	/**
-	 * Default serial id.
+	 * Generated serial id.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1010371339404187316L;
+
 	/**
 	 * Row & Column to keep track of the object position on the 2 dimensional array.
 	 */

@@ -28,9 +28,9 @@ import java.util.Random;
 public class Engine implements Serializable {
 
 	/**
-	 * Default serial key.
+	 * Generated serial ID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -9053250392397413615L;
 	/**
 	 * The map is a 2 dimensional array of type Square.
 	 */

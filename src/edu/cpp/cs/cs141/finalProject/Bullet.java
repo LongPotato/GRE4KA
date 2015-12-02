@@ -22,10 +22,10 @@ package edu.cpp.cs.cs141.finalProject;
 public class Bullet extends PowerUp {
 
 	/**
-	 * Default serial id.
+	 * Generated serial ID.
 	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 2148652559454136174L;
+
 	//private JLabel BulletPic = new JLabel(new ImageIcon("GameImgs/Bullet.jpg"));
 
 	/**

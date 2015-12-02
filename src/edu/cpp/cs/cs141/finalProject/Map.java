@@ -22,11 +22,11 @@ import java.io.Serializable;
  */
 public class Map implements Serializable{
 
-	/**
-	 * Default serial id.
-	 */
-	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Generated serial id.
+	 */
+	private static final long serialVersionUID = 8050994158747260187L;
 	/**
 	 * The map is a 2 dimensional array of type Square.
 	 */
