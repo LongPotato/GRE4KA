@@ -76,6 +76,10 @@ public class Engine implements Serializable {
 	 * The array to store the locations of the spy visibility, from the previous turn.
 	 */
 	private ArrayList<Square> spyVisibilityLocations = new ArrayList<Square>();
+	/**
+	 * The array to store the locations surround the spy's orginial position.
+	 */
+	private ArrayList<Square> surroundSpy = new ArrayList<Square>();
 
 	/**
 	 * Initialize/fill up the 2 dimensional array map with Square objects.
@@ -426,6 +430,21 @@ public class Engine implements Serializable {
 	 * Wrapper method to assign the bullet, radar, and invincibility to the map.
 	 */
 	public void assignPowerUps() {
+		// Nothing will get spawn close to the spy original position.
+		for (int i = 1; i < 4; i++) {
+			occupiedLocations.add(map[8 - i][0]);
+			surroundSpy.add(map[8 - i][0]);
+			occupiedLocations.add(map[8][0 + i]);
+			surroundSpy.add(map[8][0 + i]);
+		}
+		occupiedLocations.add(map[8][0]);
+		occupiedLocations.add(map[7][2]);
+		occupiedLocations.add(map[6][1]);
+		
+		surroundSpy.add(map[8][0]);
+		surroundSpy.add(map[7][2]);
+		surroundSpy.add(map[6][1]);
+
 		assignBullet();
 		assignRadar();
 		assignInvincibility();
@@ -462,14 +481,6 @@ public class Engine implements Serializable {
 
 		if (initial) {
 
-			// The ninja will be spawn far away from the spy at least 3 squares.
-			for (int i = 1; i < 4; i++) {
-				occupiedLocations.add(map[8 - i][0]);
-				occupiedLocations.add(map[8][0 + i]);
-			}
-			occupiedLocations.add(map[7][2]);
-			occupiedLocations.add(map[6][1]);
-
 			for (int i = 0; i < 6; i++) {
 				do {
 					rRow = random.nextInt(8);
@@ -490,25 +501,32 @@ public class Engine implements Serializable {
 			}
 		} else {
 
-			// Relocation current ninjas.
-			for (Ninja ninja : ninjas) {
-				do {
-					rRow = random.nextInt(8);
-					rCol = random.nextInt(8);
-				} while (isOccupied(rRow, rCol));
-
-				ninja.setRow(rRow);
-				ninja.setCol(rCol);
-				map[rRow][rCol] = ninja;
-
-				if (debug) {
-					ninja.setVisible(true);
+			// If there are ninjas surrond the original position, move them.
+			for (Square location : surroundSpy) {
+				if (isNinja(map[location.getRow()][location.getCol()])) {
+					do {
+						rRow = random.nextInt(8);
+						rCol = random.nextInt(8);
+						if (isNinja(map[rRow][rCol])) {
+							occupiedLocations.add(map[rRow][rCol]);
+						}
+					} while (isOccupied(rRow, rCol));
+	
+					map[rRow][rCol] = map[location.getRow()][location.getCol()];
+					Ninja ninja = (Ninja) map[rRow][rCol];
+					map[location.getRow()][location.getCol()] = new Square(debug, rRow, rCol);
+					ninja.setRow(rRow);
+					ninja.setCol(rCol);
+	
+					if (debug) {
+						ninja.setVisible(true);
+					}
+					
+					occupiedLocations.add(map[rRow][rCol]);
 				}
-
-				// Mark the new location as occupied.
-				occupiedLocations.add(map[rRow][rCol]);
 			}
-		}
+	}
+
 	}
 
 	/**
@@ -785,7 +803,7 @@ public class Engine implements Serializable {
 	 * @return the status code of the action: 1 - killed a ninja, 2 - missed.
 	 */
 	public int shootNinja(int direction) {
-
+		
 		int row = spy.getRow();
 		int col = spy.getCol();
 
@@ -800,6 +818,7 @@ public class Engine implements Serializable {
 					if (isNinja(map[row - i][col])) {
 						Ninja deleteNinja = (Ninja) map[row - i][col];
 						map[row - i][col] = new Square(debug, row - i, col);
+						reAssignPowerUps();
 
 						Iterator<Ninja> iterator = ninjas.iterator();
 						while (iterator.hasNext()) {
@@ -826,6 +845,7 @@ public class Engine implements Serializable {
 					if (isNinja(map[row + i][col])) {
 						Ninja deleteNinja = (Ninja) map[row + i][col];
 						map[row + i][col] = new Square(debug, row + i, col);
+						reAssignPowerUps();
 
 						Iterator<Ninja> iterator = ninjas.iterator();
 						while (iterator.hasNext()) {
@@ -852,6 +872,7 @@ public class Engine implements Serializable {
 					if (isNinja(map[row][col - i])) {
 						Ninja deleteNinja = (Ninja) map[row][col - i];
 						map[row][col - i] = new Square(debug, row, col - i);
+						reAssignPowerUps();
 
 						Iterator<Ninja> iterator = ninjas.iterator();
 						while (iterator.hasNext()) {
@@ -878,6 +899,7 @@ public class Engine implements Serializable {
 					if (isNinja(map[row][col + i])) {
 						Ninja deleteNinja = (Ninja) map[row][col + i];
 						map[row][col + i] = new Square(debug, row, col + i);
+						reAssignPowerUps();
 
 						Iterator<Ninja> iterator = ninjas.iterator();
 						while (iterator.hasNext()) {
@@ -953,12 +975,7 @@ public class Engine implements Serializable {
 
 		// Check if the ninja has stepped on any power up last turn, assign them
 		// back to their location.
-		if (!powerUps.isEmpty()) {
-			for (PowerUp p : powerUps) {
-				map[p.getRow()][p.getCol()] = p;
-			}
-			powerUps.clear();
-		}
+		reAssignPowerUps();
 
 		for (Ninja ninja : ninjas) {
 			int row = ninja.getRow();
@@ -1031,16 +1048,17 @@ public class Engine implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Hard mode: If the spy is on the ninja's line of sight, the ninja will chase the spy until
+	 * the line of sight is broke.
+	 * If no spy on the line of sight, the ninja will move randomly.
+	 * @return true if all ninjas moved successfully, false if foud a spy near
+	 *         by and stabbed him.
+	 */
 	public boolean moveSmartNinja() {
 		// Check if the ninja has stepped on any power up last turn, assign them
 		// back to their location.
-		if (!powerUps.isEmpty()) {
-			for (PowerUp p : powerUps) {
-				map[p.getRow()][p.getCol()] = p;
-			}
-			powerUps.clear();
-		}
-
+		reAssignPowerUps();
 
 		int spyRow = spy.getRow();
 		int spyCol = spy.getCol();
@@ -1279,14 +1297,15 @@ public class Engine implements Serializable {
 		if (spyLives == 0) {
 			gameEndStatus = 2;
 		}
-
+		
 		// Bring the spy back to the original postion.
+		if (!(map[8][0] instanceof Spy)) {
+			map[oldRow][oldCol] = new Square(debug, oldRow, oldCol);
+		}
 		map[8][0] = spy;
 		spy.setRow(8);
 		spy.setCol(0);
-		map[oldRow][oldCol] = new Square(debug, oldRow, oldCol);
 
-		// Resuffle ninjas locations.
 		// Delete old ninja locations from the occupied array.
 		Iterator<Square> iterator = occupiedLocations.iterator();
 		while (iterator.hasNext()) {
@@ -1295,13 +1314,21 @@ public class Engine implements Serializable {
 				iterator.remove();
 			}
 		}
-
-		// Randomize & relocations current ninjas.
-		for (Square ninja : ninjas) {
-			map[ninja.getRow()][ninja.getCol()] = new Square(debug, ninja.getRow(), ninja.getCol());
+		
+		assignNinjas(false);	
+	}
+	
+	/**
+	 * Check if the ninja has stepped on any power up last turn, assign them
+	 * back to their location.
+	 */
+	private void reAssignPowerUps() {
+		if (!powerUps.isEmpty()) {
+			for (PowerUp p : powerUps) {
+				map[p.getRow()][p.getCol()] = p;
+			}
+			powerUps.clear();
 		}
-
-		assignNinjas(false);
 	}
 
 	/**

@@ -149,9 +149,9 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			JOptionPane.showMessageDialog(frame, "You are a spy in a dark room, but you are not alone. \nThere are 6 ninjas in the room with you."
+    			JOptionPane.showMessageDialog(frame, "You are a spy in a dark room, but you are not alone. \nThere are 6 retail ninjas in the room with you."
     					+ "\nThis room is 90 yards square, \nwith 9 smaller rooms spread out within it.\n" 
-    					+ "Your Mission, should you choose to accept it, \nis to infiltrate this room and find the briefcase \nhidden in one of the smaller rooms."
+    					+ "Your Mission, should you choose to accept it, \nis to infiltrate this room and find the gre4ka \nhidden in one of the smaller rooms."
     					+ "\n\nGood Luck, Have Fun!");
     		}
     	
@@ -212,6 +212,7 @@ public class GUI implements KeyListener {
 	 * @param map
 	 */
 	public void printMap(Square[][] map) {
+		//int counter = 1;
 		panel.removeAll();
 		JLabel display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
 		for (Square[] row : map) {
@@ -230,7 +231,9 @@ public class GUI implements KeyListener {
 						display = new JLabel(new ImageIcon("GamePics/spy.jpg"));
 						break;
 					case "N":
-						display = new JLabel(new ImageIcon("GamePics/ninja.jpg"));
+						//String number = Integer.toString(counter);
+						display = new JLabel(new ImageIcon("GamePics/ninja1.jpg"));
+						//counter++;
 						break;
 					case "I":
 						display = new JLabel(new ImageIcon("GamePics/invincibility.jpg"));
