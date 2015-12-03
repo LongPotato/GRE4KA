@@ -20,6 +20,7 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -96,13 +97,13 @@ public class GUI implements KeyListener {
     	
     	});
     	
-    	JMenuItem newDebugGame = new JMenuItem("Activate Debug Mode");
+    	JMenuItem newDebugGame = new JCheckBoxMenuItem("Toggle Debug Mode");
     	newDebugGame.addActionListener(new ActionListener(){
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			JOptionPane.showMessageDialog(frame, "Activating Debug Mode");
-    			game.activateDebugMode();
+    			//JOptionPane.showMessageDialog(frame, "Activating Debug Mode");
+    			game.toggleDebugMode();
     			
     			printMap(game.getMap());
     		}
@@ -212,7 +213,6 @@ public class GUI implements KeyListener {
 	 * @param map
 	 */
 	public void printMap(Square[][] map) {
-		//int counter = 1;
 		panel.removeAll();
 		JLabel display = new JLabel(new ImageIcon("GamePics/blank.jpg"));
 		for (Square[] row : map) {
@@ -231,9 +231,7 @@ public class GUI implements KeyListener {
 						display = new JLabel(new ImageIcon("GamePics/spy.jpg"));
 						break;
 					case "N":
-						//String number = Integer.toString(counter);
 						display = new JLabel(new ImageIcon("GamePics/ninja1.jpg"));
-						//counter++;
 						break;
 					case "I":
 						display = new JLabel(new ImageIcon("GamePics/invincibility.jpg"));

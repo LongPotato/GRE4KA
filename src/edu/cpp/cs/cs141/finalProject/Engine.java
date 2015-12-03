@@ -530,23 +530,51 @@ public class Engine implements Serializable {
 	}
 
 	/**
-	 * Activate Debug mode, switch the visible field of all game objects to
-	 * true. All game objects will be visible.
+	 * Toggle Debug mode, if debug is currently off switch the visible field of all game objects to
+	 * true.All game objects will be visible.
+	 * Else switch all of them to false, except for spy and rooms.
 	 */
-	public void activateDebugMode() {
-		debug = true;
-		briefCaseRoom.setSymbol("*");
+	public void toggleDebugMode() {
+		 if (debug == false) {
+			 
+			 briefCaseRoom.setSymbol("*");
 
-		for (Square[] locations : map) {
-			for (Square location : locations) {
-				location.setVisible(true);
-			}
-		}
+	   		 for (Square[] locations : map) {
+	   			 for (Square location : locations) {
+	   				 location.setVisible(true);
+	   			 }
+	   		 }
 
-		// Activate the PowerUps also, in case of ninja step on it
-		for (PowerUp powerUp : powerUps) {
-			powerUp.setVisible(true);
-		}
+	   		 // Activate the PowerUps also, in case of ninja step on it
+	   		 for (PowerUp powerUp : powerUps) {
+	   			 powerUp.setVisible(true);
+	   		 }
+	   		 debug = true;
+	   	 }
+		 
+	   	 else {
+	   		briefCaseRoom.setSymbol("R");
+
+	   		 for (Square[] locations : map) {
+	   			 for (Square location : locations) {
+	   				 location.setVisible(false);
+
+	   			 }
+	   		 }
+
+	   		 spy.setVisible(true);
+
+	   		 for (Square[] locations : map) {
+	   			 for (Square location : locations) {
+	   				 if (isRoom(location)) {
+	   					 location.setVisible(true);
+	   				 }
+	   			 }
+	   		 }
+	   		 
+	   		 debug = false;
+	   		 assignSpyVisibility();
+	   	 }
 	}
 
 	/**

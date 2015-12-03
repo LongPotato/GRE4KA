@@ -64,7 +64,7 @@ public class UI {
 				game.fillMapWithSquare();
 			    game.setUpMap();
 			    
-		    	game.activateDebugMode();
+		    	game.toggleDebugMode();
 		    	printSecretRoom();
 		    	gameLoop();
 		    	break;
@@ -444,7 +444,7 @@ public class UI {
 		boolean valid = false;
 		
 		System.out.println("More options: ");
-		System.out.println("1. Activate debug mode.");
+		System.out.println("1. Toggle debug mode.");
 		System.out.println("2. Save game.");
 		System.out.println("3. Quit.");
 		
@@ -453,7 +453,7 @@ public class UI {
 			
 			switch(choice) {
 			case "1":
-				game.activateDebugMode();
+				game.toggleDebugMode();
 		    	printSecretRoom();
 		    	valid = true;
 		    	break;
