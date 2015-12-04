@@ -30,8 +30,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * The UI class for handling the console interface. Take user input, print out
- * game information.
+ * The GUI class for handling the graphical interface. 
  */
 public class GUI implements KeyListener {
 	
@@ -210,7 +209,7 @@ public class GUI implements KeyListener {
 	
 	/**
 	 * This method prints the game board within the JFrame GUI and handles Image Icons.
-	 * @param map
+	 * @param map the 2 dimensional array of type square, represents the current game map.
 	 */
 	public void printMap(Square[][] map) {
 		panel.removeAll();
@@ -542,7 +541,7 @@ public class GUI implements KeyListener {
 	/**
 	 * This method receives the parameter "parameter" from the KeyPressed method 
 	 * and runs the code to shoot the gun. It also displays whether or not a ninja has been hit.
-	 * @param parameter
+	 * @param parameter the shooting direction.
 	 */
 	public void shootNinja(int parameter) {
 		int shootStatus = game.shootNinja(parameter);

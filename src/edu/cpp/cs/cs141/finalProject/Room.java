@@ -42,9 +42,8 @@ public class Room extends Square {
 	}
 	
 	/**
-	 * 
-	 * @param row
-	 * @param col
+	 * @param row an integer from 0-8
+	 * @param col an integer from 0-8
 	 */
 	public Room(int row, int col) {
 		super("R", row, col);

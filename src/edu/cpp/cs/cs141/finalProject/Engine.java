@@ -83,7 +83,7 @@ public class Engine implements Serializable {
 
 	/**
 	 * Initialize/fill up the 2 dimensional array map with Square objects.
-	 * Assign the row & column attributes for each Square.
+	 * Assign the row and column attributes for each Square.
 	 */
 	public void fillMapWithSquare() {
 
