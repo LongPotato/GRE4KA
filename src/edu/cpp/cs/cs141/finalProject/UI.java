@@ -97,7 +97,7 @@ public class UI {
 	 */
 	private void printWelcomeMessage() {
 		System.out.println("========================");
-		System.out.println("*   FIND YOUR ГРЕЧКА   *");
+		System.out.println("*   FIND YOUR GRE4KA   *");
 		System.out.println("========================");
 	}
 

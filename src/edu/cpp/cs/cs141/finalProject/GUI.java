@@ -10,7 +10,7 @@
  *  that is trying to get the briefcase with documents
  *  and the ninja assassins are trying to catch him.>
  *
- * Team Ð“Ñ€ÐµÑ‡ÐºÐ° 
+ * Team \U+0413\U+0420\U+0415\U+0427\U+041A\U+0410 
  *   <Alexandra Klimenko, Khanh Nguyen, Victor Ruiz, Ian Garrett>
  */
 package edu.cpp.cs.cs141.finalProject;
@@ -42,7 +42,7 @@ public class GUI implements KeyListener {
 	 */
 	private JPanel panel = new JPanel(new GridLayout(9,9));
 	private JPanel HUD = new JPanel(new BorderLayout());
-	private JFrame frame = new JFrame("Find Your Ð“Ñ€ÐµÑ‡ÐºÐ°");
+	private JFrame frame = new JFrame("Find Your GRE4KA");
 	
 	private boolean validMove = true;
 	private boolean hardMode = false;
@@ -149,10 +149,10 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			JOptionPane.showMessageDialog(frame, "You are a spy in a dark room, but you are not alone. \nThere are 6 retail ninjas in the room with you."
-    					+ "\nThis room is 90 yards square, \nwith 9 smaller rooms spread out within it.\n" 
-    					+ "Your Mission, should you choose to accept it, \nis to infiltrate this room and find the gre4ka \nhidden in one of the smaller rooms."
-    					+ "\n\nGood Luck, Have Fun!");
+    			JOptionPane.showMessageDialog(frame, "On Black Friday, Mr Rodriguez and his wife are\ngoing shopping to a Victoria "
+    					+ "Secret store. He gets\nbored and hungry and decides to look around for\nfood.\n\n"
+    					+ "This game is simulation of him trying to find\nGre4ka, without being caught by Victoria's Secret\n"
+    					+ "angel Alessandra Ambrosio.\n\nGood Luck!");
     		}
     	
     	});
@@ -162,7 +162,7 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			JOptionPane.showMessageDialog(frame, "Development Team:\n\nAlexandra Klimenko\nVictor Ruiz\nKhanh Nyguyen\nIan Garrett");
+    			JOptionPane.showMessageDialog(frame, "Development Team:\n\nAlexandra Klimenko\t\nVictor Ruiz\nKhanh Nyguyen\nIan Garrett");
     		}
     	
     	});
@@ -173,7 +173,7 @@ public class GUI implements KeyListener {
     		public void actionPerformed(ActionEvent e)
     		{
     			JOptionPane.showMessageDialog(frame, "Move with the following keys:\nW - move up\nS - move down\nA - move left\nD - move right"
-    					+ "\n\nPowerups:\nInvincibility - Invincible for 5 turns\nRadar - Reveal the location of the document\nAmmo Increase - Increase your ammo count by 1"
+    					+ "\n\nPowerups:\nInvincibility - Invincible for 5 turns\nRadar - Reveal the location of the gre4ka\nAmmo Increase - Increase your ammo count by 1"
     					+ "\n\nShooting:" + "\nUP_Arrow - shoot up\nDOWN_ARROW - shoot down\nLEFT_ARROW - shoot left\nRIGHT_ARROW - shoot right"
     					+"\n\nLook for the document hiding in one of these rooms\nWatch out for ninjas, they want to shank you.");
     		}
@@ -525,7 +525,7 @@ public class GUI implements KeyListener {
 			
 			//Game Won
 			if (game.gameOver() == 1) {
-				JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND THE Ð“Ð Ð•Ð§ÐšÐ�. YOU WIN!");
+				JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND THE GRE4KA. YOU WIN!");
 				JOptionPane.showMessageDialog(frame, "Thank You For Playing!");
 				System.exit(0);
 			}
