@@ -22,9 +22,9 @@ package edu.cpp.cs.cs141.finalProject;
 public class Room extends Square {
 
 	/**
-	 * Default serial id.
+	 * Generated serial id.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5793033506879107121L;
 	
 	/**
 	 * True if the room contains the briefcase, false by default.
@@ -42,9 +42,8 @@ public class Room extends Square {
 	}
 	
 	/**
-	 * 
-	 * @param row
-	 * @param col
+	 * @param row an integer from 0-8
+	 * @param col an integer from 0-8
 	 */
 	public Room(int row, int col) {
 		super("R", row, col);

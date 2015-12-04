@@ -20,16 +20,17 @@ import java.io.Serializable;
 /**
  * The Square class formed the grid with 81 squares, every object class will inherit from this class.
  * Each square has a string symbol to display the object at the current square,
- * it also has the row & column attributes to keep track of the position of the object on the map.
+ * it also has the row and column attributes to keep track of the position of the object on the map.
  */
 public class Square implements Serializable {
 	
 	/**
-	 * Default serial id.
+	 * Generated serial id.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1010371339404187316L;
+
 	/**
-	 * Row & Column to keep track of the object position on the 2 dimensional array.
+	 * Row and Column to keep track of the object position on the 2 dimensional array.
 	 */
 	int row;
 	int col;
@@ -66,7 +67,7 @@ public class Square implements Serializable {
 	
 	/**
 	 * Constructor overloaded, does not require string symbol parameter
-	 * @param visible boolean, switch the visibility to true if debug mode is activated.
+	 * @param debug boolean, switch the visibility to true if debug mode is activated.
 	 * @param row a number from 0-8
 	 * @param col a number from 0-8
 	 */
@@ -132,7 +133,6 @@ public class Square implements Serializable {
 
 	/**
 	 * @param col a number from 0-8, to set the column.
-	 * @return 
 	 */
 	public void setCol(int col) {
 		this.col = col;

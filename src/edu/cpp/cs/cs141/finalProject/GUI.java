@@ -3,14 +3,14 @@
  * CS 141: Introduction to Programming and Problem Solving
  * Professor: Edwin Rodriguez
  *
- * Programming Assignment Гречка
+ * Programming Assignment Ð“Ñ€ÐµÑ‡ÐºÐ°
  *
  * <Create an Assassin game,
  *  where the player is a spy
  *  that is trying to get the briefcase with documents
  *  and the ninja assassins are trying to catch him.>
  *
- * Team Гречка 
+ * Team Ð“Ñ€ÐµÑ‡ÐºÐ° 
  *   <Alexandra Klimenko, Khanh Nguyen, Victor Ruiz, Ian Garrett>
  */
 package edu.cpp.cs.cs141.finalProject;
@@ -20,6 +20,7 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -29,8 +30,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * The UI class for handling the console interface. Take user input, print out
- * game information.
+ * The GUI class for handling the graphical interface. 
  */
 public class GUI implements KeyListener {
 	
@@ -42,7 +42,7 @@ public class GUI implements KeyListener {
 	 */
 	private JPanel panel = new JPanel(new GridLayout(9,9));
 	private JPanel HUD = new JPanel(new BorderLayout());
-	private JFrame frame = new JFrame("Find Your Гречка");
+	private JFrame frame = new JFrame("Find Your Ð“Ñ€ÐµÑ‡ÐºÐ°");
 	
 	private boolean validMove = true;
 	private boolean hardMode = false;
@@ -96,13 +96,13 @@ public class GUI implements KeyListener {
     	
     	});
     	
-    	JMenuItem newDebugGame = new JMenuItem("Activate Debug Mode");
+    	JMenuItem newDebugGame = new JCheckBoxMenuItem("Toggle Debug Mode");
     	newDebugGame.addActionListener(new ActionListener(){
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			JOptionPane.showMessageDialog(frame, "Activating Debug Mode");
-    			game.activateDebugMode();
+    			//JOptionPane.showMessageDialog(frame, "Activating Debug Mode");
+    			game.toggleDebugMode();
     			
     			printMap(game.getMap());
     		}
@@ -149,9 +149,9 @@ public class GUI implements KeyListener {
     		
     		public void actionPerformed(ActionEvent e)
     		{
-    			JOptionPane.showMessageDialog(frame, "You are a spy in a dark room, but you are not alone. \nThere are 6 ninjas in the room with you."
+    			JOptionPane.showMessageDialog(frame, "You are a spy in a dark room, but you are not alone. \nThere are 6 retail ninjas in the room with you."
     					+ "\nThis room is 90 yards square, \nwith 9 smaller rooms spread out within it.\n" 
-    					+ "Your Mission, should you choose to accept it, \nis to infiltrate this room and find the briefcase \nhidden in one of the smaller rooms."
+    					+ "Your Mission, should you choose to accept it, \nis to infiltrate this room and find the gre4ka \nhidden in one of the smaller rooms."
     					+ "\n\nGood Luck, Have Fun!");
     		}
     	
@@ -209,7 +209,7 @@ public class GUI implements KeyListener {
 	
 	/**
 	 * This method prints the game board within the JFrame GUI and handles Image Icons.
-	 * @param map
+	 * @param map the 2 dimensional array of type square, represents the current game map.
 	 */
 	public void printMap(Square[][] map) {
 		panel.removeAll();
@@ -230,7 +230,7 @@ public class GUI implements KeyListener {
 						display = new JLabel(new ImageIcon("GamePics/spy.jpg"));
 						break;
 					case "N":
-						display = new JLabel(new ImageIcon("GamePics/ninja.jpg"));
+						display = new JLabel(new ImageIcon("GamePics/ninja1.jpg"));
 						break;
 					case "I":
 						display = new JLabel(new ImageIcon("GamePics/invincibility.jpg"));
@@ -525,7 +525,7 @@ public class GUI implements KeyListener {
 			
 			//Game Won
 			if (game.gameOver() == 1) {
-				JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND THE ГРЕЧКА. YOU WIN!");
+				JOptionPane.showMessageDialog(frame, "YOU HAVE FOUND THE Ð“Ð Ð•Ð§ÐšÐ�. YOU WIN!");
 				JOptionPane.showMessageDialog(frame, "Thank You For Playing!");
 				System.exit(0);
 			}
@@ -541,7 +541,7 @@ public class GUI implements KeyListener {
 	/**
 	 * This method receives the parameter "parameter" from the KeyPressed method 
 	 * and runs the code to shoot the gun. It also displays whether or not a ninja has been hit.
-	 * @param parameter
+	 * @param parameter the shooting direction.
 	 */
 	public void shootNinja(int parameter) {
 		int shootStatus = game.shootNinja(parameter);
