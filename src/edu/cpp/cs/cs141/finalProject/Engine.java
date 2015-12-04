@@ -73,7 +73,12 @@ public class Engine implements Serializable {
 	 */
 	private ArrayList<Square> occupiedLocations = new ArrayList<Square>();
 	/**
-	 * The array to store the locations of the spy visibility, from the previous turn.
+	 * The array to store only room locations.
+	 */
+	private ArrayList<Square> roomLocations = new ArrayList<Square>();
+	/**
+	 * The array to store the locations of the spy visibility, from the previous
+	 * turn.
 	 */
 	private ArrayList<Square> spyVisibilityLocations = new ArrayList<Square>();
 	/**
@@ -142,6 +147,7 @@ public class Engine implements Serializable {
 		// Add room locations to used locations array to avoid overlap when
 		// assign other objects to the map.
 		occupiedLocations.addAll(Arrays.asList(rooms));
+		roomLocations.addAll(Arrays.asList(rooms));
 	}
 
 	/**
@@ -251,7 +257,8 @@ public class Engine implements Serializable {
 			}
 		}
 
-		// If the spy stands next to a room, switch the visibility of the square behind the room to false.
+		// If the spy stands next to a room, switch the visibility of the square
+		// behind the room to false.
 
 		if (col == 0) {
 			Square behindRoom = null;
@@ -440,7 +447,7 @@ public class Engine implements Serializable {
 		occupiedLocations.add(map[8][0]);
 		occupiedLocations.add(map[7][2]);
 		occupiedLocations.add(map[6][1]);
-		
+
 		surroundSpy.add(map[8][0]);
 		surroundSpy.add(map[7][2]);
 		surroundSpy.add(map[6][1]);
@@ -511,70 +518,70 @@ public class Engine implements Serializable {
 							occupiedLocations.add(map[rRow][rCol]);
 						}
 					} while (isOccupied(rRow, rCol));
-	
+
 					map[rRow][rCol] = map[location.getRow()][location.getCol()];
 					Ninja ninja = (Ninja) map[rRow][rCol];
 					map[location.getRow()][location.getCol()] = new Square(debug, rRow, rCol);
 					ninja.setRow(rRow);
 					ninja.setCol(rCol);
-	
+
 					if (debug) {
 						ninja.setVisible(true);
 					}
-					
+
 					occupiedLocations.add(map[rRow][rCol]);
 				}
 			}
-	}
+		}
 
 	}
 
 	/**
-	 * Toggle Debug mode, if debug is currently off switch the visible field of all game objects to
-	 * true.All game objects will be visible.
-	 * Else switch all of them to false, except for spy and rooms.
+	 * Toggle Debug mode, if debug is currently off switch the visible field of
+	 * all game objects to true.All game objects will be visible. Else switch
+	 * all of them to false, except for spy and rooms.
 	 */
 	public void toggleDebugMode() {
-		 if (debug == false) {
-			 
-			 briefCaseRoom.setSymbol("*");
+		if (debug == false) {
 
-	   		 for (Square[] locations : map) {
-	   			 for (Square location : locations) {
-	   				 location.setVisible(true);
-	   			 }
-	   		 }
+			briefCaseRoom.setSymbol("*");
 
-	   		 // Activate the PowerUps also, in case of ninja step on it
-	   		 for (PowerUp powerUp : powerUps) {
-	   			 powerUp.setVisible(true);
-	   		 }
-	   		 debug = true;
-	   	 }
-		 
-	   	 else {
-	   		briefCaseRoom.setSymbol("R");
+			for (Square[] locations : map) {
+				for (Square location : locations) {
+					location.setVisible(true);
+				}
+			}
 
-	   		 for (Square[] locations : map) {
-	   			 for (Square location : locations) {
-	   				 location.setVisible(false);
+			// Activate the PowerUps also, in case of ninja step on it
+			for (PowerUp powerUp : powerUps) {
+				powerUp.setVisible(true);
+			}
+			debug = true;
+		}
 
-	   			 }
-	   		 }
+		else {
+			briefCaseRoom.setSymbol("R");
 
-	   		 spy.setVisible(true);
+			for (Square[] locations : map) {
+				for (Square location : locations) {
+					location.setVisible(false);
 
-	   		 for (Square[] locations : map) {
-	   			 for (Square location : locations) {
-	   				 if (isRoom(location)) {
-	   					 location.setVisible(true);
-	   				 }
-	   			 }
-	   		 }
-	   		 
-	   		 debug = false;
-	   		 assignSpyVisibility();
-	   	 }
+				}
+			}
+
+			spy.setVisible(true);
+
+			for (Square[] locations : map) {
+				for (Square location : locations) {
+					if (isRoom(location)) {
+						location.setVisible(true);
+					}
+				}
+			}
+
+			debug = false;
+			assignSpyVisibility();
+		}
 	}
 
 	/**
@@ -831,7 +838,7 @@ public class Engine implements Serializable {
 	 * @return the status code of the action: 1 - killed a ninja, 2 - missed.
 	 */
 	public int shootNinja(int direction) {
-		
+
 		int row = spy.getRow();
 		int col = spy.getCol();
 
@@ -1077,9 +1084,10 @@ public class Engine implements Serializable {
 	}
 
 	/**
-	 * Hard mode: If the spy is on the ninja's line of sight, the ninja will chase the spy until
-	 * the line of sight is broke.
-	 * If no spy on the line of sight, the ninja will move randomly.
+	 * Hard mode: If the spy is on the ninja's line of sight, the ninja will
+	 * chase the spy until the line of sight is broke. If no spy on the line of
+	 * sight, the ninja will move randomly.
+	 * 
 	 * @return true if all ninjas moved successfully, false if foud a spy near
 	 *         by and stabbed him.
 	 */
@@ -1088,9 +1096,11 @@ public class Engine implements Serializable {
 		// back to their location.
 		reAssignPowerUps();
 
+		Square roomLoc = null;
+
 		int spyRow = spy.getRow();
 		int spyCol = spy.getCol();
-		
+
 		for (Ninja ninja : ninjas) {
 			ArrayList<Square> validLocations = getValidLocations(ninja);
 
@@ -1131,18 +1141,30 @@ public class Engine implements Serializable {
 				validLocations.add(map[ninjaRow][ninjaCol]);
 			}
 
-			//If the ninja is in the same row or the same column, evaluate which (row or column) and 
-			//find if they are above or below you
+			// If the ninja is in the same row or the same column, evaluate
+			// which (row or column) and
+			// find if they are above or below you
 			if (spyRow == ninjaRow || spyCol == ninjaCol) {
 
-				//scenario 1: ninja and spy are in the same column, spy is above the ninja
+				// scenario 1: ninja and spy are in the same column, spy is
+				// above the ninja
 				if (spyCol == ninjaCol && spyRow < ninjaRow) {
-					
-					//is the location one spot closer the spy a valid location
-					if (validLocations.contains(map[ninjaRow - 1][ninjaCol])) {
-						
-						//This is SUPPOSED to move the ninja to the location one spot closer to 
-						//the spy and handle the power up properly
+
+					for (Square room : roomLocations) {
+						if (ninjaRow < room.getRow() && room.getRow() < spyRow) {
+							roomLoc = room;
+						}
+					}
+
+					if (spyRow < roomLoc.getRow() && roomLoc.getRow() < ninjaRow) {
+						moveNinja();
+
+					} else if (validLocations.contains(map[ninjaRow - 1][ninjaCol])) {
+
+						// This is SUPPOSED to move the ninja to the
+						// location
+						// one spot closer to
+						// the spy and handle the power up properly
 						if (isPowerUp(map[ninjaRow - 1][ninjaCol])) {
 							powerUps.add((PowerUp) map[ninjaRow - 1][ninjaCol]);
 							map[ninjaRow - 1][ninjaCol] = ninja;
@@ -1160,9 +1182,19 @@ public class Engine implements Serializable {
 					}
 				}
 
-				//scenario 2: ninja and spy are in the same col, spy is below the ninja
+				// scenario 2: ninja and spy are in the same col, spy is below
+				// the ninja
 				if (spyCol == ninjaCol && spyRow > ninjaRow) {
-					if (validLocations.contains(map[ninjaRow + 1][ninjaCol])) {
+
+					for (Square room : roomLocations) {
+						if (ninjaRow < room.getRow() && room.getRow() < spyRow) {
+							roomLoc = room;
+						}
+					}
+
+					if (ninjaRow < roomLoc.getRow() && roomLoc.getRow() < spyRow) {
+						moveNinja();
+					} else if (validLocations.contains(map[ninjaRow + 1][ninjaCol])) {
 						if (isPowerUp(map[ninjaRow + 1][ninjaCol])) {
 							powerUps.add((PowerUp) map[ninjaRow + 1][ninjaCol]);
 							map[ninjaRow + 1][ninjaCol] = ninja;
@@ -1179,10 +1211,20 @@ public class Engine implements Serializable {
 						}
 					}
 				}
-				
-				//scenario 3: ninja and spy are in the same row, spy is to the left of the ninja
+
+				// scenario 3: ninja and spy are in the same row, spy is to the
+				// left of the ninja
 				if (spyRow == ninjaRow && spyCol < ninjaCol) {
-					if (validLocations.contains(map[ninjaRow][ninjaCol - 1])) {
+
+					for (Square room : roomLocations) {
+						if (ninjaRow < room.getRow() && room.getRow() < spyRow) {
+							roomLoc = room;
+						}
+					}
+
+					if (spyCol < roomLoc.getCol() && roomLoc.getCol() < ninjaCol) {
+						moveNinja();
+					} else if (validLocations.contains(map[ninjaRow][ninjaCol - 1])) {
 						if (isPowerUp(map[ninjaRow][ninjaCol - 1])) {
 							powerUps.add((PowerUp) map[ninjaRow][ninjaCol - 1]);
 							map[ninjaRow][ninjaCol - 1] = ninja;
@@ -1198,24 +1240,33 @@ public class Engine implements Serializable {
 							}
 						}
 					}
-				}
-				
-			
-				//ninja and spy are in the same row, spy is to the right of the ninja
-				if (spyRow == ninjaRow && spyCol > ninjaCol) {
-					if (validLocations.contains(map[ninjaRow][ninjaCol + 1])) {
-						if (isPowerUp(map[ninjaRow][ninjaCol + 1])) {
-							powerUps.add((PowerUp) map[ninjaRow][ninjaCol + 1]);
-							map[ninjaRow][ninjaCol + 1] = ninja;
-							ninja.setRow(ninjaRow);
-							ninja.setCol(ninjaCol + 1);
-							map[ninjaRow][ninjaCol] = new Square(debug, ninjaRow, ninjaCol);
-						} else {
-							map[ninjaRow][ninjaCol + 1] = ninja;
-							ninja.setRow(ninjaRow);
-							ninja.setCol(ninjaCol + 1);
-							if (!isPowerUp(map[ninjaRow][ninjaCol])) {
+
+					// scenario 4: ninja and spy are in the same row, spy is to
+					// the right of the ninja
+					if (spyRow == ninjaRow && spyCol > ninjaCol) {
+
+						for (Square room : roomLocations) {
+							if (ninjaRow < room.getRow() && room.getRow() < spyRow) {
+								roomLoc = room;
+							}
+						}
+
+						if (spyCol < roomLoc.getCol() && roomLoc.getCol() < ninjaCol) {
+							moveNinja();
+						} else if (validLocations.contains(map[ninjaRow][ninjaCol + 1])) {
+							if (isPowerUp(map[ninjaRow][ninjaCol + 1])) {
+								powerUps.add((PowerUp) map[ninjaRow][ninjaCol + 1]);
+								map[ninjaRow][ninjaCol + 1] = ninja;
+								ninja.setRow(ninjaRow);
+								ninja.setCol(ninjaCol + 1);
 								map[ninjaRow][ninjaCol] = new Square(debug, ninjaRow, ninjaCol);
+							} else {
+								map[ninjaRow][ninjaCol + 1] = ninja;
+								ninja.setRow(ninjaRow);
+								ninja.setCol(ninjaCol + 1);
+								if (!isPowerUp(map[ninjaRow][ninjaCol])) {
+									map[ninjaRow][ninjaCol] = new Square(debug, ninjaRow, ninjaCol);
+								}
 							}
 						}
 					}
@@ -1228,7 +1279,8 @@ public class Engine implements Serializable {
 				int Lcol = location.getCol();
 
 				if (isPowerUp(location)) {
-					// If the ninja step on the power up, save the power up and
+					// If the ninja step on the power up, save the power up
+					// and
 					// display the ninja.
 					powerUps.add((PowerUp) location);
 					map[Lrow][Lcol] = ninja;
@@ -1250,7 +1302,6 @@ public class Engine implements Serializable {
 			}
 		}
 		return true;
-
 	}
 
 	/**
@@ -1325,7 +1376,7 @@ public class Engine implements Serializable {
 		if (spyLives == 0) {
 			gameEndStatus = 2;
 		}
-		
+
 		// Bring the spy back to the original postion.
 		if (!(map[8][0] instanceof Spy)) {
 			map[oldRow][oldCol] = new Square(debug, oldRow, oldCol);
@@ -1342,10 +1393,10 @@ public class Engine implements Serializable {
 				iterator.remove();
 			}
 		}
-		
-		assignNinjas(false);	
+
+		assignNinjas(false);
 	}
-	
+
 	/**
 	 * Check if the ninja has stepped on any power up last turn, assign them
 	 * back to their location.
