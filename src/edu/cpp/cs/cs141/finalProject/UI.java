@@ -89,7 +89,7 @@ public class UI {
 	private void printSecretRoom() {
 		Room secretRoom = game.getRoomWithBriefCase();
 		System.out.println(
-				"The room that has your Гречка is at " + secretRoom.getRow() + " " + secretRoom.getCol() + "\n");
+				"The room that has your Gre4ka is at " + secretRoom.getRow() + " " + secretRoom.getCol() + "\n");
 	}
 
 	/**

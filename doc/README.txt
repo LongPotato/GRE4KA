@@ -1,4 +1,6 @@
-# “ГРЕЧКА”
+Final Project Report
+Team “ГРЕЧКА”
+Victor Ruiz, Ian Garrett, Khanh Nguyen, Alexandra Klimenko
 
 ## Introduction
 
@@ -66,14 +68,5 @@ In conclusion, this project has helped us to learn how to effectively write an o
 
 
 Even though we made an amazing project, there is always room for improvement. The biggest improvement we would make if we had more time to write this program is to simplify our code. Many of our methods, especially our movement methods that contain the logic of the game, are pretty long and should be simplified where possible. One of the things we could have improved aesthetically would have been to implement sound to the game, for example when the player moves, gets stabbed, wins the game, or even background music. Also, we could allow the player to have even more bullets and give the possibility to win the game if all the ninjas are killed.
-
-
-## Team members:
-
-* Khanh Nguyen
-* Alexandra Klimenko
-* Victor Ruiz
-* Ian Garrett
-
 
 
